@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\NhaCungCap;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,9 @@ class NhaCungCapController extends Controller
      */
     public function index()
     {
-        return view('admin.nha-cung-cap.index');
+        $nha_cung_caps = NhaCungCap::all();
+
+        return view('admin.nha-cung-cap.index', compact('nha_cung_caps'));
     }
 
     /**

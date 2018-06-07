@@ -1,5 +1,5 @@
 <div class="navbar nav_title" style="border: 0;">
-    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>Gentelella Alela!</span></a>
+    <a href="index.html" class="site_title"><i class="fa fa-paw"></i> <span>My project</span></a>
 </div>
 
 <div class="clearfix"></div>
@@ -11,7 +11,7 @@
     </div>
     <div class="profile_info">
         <span>Xin chào,</span>
-        <h2>Nguyễn Trọng</h2>
+        <h2>{{ \Illuminate\Support\Facades\Auth::user()->name }}</h2>
     </div>
 </div>
 <!-- /menu profile quick info -->

@@ -41,11 +41,8 @@
 <!-- Custom Theme Scripts -->
 <script src="../build/js/custom.min.js"></script>
 
-<!--JavaScript at end of body for optimized loading-->
-{{--<script type="text/javascript" src="/materialize/js/materialize.min.js"></script>--}}
-
 {{--<script src="/semantic/jquery-3.3.1.min.js"></script>--}}
-{{--<script src="/semantic/semantic.min.js"></script>--}}
+<script src="/semantic/semantic.min.js"></script>
 
 {{--<script>--}}
     {{--document.addEventListener('DOMContentLoaded', function() {--}}
@@ -56,6 +53,4 @@
     {{--});--}}
 {{--</script>--}}
 
-<script>
-
-</script>
+<script src="../js/admin-script.js"></script>

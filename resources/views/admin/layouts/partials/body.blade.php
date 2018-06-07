@@ -9,10 +9,9 @@
 
             @include('admin.layouts.partials.navbar')
 
-            <div class="right_col" role="main">
+            <div class="right_col" role="main" style="overflow: visible;">
                 @yield('content')
             </div>
-
 
         </div>
     </div>

@@ -9,11 +9,15 @@
 
 body {
     overflow: hidden;
+    color: #73879C;
+    font-size: 13px;
 }
 
+.sidebar-footer a, .nav.toggle a {
+    color: #5A738E;
+}
 
-
-
-
-
-
+th {
+    font-size: 15px;
+    font-weight: bold;
+}
