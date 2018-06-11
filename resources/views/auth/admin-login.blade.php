@@ -41,7 +41,7 @@
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
                                 <input type="text" name="username" placeholder="Nhập tài khoản..."
-                                       minlength="15" maxlength="100" required>
+                                       minlength="15" maxlength="100" value="nguyentrongcp@gmail.com" required>
                             </div>
                         </div>
 
@@ -49,7 +49,7 @@
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
                                 <input type="password" name="password" placeholder="Nhập password..."
-                                       minlength="6" maxlength="32" required>
+                                       minlength="6" maxlength="32" value="635982359" required>
                             </div>
                         </div>
                         <button class="ui fluid large teal submit button" type="submit">

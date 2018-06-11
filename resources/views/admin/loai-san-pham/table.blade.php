@@ -4,31 +4,27 @@
         <input type="checkbox" id="check-all" class="flat">
     </th>
     <th class="collapsing">STT</th>
-    <th>Tên nhà cung cấp</th>
-    <th class="collapsing">Số điện thoại</th>
-    <th>Địa chỉ</th>
-    <th>Website</th>
+    <th>Tên loại sản phẩm</th>
+    <th class="collapsing center aligned">Sản phẩm</th>
     <th class="center aligned">Sửa</th>
     </thead>
 
     <tbody>
-    @foreach($nha_cung_caps as $stt => $nha_cung_cap)
+    @foreach($loai_san_phams as $stt => $loai_san_pham)
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
-                       name="nha-cung-cap-id[]" value="{{ $nha_cung_cap->id }}">
+                       name="loai-san-pham-id[]" value="{{ $loai_san_pham->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
-            <td>{{ $nha_cung_cap->ten_ncc }}</td>
-            <td>{{ $nha_cung_cap->so_dien_thoai }}</td>
-            <td>{{ $nha_cung_cap->dia_chi }}</td>
+            <td>{{ $loai_san_pham->ten_loai }}</td>
             <td class="collapsing center aligned">
-                <a href="{{ $nha_cung_cap->website }}" target="_blank">
-                    <i class="fitted large edge icon"></i>
+                <a href="#">
+                    <i class="fitted large laptop icon"></i>
                 </a>
             </td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button" onclick="$('#modal-sua-ncc-{{$nha_cung_cap->id}}').modal('show')">
+                <a class="ui green mini button" onclick="$('#modal-sua-loai-{{$loai_san_pham->id}}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>
             </td>
@@ -38,5 +34,5 @@
 </table>
 
 <div class="ui two column centered grid">
-    {{ $nha_cung_caps->links() }}
+    {{ $loai_san_phams->links() }}
 </div>

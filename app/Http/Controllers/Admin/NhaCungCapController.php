@@ -15,7 +15,7 @@ class NhaCungCapController extends Controller
      */
     public function index()
     {
-        $nha_cung_caps = NhaCungCap::all();
+        $nha_cung_caps = NhaCungCap::paginate(10);
 
         return view('admin.nha-cung-cap.index', compact('nha_cung_caps'));
     }
@@ -38,7 +38,14 @@ class NhaCungCapController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $nha_cung_cap = new NhaCungCap();
+        $nha_cung_cap->ten_ncc = $request->get('ten-ncc');
+        $nha_cung_cap->so_dien_thoai = $request->get('so-dien-thoai');
+        $nha_cung_cap->dia_chi = $request->get('dia-chi');
+        $nha_cung_cap->website = $request->get('website');
+        $nha_cung_cap->save();
+
+        return back();
     }
 
     /**
@@ -72,7 +79,15 @@ class NhaCungCapController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $nha_cung_cap = NhaCungCap::findOrFail($id);
+        $nha_cung_cap->ten_ncc = $request->get('ten-ncc');
+        $nha_cung_cap->so_dien_thoai = $request->get('so-dien-thoai');
+        $nha_cung_cap->dia_chi = $request->get('dia-chi');
+        $nha_cung_cap->website = $request->get('website');
+
+        $nha_cung_cap->update();
+
+        return back()->with();
     }
 
     /**
@@ -81,8 +96,12 @@ class NhaCungCapController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $ids = $request->get('nha-cung-cap-id');
+
+        NhaCungCap::destroy($ids);
+
+        return back();
     }
 }

@@ -8,9 +8,10 @@
 }
 
 body {
-    overflow: hidden;
+    overflow: auto;
     color: #73879C;
     font-size: 13px;
+    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
 }
 
 .sidebar-footer a, .nav.toggle a {
@@ -20,4 +21,26 @@ body {
 th {
     font-size: 15px;
     font-weight: bold;
+}
+
+.modal {
+    margin-top: 1rem;
+}
+
+/*floatting button*/
+.float{
+    position:fixed;
+    width:60px;
+    height:60px;
+    bottom:10px;
+    right:10px;
+    background-color:#337ab7;
+    color:#FFF;
+    border-radius:50px;
+    text-align:center;
+    box-shadow: 2px 2px 3px #999;
+}
+
+td .ui.button {
+    margin: 0;
 }

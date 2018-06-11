@@ -25,7 +25,7 @@
     <link href="../semantic/semantic.min.css" rel="stylesheet">
 
     <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    {{--<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">--}}
 
 
     <!--Let browser know website is optimized for mobile-->

@@ -18,8 +18,8 @@ class CreateSanPhamsTable extends Migration
             $table->string('ten_san_pham', 100);
             $table->date('ngay_tao');
             $table->date('ngay_cap_nhat');
-            $table->string('anh_dai_dien');
-            $table->string('mo_ta', 255);
+            $table->string('anh_dai_dien')->nullable();
+            $table->string('mo_ta', 255)->nullable();
             $table->integer('gia_tien_id')->unsigned();
             $table->integer('thuong_hieu_id')->unsigned();
             $table->integer('loai_san_pham_id')->unsigned();

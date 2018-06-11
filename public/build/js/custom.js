@@ -222,12 +222,12 @@ $(document).ready(function() {
 // Table
 $('table input').on('ifChecked', function () {
     checkState = '';
-    $(this).parent().parent().parent().addClass('selected');
+    $('#checkAll').addClass('selected');
     countChecked();
 });
 $('table input').on('ifUnchecked', function () {
     checkState = '';
-    $(this).parent().parent().parent().removeClass('selected');
+    $('#checkAll').removeClass('selected');
     countChecked();
 });
 
@@ -254,10 +254,10 @@ $('.bulk_action input#check-all').on('ifUnchecked', function () {
 
 function countChecked() {
     if (checkState === 'all') {
-        $(".bulk_action input[name='table_records']").iCheck('check');
+        $(".bulk_action input[id='table_records']").iCheck('check');
     }
     if (checkState === 'none') {
-        $(".bulk_action input[name='table_records']").iCheck('uncheck');
+        $(".bulk_action input[id='table_records']").iCheck('uncheck');
     }
 
     var checkCount = $(".bulk_action input[name='table_records']:checked").length;

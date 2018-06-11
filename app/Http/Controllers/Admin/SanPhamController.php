@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\SanPham;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -14,7 +15,9 @@ class SanPhamController extends Controller
      */
     public function index()
     {
-        return view('admin.san-pham.index');
+        $san_phams = SanPham::paginate(10);
+
+        return view('admin.san-pham.index.index', compact('san_phams'));
     }
 
     /**
