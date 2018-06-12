@@ -1,0 +1,6 @@
+
+    // search dropdown
+
+    $('.search')
+        .dropdown()
+    ;

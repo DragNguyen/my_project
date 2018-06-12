@@ -15,6 +15,7 @@ class DatabaseSeeder extends Seeder
              AdminSeeder::class,
              NhaCungCapSeeder::class,
              LoaiSPSeeder::class,
+             ThuongHieuSeeder::class,
          ]);
     }
 }

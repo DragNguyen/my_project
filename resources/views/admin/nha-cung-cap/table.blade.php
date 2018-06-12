@@ -23,7 +23,7 @@
             <td>{{ $nha_cung_cap->so_dien_thoai }}</td>
             <td>{{ $nha_cung_cap->dia_chi }}</td>
             <td class="collapsing center aligned">
-                <a href="{{ $nha_cung_cap->website }}" target="_blank">
+                <a href="{{ $nha_cung_cap->website }}" target="_blank" data-tooltip="{{ $nha_cung_cap->website }}">
                     <i class="fitted large edge icon"></i>
                 </a>
             </td>

@@ -14,7 +14,7 @@ class ThuongHieuController extends Controller
      */
     public function index()
     {
-        return view('admin.thuong-hieu.index');
+        return view('admin.test');
     }
 
     /**

@@ -16,7 +16,7 @@ class CreateGiaTiensTable extends Migration
         Schema::create('gia_tiens', function (Blueprint $table) {
             $table->increments('id');
             $table->double('gia');
-            $table->dateTime('ngay_cap_nhat');
+            $table->dateTime('ngay_cap_nhat')->default(date('Y-m-d'));
             $table->integer('san_pham_id')->unsigned();
             $table->timestamps();
         });

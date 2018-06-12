@@ -49,4 +49,3 @@
 
 <script src="../js/admin-script.js"></script>
 {{--<script src="../semantic/jquery-3.3.1.min.js"></script>--}}
-
