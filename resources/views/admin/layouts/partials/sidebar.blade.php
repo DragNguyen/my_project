@@ -4,62 +4,62 @@
 
     <div class="menu_section">
         <ul class="nav side-menu">
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/tong-quan') ? 'current-page' : '' }}">
-                <a href="{{ route('tong-quan.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/dashboard') ? 'current-page' : '' }}">
+                <a href="{{ route('dashboard.index') }}">
                     <i class="fa fa-dashboard"></i>
                     Tổng quan
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/thuong-hieu') ? 'current-page' : '' }}">
-                <a href="{{ route('thuong-hieu.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/trademark') ? 'current-page' : '' }}">
+                <a href="{{ route('trademark.index') }}">
                     <i class="fa fa-trophy"></i>
                     Thương hiệu
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/nha-cung-cap') ? 'current-page' : '' }}">
-                <a href="{{ route('nha-cung-cap.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/supplier') ? 'current-page' : '' }}">
+                <a href="{{ route('supplier.index') }}">
                     <i class="fa fa-rebel"></i>
                     Nhà cung cấp
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/san-pham') ? 'current-page' : '' }}">
-                <a href="{{ route('san-pham.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/product') ? 'current-page' : '' }}">
+                <a href="{{ route('product.index') }}">
                     <i class="fa fa-laptop"></i>
                     Sản phẩm
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/loai-san-pham') ? 'current-page' : '' }}">
-                <a href="{{ route('loai-san-pham.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/product_type') ? 'current-page' : '' }}">
+                <a href="{{ route('product_type.index') }}">
                     <i class="fa fa-sitemap"></i>
                     Loại sản phẩm
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/nhap-hang') ? 'current-page' : '' }}">
-                <a href="{{ route('nhap-hang.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/goods_receipt_note') ? 'current-page' : '' }}">
+                <a href="{{ route('goods_receipt_note.index') }}">
                     <i class="fa fa-truck"></i>
                     Nhập hàng
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/don-hang') ? 'current-page' : '' }}">
-                <a href="{{ route('don-hang.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/order') ? 'current-page' : '' }}">
+                <a href="{{ route('order.index') }}">
                     <i class="fa fa-clipboard"></i>
                     Đơn hàng
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/khuyen-mai') ? 'current-page' : '' }}">
-                <a href="{{ route('khuyen-mai.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/sales_off') ? 'current-page' : '' }}">
+                <a href="{{ route('sales_off.index') }}">
                     <i class="fa fa-certificate"></i>
                     Khuyến mãi
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/tai-khoan/*') ? 'active' : '' }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/account/*') ? 'active' : '' }}">
                 <a>
                     <i class="fa fa-users"></i>
                     Tài khoản<span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ route('nhan-vien.index') }}">Nhân viên</a></li>
-                    <li><a href="{{ route('khach-hang.index') }}">Khách hàng</a></li>
+                    <li><a href="{{ route('employees.index') }}">Nhân viên</a></li>
+                    <li><a href="{{ route('customer.index') }}">Khách hàng</a></li>
                 </ul>
             </li>
         </ul>

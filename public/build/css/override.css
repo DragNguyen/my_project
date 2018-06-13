@@ -44,3 +44,9 @@ th {
 td .ui.button {
     margin: 0;
 }
+
+.modal-header {
+    font-size: 20px;
+    color: #2185d0;
+    font-weight: Bold;
+}

@@ -17,69 +17,86 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/', function() {
-    return view('auth.admin-login');
-})->name('home');
+//Route::get('/', function() {
+//    return view('auth.admin-login');
+//})->name('home');
 
+/*
+ * Test
+ * */
+Route::get('/admin/test', function() {
+   return view('admin.test');
+});
+
+/*
+* Admin login
+* */
 Route::get('/admin/login',
     'Auth\AdminLoginController@showLoginForm')->name('admin.login');
 Route::post('/admin/login', 'Auth\AdminLoginController@login')->name('admin.login.submit');
 
+/*
+ * Admin group
+ * */
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 
     Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
+
+    /*
+     * Dashboard
+     * */
     Route::get('/', 'Auth\AdminController@index')->name('admin.tong-quan');
 
     /*
-     * Tong quan
+     * Dashboard
      * */
-    Route::resource('tong-quan', 'Admin\TongQuanController');
+    Route::resource('dashboard', 'Admin\DashboardController');
 
     /*
-     * Thuong hieu
+     * Trademark - Thuong hieu
      * */
-    Route::resource('thuong-hieu', 'Admin\ThuongHieuController');
+    Route::resource('trademark', 'Admin\TrademarkController');
 
     /*
-     * Loai san pham
+     * Product type
      * */
-    Route::resource('loai-san-pham', 'Admin\LoaiSPController');
+    Route::resource('product_type', 'Admin\ProductTypeController');
 
     /*
-     * San pham
+     * Product
      * */
-    Route::resource('san-pham', 'Admin\SanPhamController');
+    Route::resource('product', 'Admin\ProductController');
 
     /*
-     * Nha cung cap
+     * Supplier
      * */
-    Route::resource('nha-cung-cap', 'Admin\NhaCungCapController');
+    Route::resource('supplier', 'Admin\SupplierController');
 
     /*
-     * Don hang
+     * Order
      * */
-    Route::resource('don-hang', 'Admin\DonHangController');
+    Route::resource('order', 'Admin\OrderController');
 
     /*
-     * Khuyen mai
+     * Sales off
      * */
-    Route::resource('khuyen-mai', 'Admin\KhuyenMaiController');
+    Route::resource('sales_off', 'Admin\SalesOffController');
 
     /*
-     * Nhap hang
+     * Goods receipt note - Nhap hang
      * */
-    Route::resource('nhap-hang', 'Admin\NhapHangController');
+    Route::resource('goods_receipt_note', 'Admin\GoodsReceiptNoteController');
 
     /*
-     * Khach hang
+     * Customer
      * */
-    Route::resource('khach-hang', 'Admin\KhachHangController');
+    Route::resource('/account/customer', 'Admin\CustomerController');
 
 
     /*
-     *  Nhan vien
+     *  Employees
      * */
-    Route::resource('nhan-vien', 'Admin\NhanVienController');
+    Route::resource('/account/employees', 'Admin\EmployeesController');
 
 
     /*
