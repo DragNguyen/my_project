@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateVotesTable extends Migration
+class CreateSpecificationProductsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,15 @@ class CreateVotesTable extends Migration
      */
     public function up()
     {
-        Schema::create('votes', function (Blueprint $table) {
+        Schema::create('specification_products', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('star');
+            $table->string('value', 100);
+            $table->integer('specification_id')->unsigned();
             $table->integer('product_id')->unsigned();
-            $table->integer('customer_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('specification_id')->references('id')->on('specifications');
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 
@@ -29,6 +32,6 @@ class CreateVotesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('votes');
+        Schema::dropIfExists('specification_products');
     }
 }

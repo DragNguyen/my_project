@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class EmployeesController extends Controller
+class EmployeeController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +14,7 @@ class EmployeesController extends Controller
      */
     public function index()
     {
-        return view('admin.employees.index');
+        return view('admin.employee.index');
     }
 
     /**

@@ -3,6 +3,10 @@
     margin-right: 10px;
 }
 
+.nav_title .fa {
+    margin-right: 6px;
+}
+
 #sidebar-menu {
     font-size: 15px;
 }

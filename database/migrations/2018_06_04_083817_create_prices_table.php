@@ -19,6 +19,8 @@ class CreatePricesTable extends Migration
             $table->dateTime('price_updated_at')->default(date('Y-m-d'));
             $table->integer('product_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('product_id')->references('id')->on('products');
         });
     }
 

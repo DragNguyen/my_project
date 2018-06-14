@@ -21,6 +21,11 @@ class CreateOrdersTable extends Migration
             $table->string('address', 100);
             $table->string('note', 100)->nullable();
             $table->double('total_of_money');
+            $table->boolean('is_approved')->default(false);
+            $table->string('approver', 50);
+            $table->dateTime('order_created_at')->default(date('Y-m-d h:i:s'));
+            $table->dateTime('approved_at')->nullable();
+            $table->boolean('is_deliveried')->nullable();
             $table->timestamps();
         });
     }

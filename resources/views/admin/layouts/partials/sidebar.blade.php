@@ -52,13 +52,13 @@
                     Khuyến mãi
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/account/*') ? 'active' : '' }}">
+            <li >
                 <a>
                     <i class="fa fa-users"></i>
                     Tài khoản<span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ route('employees.index') }}">Nhân viên</a></li>
+                    <li><a href="{{ route('employee.index') }}">Nhân viên</a></li>
                     <li><a href="{{ route('customer.index') }}">Khách hàng</a></li>
                 </ul>
             </li>

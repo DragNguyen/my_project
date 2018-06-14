@@ -90,13 +90,13 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     /*
      * Customer
      * */
-    Route::resource('/account/customer', 'Admin\CustomerController');
+    Route::resource('customer', 'Admin\CustomerController');
 
 
     /*
      *  Employees
      * */
-    Route::resource('/account/employees', 'Admin\EmployeesController');
+    Route::resource('employee', 'Admin\EmployeeController');
 
 
     /*
