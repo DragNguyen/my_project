@@ -32,11 +32,6 @@ class RedirectIfAuthenticated
                     return redirect()->route('admin.tong-quan');
                 }
                 break;
-            case 'doctor':
-                if (Auth::guard($guard)->check()) {
-                    return redirect()->route('doctor.dashboard');
-                }
-                break;
             case 'consultant':
                 if (Auth::guard($guard)->check()) {
                     return redirect()->route('consultant.dashboard');

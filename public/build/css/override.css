@@ -54,3 +54,19 @@ td .ui.button {
     color: #2185d0;
     font-weight: Bold;
 }
+
+.stacked.segment .login-error {
+    color: red;
+    font-size: 23px;
+}
+
+.ui.success.message {
+    background-color: #69E392;
+    color: #2A332D;
+    /*border-width: unset;*/
+    /*width: 250px;*/
+    border-color: #69E392;
+    top: 50px;
+    right: 15px;
+    position: fixed;
+}

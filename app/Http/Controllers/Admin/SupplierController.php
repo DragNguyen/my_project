@@ -39,28 +39,11 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make(
-          $request->all(),
-          [
-              'supplier-name' => 'required|max:100',
-              'phone' => 'required|max:20',
-              'address' => 'required|max:200',
-              'website' => 'required|max:50'
-          ],
-          [
-              'required' => ':attribute không được bỏ trống!',
-              'max' => ':attribute không được vượt quá :max ký tự!'
-          ],
-          [
-              'supplier-name' => 'Tên nhà cung cấp',
-              'phone' => 'Số điện thoại',
-              'address' => 'Địa chỉ'
-          ]
-        );
+        $validate = $this->validation($request);
 
         if ($validate->fails())
         {
-            return back()->withInput($request->all())->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
 
         $supplier = new Supplier();
@@ -70,7 +53,7 @@ class SupplierController extends Controller
         $supplier->website = $request->get('website');
         $supplier->save();
 
-        return back();
+        return back()->with('success', 'Thêm nhà cung cấp thành công.');
     }
 
     /**
@@ -104,6 +87,13 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validation($request);
+
+        if ($validate->fails())
+        {
+            return back()->withErrors($validate)->withInput($request->all());
+        }
+
         $supplier = Supplier::findOrFail($id);
         $supplier->name = $request->get('supplier-name');
         $supplier->phone = $request->get('phone');
@@ -112,7 +102,7 @@ class SupplierController extends Controller
 
         $supplier->update();
 
-        return back();
+        return back()->with('success', 'Sửa nhà cung cấp thành công.');
     }
 
     /**
@@ -128,5 +118,28 @@ class SupplierController extends Controller
         Supplier::destroy($ids);
 
         return back();
+    }
+
+    public function validation(Request $request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'supplier-name' => 'required|max:100',
+                'phone' => 'required|max:20',
+                'address' => 'required|max:200',
+                'website' => 'required|max:50'
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!'
+            ],
+            [
+                'supplier-name' => 'Tên nhà cung cấp',
+                'phone' => 'Số điện thoại',
+                'address' => 'Địa chỉ'
+            ]
+        );
+
+        return $validate;
     }
 }

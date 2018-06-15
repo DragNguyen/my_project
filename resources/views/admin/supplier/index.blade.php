@@ -10,20 +10,9 @@
 
     <h2 class="ui dividing header">Nhà cung cấp<a class="anchor" id="introduction"></a></h2>
 
-    @if ($errors->any())
+    @include('admin.layouts.components.errors')
 
-        <div class="ui error message">
-            <i class="close icon"></i>
-            <div class="header">
-                There were some errors with your submission
-            </div>
-            <ul class="list">
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                @endforeach
-            </ul>
-        </div>
-    @endif
+    @include('admin.layouts.components.success')
 
     <form action="{{ route('supplier.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
