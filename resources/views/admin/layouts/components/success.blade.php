@@ -1,5 +1,7 @@
 @if (session()->get('success') != '')
-    <div class="ui success message">
-        <p>{{ session()->get('success') }}</p>
+
+    <div class="ui label success-message">
+        <i class="check icon"></i>
+        {{ session()->get('success') }}
     </div>
 @endif

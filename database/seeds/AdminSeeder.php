@@ -17,6 +17,8 @@ class AdminSeeder extends Seeder
            'username' => 'nguyentrongcp',
            'password' => bcrypt('635982359'),
            'phone' => '01639883047',
+           'gender' => 1,
+           'role' => 0
         ]);
     }
 }

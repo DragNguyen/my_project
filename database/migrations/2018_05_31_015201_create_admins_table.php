@@ -20,6 +20,9 @@ class CreateAdminsTable extends Migration
             $table->string('username', 16);
             $table->string('password', 100);
             $table->string('phone', 20);
+            $table->tinyInteger('gender');
+            $table->string('avatar', 200)->default('assets\img\avatar\default_avatar.jpg');
+            $table->tinyInteger('role')->default(1);
             $table->rememberToken();
             $table->timestamps();
         });

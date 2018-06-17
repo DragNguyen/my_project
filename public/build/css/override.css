@@ -14,6 +14,7 @@
 body {
     overflow: auto;
     color: #73879C;
+    background: #F7F7F7;
     font-size: 13px;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
 }
@@ -60,13 +61,63 @@ td .ui.button {
     font-size: 23px;
 }
 
-.ui.success.message {
-    background-color: #69E392;
-    color: #2A332D;
-    /*border-width: unset;*/
-    /*width: 250px;*/
-    border-color: #69E392;
-    top: 50px;
-    right: 15px;
+/*alert auto hide*/
+
+.ui.label.success-message {
+    background-color: #25A738;
+    color: white;
+    border-width: 0px;
+    /*width: 250px; !important;*/
+    bottom: 30px;
+    right: 30px;
     position: fixed;
+    z-index: 1;
+    padding: 15px;
+}
+
+
+
+/*custom ui*/
+
+.nav_menu {
+    position: fixed;
+    left: 0px;
+    opacity: 100%;
+    z-index: 1;
+}
+
+.nav-md .container.body .col-md-3.left_col.menu_fixed {
+    z-index: 2;
+}
+
+.nav-md .nav.toggle {
+    padding-left: 230px;
+}
+
+.nav-sm .nav.toggle {
+    padding-left: 70px;
+}
+
+.nav-md .container.body .right_col {
+    padding-top: 43px;
+}
+
+.nav-sm .container.body .right_col {
+    padding-top: 43px;
+}
+
+@media (max-width: 991px) {
+    .right_col {
+        padding-right: 10px !important;
+        padding-bottom: 10px !important;
+        padding-left: 10px !important;
+    }
+
+    .nav-md .nav.toggle {
+        padding-left: 0px;
+    }
+
+    .nav-sm .nav.toggle {
+        padding-left: 70px;
+    }
 }

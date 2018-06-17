@@ -7,23 +7,60 @@
 
 
             <ul class="nav navbar-nav navbar-right">
-                <li class="">
+                <li>
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="https://appdata.chatwork.com/avatar/2418/2418841.rsz.png" alt="">
-                        {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                        <img src="\{{ $admin->avatar }}" alt="">
                         <span class=" fa fa-angle-down"></span>
                     </a>
+
+                    @include('admin.my-self.modal-change-avatar')
+
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
-                        <li><a href="javascript:;"> Thông tin</a></li>
-                        <li><a href="javascript:;">Đổi mật khẩu</a></li>
-                        <li><a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out pull-right"></i>Đăng xuất</a></li>
+                        <li>
+                            <div class="ui cards">
+                                <div class="card">
+                                    <div class="image">
+                                        <img src="\{{ $admin->avatar }}">
+                                    </div>
+                                    <div class="content">
+                                        <div class="center aligned header">{{ $admin->name }}</div>
+                                        <div class="meta center aligned">
+                                            <span>Admin</span>
+                                        </div>
+                                        <div class="description">
+                                            <strong>Email:</strong> {{  $admin->email }} <br>
+                                            <strong>Số điện thoại:</strong> {{ $admin->phone }}
+                                        </div>
+                                    </div>
+                                    {{--<div class="extra content">--}}
+                                        {{--<a>--}}
+                                            {{--<i class="user icon"></i>--}}
+                                            {{--22 Friends--}}
+                                        {{--</a>--}}
+                                    {{--</div>--}}
+                                    <div class="extra content">
+                                        <a onclick=""><span class="blue right floated">Đổi mật khẩu</span></a>
+                                        <a onclick="$('#modal-change-avatar').modal('show')"><span class="blue">Đổi ảnh đại diện</span></a>
+                                        {{--<div class="ui two buttons">--}}
+                                            {{--<div class="ui blue button">Thay đổi thông tin</div>--}}
+                                        {{--</div>--}}
+                                        {{--<div class="ui two buttons">--}}
+                                            {{--<div class="ui blue button">Đổi ảnh đại diện</div>--}}
+                                        {{--</div>--}}
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        {{--<li><a href="javascript:;"> Thông tin</a></li>--}}
+                        {{--<li><a href="javascript:;">Đổi mật khẩu</a></li>--}}
+                        {{--<li><a href="{{ route('admin.logout') }}"><i class="fa fa-sign-out pull-right"></i>Đăng xuất</a></li>--}}
                     </ul>
                 </li>
 
                 <li role="presentation" class="dropdown">
                     <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                         <i class="bell icon"></i>
-                        {{--<span class="badge bg-green">6</span>--}}
+                        <span class="badge bg-green">6</span>
                     </a>
                     <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
                         <li>

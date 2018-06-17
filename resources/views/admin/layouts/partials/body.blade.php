@@ -1,3 +1,5 @@
+@php($admin = \Illuminate\Support\Facades\Auth::user())
+
 <body class="nav-md">
     <div class="container body">
         <div class="main_container">

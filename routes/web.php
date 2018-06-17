@@ -24,7 +24,7 @@ Auth::routes();
 /*
  * Test
  * */
-Route::get('/admin/test', function() {
+Route::get('/test', function() {
    return view('admin.test');
 });
 
@@ -100,6 +100,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 
 
     /*
-     *
+     *  My self
      * */
+    Route::post('my_self/change_avatar/{id}', 'Admin\AdminController@updateAvatar')->name('update_avatar');
 });

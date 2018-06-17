@@ -14,7 +14,7 @@ class SalesOffController extends Controller
      */
     public function index()
     {
-        return view('admin.khuyen-mai.index');
+        return view('admin.sales-off.index');
     }
 
     /**
