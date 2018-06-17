@@ -9,7 +9,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-                        <img src="\{{ $admin->avatar }}" alt="">
+                        <img src="/{{ (empty($admin->avatar)?'assets/img/avatar/default.jpg':$admin->avatar) }}" alt="">
                         <span class=" fa fa-angle-down"></span>
                     </a>
 
@@ -20,7 +20,8 @@
                             <div class="ui cards">
                                 <div class="card">
                                     <div class="image">
-                                        <img src="\{{ $admin->avatar }}">
+                                        <img src="/{{ (empty($admin->avatar)?
+                                        'assets/img/avatar/default.jpg':$admin->avatar) }}">
                                     </div>
                                     <div class="content">
                                         <div class="center aligned header">{{ $admin->name }}</div>

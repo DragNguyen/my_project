@@ -14,14 +14,16 @@ class AdminController extends Controller
 
         }
         else {
-            $ext = $request->file('avatar-upload')->clientExtension();
-            $path = $request->file('avatar-upload')->move('assets\img\avatar', "avatar-$id.$ext");
             $admin = Admin::findOrFail($id);
             $oldPath = $admin->avatar;
-            $admin->avatar = $path->getPathname();
-            if ($admin->save()) {
+            if (!empty($oldPath)) {
                 File::delete($oldPath);
             }
+            $ext = $request->file('avatar-upload')->extension();
+            $path = $request->file('avatar-upload')->move('assets\img\avatar', "avatar-$id.$ext");
+            $admin->avatar = str_replace('\\', '/', $path->getPathname());
+            $admin->update();
+
             return back()->with('success', 'Cập nhật ảnh đại diện thành công.');
         }
     }
