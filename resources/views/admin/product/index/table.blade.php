@@ -2,6 +2,8 @@
     <thead>
     <th class="collapsing">STT</th>
     <th>Tên sản phẩm</th>
+    <th>Loại sản phẩm</th>
+    <th>Thương hiệu</th>
     <th class="collapsing">Giá tiền</th>
     <th>Số lượng</th>
     <th>Tình trạng</th>
@@ -13,9 +15,11 @@
         <tr>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $product->name }}</td>
+            <td>{{ $product->productType->name }}</td>
+            <td>{{ $product->trademark->name }}</td>
             <td>{{ number_format($product->currentPrice()) }}</td>
             <td>{{ $product->quantity }}</td>
-            <td>{{ $product->status() }}</td>
+            <td class="green">{{ $product->status() }}</td>
             <td class="collapsing center aligned">
                 <a class="ui green mini button" onclick="$('#modal-edit-product-{{$product->id}}').modal('show')">
                     <i class="edit fitted icon"></i>

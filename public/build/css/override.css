@@ -121,3 +121,9 @@ td .ui.button {
         padding-left: 70px;
     }
 }
+
+/*Tab*/
+
+.tab-content>.tab-pane {
+    margin-bottom: 1em;
+}

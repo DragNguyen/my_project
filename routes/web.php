@@ -103,4 +103,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      *  My self
      * */
     Route::post('my_self/change_avatar/{id}', 'Admin\AdminController@updateAvatar')->name('update_avatar');
+    Route::post('my_self/change_password/{id}', 'Admin\AdminController@updatePassword')->name('update_password');
 });

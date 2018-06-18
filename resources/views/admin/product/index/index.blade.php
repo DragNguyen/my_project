@@ -9,6 +9,8 @@
 
     <h2 class="ui dividing header">Loại sản phẩm</h2>
 
+    @include('admin.layouts.components.errors')
+
     <a onclick="$('#modal-create-product').modal('show')"
        class="blue ui button" data-tooltip="Thêm mới">
         <i class="fitted add icon"></i>

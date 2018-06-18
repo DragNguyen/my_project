@@ -1,6 +1,9 @@
 @php($admin = \Illuminate\Support\Facades\Auth::user())
 
 <body class="nav-md">
+
+    @include('admin.layouts.components.success')
+
     <div class="container body">
         <div class="main_container">
             <div class="col-md-3 left_col menu_fixed">

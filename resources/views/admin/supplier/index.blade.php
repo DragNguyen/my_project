@@ -12,8 +12,6 @@
 
     @include('admin.layouts.components.errors')
 
-    @include('admin.layouts.components.success')
-
     <form action="{{ route('supplier.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}

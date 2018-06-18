@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Image;
 use App\Price;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Validator;
 
 class ProductController extends Controller
 {
@@ -39,18 +41,41 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
+        }
+        if (!$request->hasFile('product-image-upload') || !$request->hasFile('product-avatar-upload'))
+        {
+            return back();
+        }
+        $product_images = $request->file('product-image-upload');
+        $ext = $request->file('product-avatar-upload')->extension();
+
         $product = new Product();
         $product->name = $request->get('product-name');
         $product->product_type_id = $request->get('product-type-name');
         $product->trademark_id = $request->get('trademark-name');
+        $path = $request->file('product-avatar-upload')
+            ->move('assets\img\product\avatar', "avatar-$product->id.$ext");
+        $product->avatar = str_replace('\\', '/', $path);
         $product->save();
 
         $price = new Price();
-        $price->gia = str_replace(' ', '', $request->get('price'));
+        $price->price = str_replace(' ', '', $request->get('price'));
         $price->product_id = $product->id;
         $price->save();
 
-        return back();
+        foreach ($product_images as $product_image) {
+            $ext = $product_image->extension();
+            $image = new Image();
+            $image->product_id = $product->id;
+            $path = $product_image->move('assets\img\product\image', "image-$product->id.$ext");
+            $image->link = str_replace('\\', '/', $path);
+            $image->save();
+        }
+
+        return back()->with('success', 'Thêm sản phẩm thành công.');
 
 
     }
@@ -98,5 +123,25 @@ class ProductController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function validation(Request $request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'product-name' => 'required|max:100',
+                'price' => 'required'
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!'
+            ],
+            [
+                'product-name' => 'Tên sản phẩm',
+                'price' => 'Giá tiền'
+            ]
+        );
+
+        return $validate;
     }
 }

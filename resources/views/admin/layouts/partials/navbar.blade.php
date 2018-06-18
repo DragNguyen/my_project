@@ -14,6 +14,7 @@
                     </a>
 
                     @include('admin.my-self.modal-change-avatar')
+                    @include('admin.my-self.modal-change-password')
 
                     <ul class="dropdown-menu dropdown-usermenu pull-right">
                         <li>
@@ -26,7 +27,9 @@
                                     <div class="content">
                                         <div class="center aligned header">{{ $admin->name }}</div>
                                         <div class="meta center aligned">
-                                            <span>Admin</span>
+                                            <span>
+                                                {{ ($admin->role==0)?'Admin':'Nhân viên' }}
+                                            </span>
                                         </div>
                                         <div class="description">
                                             <strong>Email:</strong> {{  $admin->email }} <br>
@@ -40,7 +43,7 @@
                                         {{--</a>--}}
                                     {{--</div>--}}
                                     <div class="extra content">
-                                        <a onclick=""><span class="blue right floated">Đổi mật khẩu</span></a>
+                                        <a onclick="$('#modal-change-password').modal('show')"><span class="blue right floated">Đổi mật khẩu</span></a>
                                         <a onclick="$('#modal-change-avatar').modal('show')"><span class="blue">Đổi ảnh đại diện</span></a>
                                         {{--<div class="ui two buttons">--}}
                                             {{--<div class="ui blue button">Thay đổi thông tin</div>--}}

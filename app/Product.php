@@ -4,6 +4,13 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * @property mixed prices
+ * @property mixed name
+ * @property mixed product_type_id
+ * @property mixed trademark_id
+ * @property mixed id
+ */
 class Product extends Model
 {
     protected $table = 'products';
