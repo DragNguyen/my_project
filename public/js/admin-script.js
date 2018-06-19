@@ -83,3 +83,15 @@
     $("#product-image-upload").change(function() {
         readURL3(this);
     });
+
+    // tab
+
+    $('.menu .item')
+        .tab()
+    ;
+
+    $('#context1 .menu .item')
+        .tab({
+            context: $('#context1')
+        })
+    ;

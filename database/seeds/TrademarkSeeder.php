@@ -16,19 +16,22 @@ class TrademarkSeeder extends Seeder
                 'name' => 'Dell'
             ],
             [
+                'name' => 'Macbook'
+            ],
+            [
                 'name' => 'Asus'
             ],
             [
-                'name' => 'HP'
+                'name' => 'Iphone'
             ],
             [
-                'name' => 'Acer'
+                'name' => 'Mobiistar'
             ],
             [
-                'name' => 'Lenovo'
+                'name' => 'HTC'
             ],
             [
-                'name' => 'LG'
+                'name' => 'Nokia'
             ],
         ]);
     }

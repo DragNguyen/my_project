@@ -122,8 +122,6 @@ td .ui.button {
     }
 }
 
-/*Tab*/
-
-.tab-content>.tab-pane {
-    margin-bottom: 1em;
+.header-2 {
+    font-size: 20px;
 }

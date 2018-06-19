@@ -14,7 +14,11 @@
     @foreach($products as $stt => $product)
         <tr>
             <td class="center aligned">{{ $stt + 1 }}</td>
-            <td>{{ $product->name }}</td>
+            <td>
+                <a href="{{ route('product.show', [$product->id]) }}">
+                    {{ $product->name }}
+                </a>
+            </td>
             <td>{{ $product->productType->name }}</td>
             <td>{{ $product->trademark->name }}</td>
             <td>{{ number_format($product->currentPrice()) }}</td>

@@ -19,6 +19,10 @@ class Product extends Model
         return $this->hasMany(Price::class);
     }
 
+    public function images() {
+        return $this->hasMany(Image::class);
+    }
+
     public function productType() {
         return $this->belongsTo(ProductType::class);
     }

@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsReceiptNote;
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class GoodsReceiptNoteController extends Controller
 {
@@ -14,7 +17,11 @@ class GoodsReceiptNoteController extends Controller
      */
     public function index()
     {
-        return view('admin.goods-receipt-note.index');
+        $goods_receipt_notes = GoodsReceiptNote::paginate(10);
+        $suppliers = Supplier::all();
+
+        return view('admin.goods-receipt-note.parent-index.index',
+            compact(['goods_receipt_notes', 'suppliers']));
     }
 
     /**
@@ -35,7 +42,27 @@ class GoodsReceiptNoteController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $goods_receipt_note = new GoodsReceiptNote();
+        $goods_receipt_note->name = $request->get('name');
+        $goods_receipt_note->date = $request->get('date');
+        $goods_receipt_note->admin_id = Auth::user()->id;
+        $goods_receipt_note->save();
+
+        if ($request->has('supplier'))
+        {
+            foreach($request->get('supplier') as $supplier)
+            {
+                $goods_receipt_note_child = new GoodsReceiptNote();
+                $goods_receipt_note_child->goods_receipt_note_id = $goods_receipt_note->id;
+                $goods_receipt_note_child->date = $goods_receipt_note->date;
+                $goods_receipt_note_child->name = $goods_receipt_note->name;
+                $goods_receipt_note_child->supplier_id = $supplier;
+                $goods_receipt_note_child->admin_id = $goods_receipt_note->admin_id;
+                $goods_receipt_note_child->save();
+            }
+        }
+
+        return back()->with('success', 'Thêm đơn nhập hàng thành công.');
     }
 
     /**

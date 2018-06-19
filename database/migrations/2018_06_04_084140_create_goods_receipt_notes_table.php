@@ -17,9 +17,9 @@ class CreateGoodsReceiptNotesTable extends Migration
             $table->increments('id');
             $table->string('name', 50);
             $table->date('date');
-            $table->integer('admin_id')->unsigned();
+            $table->integer('admin_id')->unsigned()->nullable();
             $table->string('supplier_name', 100)->nullable();
-            $table->integer('supplier_id')->unsigned();
+            $table->integer('supplier_id')->unsigned()->nullable();
             $table->integer('goods_receipt_note_id')->unsigned()->nullable();
             $table->timestamps();
 
