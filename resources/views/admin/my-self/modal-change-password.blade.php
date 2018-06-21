@@ -6,15 +6,15 @@
 
             <div class="field">
                 <label>Mật khẩu cũ</label>
-                <input type="password" name="old-password">
+                <input type="password" name="old-password" placeholder="Nhập lại mật khẩu cũ...">
             </div>
             <div class="field">
                 <label>Mật khẩu mới</label>
-                <input type="password" name="password">
+                <input type="password" name="password" placeholder="Tối thiểu 6 ký tự...">
             </div>
             <div class="field">
                 <label>Nhập lại mật khẩu</label>
-                <input type="password" name="password_confirmation">
+                <input type="password" name="password_confirmation" placeholder="Nhập lại mật khẩu mới...">
             </div>
             <div class="field">
                 <button class="ui fluid blue button" type="submit">

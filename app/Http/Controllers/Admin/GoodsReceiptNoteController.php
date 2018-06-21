@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Admin;
 use App\GoodsReceiptNote;
 use App\Supplier;
 use Illuminate\Http\Request;
@@ -17,11 +18,12 @@ class GoodsReceiptNoteController extends Controller
      */
     public function index()
     {
-        $goods_receipt_notes = GoodsReceiptNote::paginate(10);
+        $goods_receipt_notes = GoodsReceiptNote::where('goods_receipt_note_id', null)->paginate(10);
         $suppliers = Supplier::all();
+        $admins = Admin::all();
 
         return view('admin.goods-receipt-note.parent-index.index',
-            compact(['goods_receipt_notes', 'suppliers']));
+            compact(['goods_receipt_notes', 'suppliers', 'admins']));
     }
 
     /**
@@ -43,7 +45,7 @@ class GoodsReceiptNoteController extends Controller
     public function store(Request $request)
     {
         $goods_receipt_note = new GoodsReceiptNote();
-        $goods_receipt_note->name = $request->get('name');
+        $goods_receipt_note->name = Admin::find($request->get('name'))->name;
         $goods_receipt_note->date = $request->get('date');
         $goods_receipt_note->admin_id = Auth::user()->id;
         $goods_receipt_note->save();
@@ -58,6 +60,7 @@ class GoodsReceiptNoteController extends Controller
                 $goods_receipt_note_child->name = $goods_receipt_note->name;
                 $goods_receipt_note_child->supplier_id = $supplier;
                 $goods_receipt_note_child->admin_id = $goods_receipt_note->admin_id;
+                $goods_receipt_note_child->supplier_name = Supplier::find($supplier)->name;
                 $goods_receipt_note_child->save();
             }
         }
@@ -73,7 +76,12 @@ class GoodsReceiptNoteController extends Controller
      */
     public function show($id)
     {
-        //
+        $goods_receipt_note = GoodsReceiptNote::find($id);
+        $goods_receipt_note_childs = GoodsReceiptNote::where('goods_receipt_note_id', $id)->paginate(10);
+        $suppliers = Supplier::all();
+
+        return view('admin.goods-receipt-note.child-index.index',
+            compact(['goods_receipt_note', 'goods_receipt_note_childs', 'suppliers']));
     }
 
     /**

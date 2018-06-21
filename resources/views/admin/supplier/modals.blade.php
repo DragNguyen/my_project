@@ -6,9 +6,10 @@
 
             <div class="field">
                 <label>Tên nhà cung cấp</label>
-                <input type="text" name="supplier-name" value="{{ old('supplier-name') }}"
-                       {{ $errors->has('supplier-name')?'autofocus':'' }}>
-                @if($errors->has('supplier-name'))
+                <input type="text" name="supplier-name"
+                       value="{{ ($errors->has('supplier-name')&&old('id')==null)?old('supplier-name'):'' }}"
+                       {{ ($errors->has('supplier-name')&&old('id')==null)?'autofocus':'' }}>
+                @if($errors->has('supplier-name') && old('id')==null)
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('supplier-name') }}
                     </div>
@@ -17,9 +18,10 @@
             </div>
             <div class="field">
                 <label>Số điện thoại</label>
-                <input type="text" name="phone" value="{{ old('phone') }}"
-                        {{ $errors->has('phone')?'autofocus':'' }}>
-                @if($errors->has('phone'))
+                <input type="text" name="phone"
+                       value="{{ ($errors->has('phone')&&old('id'))?old('phone')==null:'' }}"
+                        {{ ($errors->has('phone')&&old('id')==null)?'autofocus':'' }}>
+                @if($errors->has('phone') && old('id')==null)
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('phone') }}
                     </div>
@@ -27,9 +29,9 @@
             </div>
             <div class="field">
                 <label>Địa chỉ</label>
-                <input type="text" name="address" value="{{ old('address') }}"
-                        {{ $errors->has('address')?'autofocus':'' }}>
-                @if($errors->has('address'))
+                <input type="text" name="address" value="{{ ($errors->has('address')&&old('id')==null)?old('address'):'' }}"
+                        {{ ($errors->has('address')&&old('id')==null)?'autofocus':'' }}>
+                @if($errors->has('address') && old('id')==null)
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('address') }}
                     </div>
@@ -37,9 +39,9 @@
             </div>
             <div class="field">
                 <label>Website</label>
-                <input type="text" name="website" value="{{ old('website') }}"
-                        {{ $errors->has('website')?'autofocus':'' }}>
-                @if($errors->has('website'))
+                <input type="text" name="website" value="{{ ($errors->has('website')&&old('id')==null)?old('website'):'' }}"
+                        {{ ($errors->has('website')&&old('id')==null)?'autofocus':'' }}>
+                @if($errors->has('website') && old('id')==null)
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('website') }}
                     </div>

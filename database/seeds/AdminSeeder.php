@@ -12,13 +12,42 @@ class AdminSeeder extends Seeder
     public function run()
     {
         DB::table('admins')->insert([
-           'name' => 'Nguyễn Đình Trọng',
-           'email' => 'nguyentrongcp@gmail.com',
-           'username' => 'nguyentrongcp',
-           'password' => bcrypt('635982359'),
-           'phone' => '01639883047',
-           'gender' => 1,
-           'role' => 0
+           [
+               'name' => 'Nguyễn Đình Trọng',
+               'email' => 'nguyentrongcp@gmail.com',
+               'username' => 'nguyentrongcp',
+               'password' => bcrypt('635982359'),
+               'phone' => '01639883047',
+               'gender' => 1,
+               'role' => 0
+           ],
+            [
+                'name' => 'Nguyễn Văn Lộc',
+                'email' => 'nguyenloc@gmail.com',
+                'username' => 'nguyentrong',
+                'password' => bcrypt('635982359'),
+                'phone' => '01634224567',
+                'gender' => 1,
+                'role' => 1
+            ],
+            [
+                'name' => 'Phạm hoài An',
+                'email' => 'phaman@gmail.com',
+                'username' => 'nguyentrongcp',
+                'password' => bcrypt('635982359'),
+                'phone' => '01639094836',
+                'gender' => 1,
+                'role' => 1
+            ],
+            [
+                'name' => 'Nguyễn Tấn Phát',
+                'email' => 'nguyenphat@gmail.com',
+                'username' => 'nguyentrongcp',
+                'password' => bcrypt('635982359'),
+                'phone' => '01234556204',
+                'gender' => 1,
+                'role' => 1
+            ],
         ]);
     }
 }

@@ -7,11 +7,15 @@
             <div class="field">
                 <label>Tên người nhập hàng</label>
                 <select class="ui search selection dropdown" name="name">
-{{--                    @foreach(\App\ProductType::all() as $product_type)--}}
-                        <option value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
-                            {{ \Illuminate\Support\Facades\Auth::user()->name }}
-                        </option>
-                    {{--@endforeach--}}
+                    <option value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
+                        {{ \Illuminate\Support\Facades\Auth::user()->name }}
+                    </option>
+                    @foreach($admins as $admin)
+                        @if(\Illuminate\Support\Facades\Auth::user()->id == $admin->id)
+                            @continue
+                        @endif
+                        <option value="{{ $admin->id }}">{{ $admin->name }}</option>
+                    @endforeach
                 </select>
             </div>
             <div class="field">
@@ -19,7 +23,7 @@
                 <input type="date" name="date" value="{{ date('Y-m-d') }}">
             </div>
             <div class="field">
-                <label>Tên người nhập hàng</label>
+                <label>Tên nhà cung cấp</label>
                 <select class="ui search selection dropdown" name="supplier[]" multiple="">
                     <option value="">
                         Chọn nhiều nhà cung cấp...

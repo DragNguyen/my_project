@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsReceiptNote;
+use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-class TrademarkController extends Controller
+class GoodsReceiptNoteChildController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +16,7 @@ class TrademarkController extends Controller
      */
     public function index()
     {
-        return view('admin.trademark.index');
+        //
     }
 
     /**
@@ -35,7 +37,23 @@ class TrademarkController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (!$request->has('supplier')) {
+            return back();
+        }
+        $parent = GoodsReceiptNote::find($request->get('parent-id'));
+        foreach($request->get('supplier') as $supplier) {
+            $child = new GoodsReceiptNote();
+            $child->goods_receipt_note_id = $parent->id;
+            $child->name = $parent->name;
+            $child->date = $parent->date;
+            $supplier_name = Supplier::find($supplier)->name;
+            $child->supplier_name = $supplier_name;
+            $child->supplier_id = $supplier;
+
+            $child->save();
+        }
+
+        return back()->with('success', 'Thêm các nhà cung cấp cho phiếu nhập thành công.');
     }
 
     /**

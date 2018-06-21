@@ -75,6 +75,18 @@ td .ui.button {
     padding: 15px;
 }
 
+.ui.label.error-message {
+    background-color: #FF5656;
+    color: white;
+    border-width: 0px;
+    /*width: 250px; !important;*/
+    bottom: 30px;
+    right: 30px;
+    position: fixed;
+    z-index: 1;
+    padding: 15px;
+}
+
 
 
 /*custom ui*/

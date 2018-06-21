@@ -23,3 +23,48 @@
         </form>
     </div>
 </div>
+
+@foreach($products as $product)
+    <div class="mini ui modal" id="modal-edit-product-{{ $product->id }}">
+        <div class="header modal-header">Sửa thông tin sản phẩm</div>
+        <div class="content">
+            <form class="ui form" action="{{ route('product.update', [$product->id]) }}" method="post">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
+
+                <div class="field">
+                    <label>Tên sản phẩm</label>
+                    <input type="text" name="product-name" value="{{ $product->name }}">
+                </div>
+                <div class="field">
+                    <label>Loại sản phẩm</label>
+                    <select class="ui search selection dropdown" name="product-type-name">
+                        @foreach(\App\ProductType::all() as $product_type)
+                            <option value="{{ $product_type->id }}"
+                                    {{ ($product->product_type_id==$product_type->id)?'selected':'' }}>
+                                {{ $product_type->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="field">
+                    <label>Thương hiệu</label>
+                    <select class="ui search selection dropdown" name="trademark-name">
+                        @foreach(\App\Trademark::all() as $trademark)
+                            <option value="{{ $trademark->id }}"
+                                    {{ ($product->trademark_id==$trademark->id)?'selected':'' }}>
+                                {{ $trademark->name }}
+                            </option>
+                        @endforeach
+                    </select>
+                </div>
+
+                <div class="field">
+                    <button class="ui fluid blue button" type="submit">
+                        <strong>OK</strong>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+@endforeach

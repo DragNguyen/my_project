@@ -3,6 +3,7 @@
 <body class="nav-md">
 
     @include('admin.layouts.components.success')
+    @include('admin.layouts.components.error')
 
     <div class="container body">
         <div class="main_container">

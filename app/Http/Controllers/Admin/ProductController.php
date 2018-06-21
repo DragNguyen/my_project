@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Image;
 use App\Price;
 use App\Product;
+use App\SpecificationProductType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
@@ -66,11 +67,11 @@ class ProductController extends Controller
         $price->product_id = $product->id;
         $price->save();
 
-        foreach ($product_images as $product_image) {
+        foreach ($product_images as $key => $product_image) {
             $ext = $product_image->extension();
             $image = new Image();
             $image->product_id = $product->id;
-            $path = $product_image->move('assets\img\product\image', "image-$product->id.$ext");
+            $path = $product_image->move('assets\img\product\image', "image-$product->id-$key.$ext");
             $image->link = str_replace('\\', '/', $path);
             $image->save();
         }
@@ -90,8 +91,9 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
         $images = $product->images;
+        $specs = SpecificationProductType::where('product_type_id', $product->product_type_id)->get();
 
-        return view('admin.product.show.index', compact(['product', 'images']));
+        return view('admin.product.show.index', compact(['product', 'images', 'specs']));
     }
 
     /**
@@ -114,7 +116,14 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $product = Product::findOrFail($id);
+        $product->name = $request->get('product-name');
+        $product->product_type_id = $request->get('product_type_name');
+        $product->trademark_id = $request->get('trademark_id');
+
+        $product->update();
+
+        return back()->with('success', 'Sửa thông tin sản phẩm thành công.');
     }
 
     /**

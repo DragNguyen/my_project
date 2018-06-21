@@ -4,7 +4,7 @@
     <th>Tên sản phẩm</th>
     <th>Loại sản phẩm</th>
     <th>Thương hiệu</th>
-    <th class="collapsing">Giá tiền</th>
+    <th>Giá tiền</th>
     <th>Số lượng</th>
     <th>Tình trạng</th>
     <th class="center aligned">Sửa</th>
@@ -21,7 +21,7 @@
             </td>
             <td>{{ $product->productType->name }}</td>
             <td>{{ $product->trademark->name }}</td>
-            <td>{{ number_format($product->currentPrice()) }}</td>
+            <td class="collapsing">{{ number_format($product->currentPrice()) }} đ</td>
             <td>{{ $product->quantity }}</td>
             <td class="green">{{ $product->status() }}</td>
             <td class="collapsing center aligned">

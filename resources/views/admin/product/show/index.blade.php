@@ -14,10 +14,10 @@
 
     <div class="ui secondary menu">
         <a class="item active" data-tab="first">Thông tin</a>
-        <a class="item" data-tab="second">Thông số kỹ thuật</a>
-        <a class="item" data-tab="third">Mô tả</a>
+        <a class="item" data-tab="second">Mô tả</a>
     </div>
     <div class="ui tab active segment" data-tab="first">
+        <h3 class="ui dividing header" style="margin-top: 0px">Thông tin cơ bản</h3>
         <div class="ui two column grid">
             <div class="column">
                 <div class="ui grid">
@@ -49,11 +49,10 @@
                         <strong>Giá:</strong>
                     </div>
                     <div class="eleven wide column">
-                        <strong>
-                            {{ number_format($product->currentPrice()) }} đ
-                        </strong>
-                        <a class="ui tiny button" style="font-family: 'Helvetica Neue',Roboto,Arial,'Droid Sans',sans-serif">
-                            Thay đổi
+                        <a href="#" data-tooltip="Xem lịch sử thay đổi giá">
+                            <strong>
+                                {{ number_format($product->currentPrice()) }} đ
+                            </strong>
                         </a>
                     </div>
                     <div class="five wide column">
@@ -69,7 +68,7 @@
                         {{ $product->trademark->name }}
                     </div>
                     <div class="five wide column">
-                        <strong>Thương hiệu:</strong>
+                        <strong>Loại sản phẩm:</strong>
                     </div>
                     <div class="eleven wide column">
                         {{ $product->productType->name }}
@@ -89,7 +88,7 @@
                 </div>
                 <div class="ui grid">
                     <div class="five wide column">
-                        <strong>Ảnh đại diện:</strong>
+                        <strong>Ảnh chi tiết:</strong>
                     </div>
                     <div class="eleven wide column">
                         <div class="ui three column grid">
@@ -105,13 +104,25 @@
                 </div>
             </div>
         </div>
+
+        <h3 class="ui dividing header" style="margin-top: 40px">Thông số kỹ thuật</h3>
+        <div class="ui two column grid">
+            <div class="column">
+                <div class="ui grid">
+                    @foreach($specs as $spec)
+                        <div class="five wide column">
+                            {{ $spec->getSpecName() }}:
+                        </div>
+                        {{--<div class="eleven wide column">--}}
+                            {{--{{ $product->getSpecValue($spec->specification_id) }}--}}
+                        {{--</div>--}}
+                    @endforeach
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="ui tab segment" data-tab="second">
-
-    </div>
-
-    <div class="ui tab segment" data-tab="third">
 
     </div>
 

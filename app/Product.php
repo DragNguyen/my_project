@@ -38,4 +38,9 @@ class Product extends Model
     public function currentPrice() {
         return $this->prices->max()->price;
     }
+
+    public function getSpecValue($id) {
+        $spec = SpecificationProduct::where('specification_id', $id)->where('product_id', $this->id)->first();
+        return $spec->value;
+    }
 }

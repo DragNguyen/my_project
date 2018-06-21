@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -51,5 +52,14 @@ class AdminController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
+        $oldPassword = $request->get('old-password');
+        $admin = Admin::findOrFail($id);
+        if (!password_verify($oldPassword, Auth::user()->getAuthPassword())) {
+            return back()->with('error', 'Mật khẩu cũ không chính xác.');
+        }
+        $admin->password = bcrypt($request->get('password'));
+        $admin->update();
+
+        return back()->with('success', 'Đổi mật khẩu thành công.');
     }
 }

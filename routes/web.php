@@ -86,6 +86,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * Goods receipt note - Nhap hang
      * */
     Route::resource('goods_receipt_note', 'Admin\GoodsReceiptNoteController');
+    Route::resource('goods_receipt_note_child', 'Admin\GoodsReceiptNoteChildController');
 
     /*
      * Customer
