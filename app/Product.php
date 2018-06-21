@@ -43,4 +43,9 @@ class Product extends Model
         $spec = SpecificationProduct::where('specification_id', $id)->where('product_id', $this->id)->first();
         return $spec->value;
     }
+
+    public function getChangedQuantity($quantity) {
+        $changed_quantity = $this->quantity + $quantity;
+        return ($changed_quantity > 0) ? $changed_quantity : 0;
+    }
 }

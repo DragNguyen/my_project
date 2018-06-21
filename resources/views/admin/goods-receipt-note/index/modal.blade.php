@@ -1,7 +1,7 @@
 <div class="mini ui modal" id="modal-create-goods-receipt-note">
     <div class="header modal-header">Thêm phiếu nhập hàng</div>
-    <div class="content scrolling">
-        <form class="ui form" method="post" action="{{ route('goods_receipt_note.store') }}">
+    <div class="scrolling content">
+        <form class="ui form" id="theForm" method="post" action="{{ route('goods_receipt_note.store') }}">
             {{ csrf_field() }}
 
             <div class="field">
@@ -24,10 +24,7 @@
             </div>
             <div class="field">
                 <label>Tên nhà cung cấp</label>
-                <select class="ui search selection dropdown" name="supplier[]" multiple="">
-                    <option value="">
-                        Chọn nhiều nhà cung cấp...
-                    </option>
+                <select class="ui search selection dropdown" name="supplier">
                     @foreach($suppliers as $supplier)
                         <option value="{{ $supplier->id }}">
                             {{ $supplier->name }}
@@ -35,12 +32,9 @@
                     @endforeach
                 </select>
             </div>
-            <div class="field">
-                <button class="ui fluid blue button" type="submit">
-                    <strong>OK</strong>
-                </button>
-            </div>
-
         </form>
+    </div>
+    <div class="actions">
+        <input type="submit" value="OK" form="theForm" class="ui fluid blue button">
     </div>
 </div>

@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\GoodsReceiptNote;
+use App\GoodsReceiptNoteProduct;
+use App\Product;
 use App\Supplier;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,11 +20,11 @@ class GoodsReceiptNoteController extends Controller
      */
     public function index()
     {
-        $goods_receipt_notes = GoodsReceiptNote::where('goods_receipt_note_id', null)->paginate(10);
+        $goods_receipt_notes = GoodsReceiptNote::paginate(10);
         $suppliers = Supplier::all();
         $admins = Admin::all();
 
-        return view('admin.goods-receipt-note.parent-index.index',
+        return view('admin.goods-receipt-note.index.index',
             compact(['goods_receipt_notes', 'suppliers', 'admins']));
     }
 
@@ -48,22 +50,9 @@ class GoodsReceiptNoteController extends Controller
         $goods_receipt_note->name = Admin::find($request->get('name'))->name;
         $goods_receipt_note->date = $request->get('date');
         $goods_receipt_note->admin_id = Auth::user()->id;
+        $goods_receipt_note->supplier_id = $request->get('supplier');
+        $goods_receipt_note->supplier_name = Supplier::find($request->get('supplier'))->name;
         $goods_receipt_note->save();
-
-        if ($request->has('supplier'))
-        {
-            foreach($request->get('supplier') as $supplier)
-            {
-                $goods_receipt_note_child = new GoodsReceiptNote();
-                $goods_receipt_note_child->goods_receipt_note_id = $goods_receipt_note->id;
-                $goods_receipt_note_child->date = $goods_receipt_note->date;
-                $goods_receipt_note_child->name = $goods_receipt_note->name;
-                $goods_receipt_note_child->supplier_id = $supplier;
-                $goods_receipt_note_child->admin_id = $goods_receipt_note->admin_id;
-                $goods_receipt_note_child->supplier_name = Supplier::find($supplier)->name;
-                $goods_receipt_note_child->save();
-            }
-        }
 
         return back()->with('success', 'Thêm đơn nhập hàng thành công.');
     }
@@ -77,11 +66,11 @@ class GoodsReceiptNoteController extends Controller
     public function show($id)
     {
         $goods_receipt_note = GoodsReceiptNote::find($id);
-        $goods_receipt_note_childs = GoodsReceiptNote::where('goods_receipt_note_id', $id)->paginate(10);
-        $suppliers = Supplier::all();
+        $goods_receipt_note_products = GoodsReceiptNoteProduct::where('goods_receipt_note_id', $id)->paginate(10);
+        $products = Product::all();
 
-        return view('admin.goods-receipt-note.child-index.index',
-            compact(['goods_receipt_note', 'goods_receipt_note_childs', 'suppliers']));
+        return view('admin.goods-receipt-note.product.index',
+            compact(['goods_receipt_note', 'goods_receipt_note_products', 'products']));
     }
 
     /**
@@ -113,8 +102,12 @@ class GoodsReceiptNoteController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        $ids = $request->get('goods-receipt-note-id');
+
+        GoodsReceiptNote::destroy($ids);
+
+        return back()->with('success', 'Xóa thành công.');
     }
 }

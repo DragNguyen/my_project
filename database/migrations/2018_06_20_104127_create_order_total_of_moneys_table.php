@@ -19,7 +19,7 @@ class CreateOrderTotalOfMoneysTable extends Migration
             $table->double('price');
             $table->timestamps();
 
-            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cadcase');
+            $table->foreign('order_id')->references('id')->on('orders');
         });
     }
 

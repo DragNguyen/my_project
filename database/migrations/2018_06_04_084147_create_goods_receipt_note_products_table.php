@@ -17,6 +17,9 @@ class CreateGoodsReceiptNoteProductsTable extends Migration
             $table->increments('id');
             $table->integer('goods_receipt_note_id')->unsigned();
             $table->integer('product_id')->unsigned();
+            $table->double('price');
+            $table->integer('quantity');
+            $table->integer('quantity_updated');
             $table->timestamps();
 
             $table->foreign('goods_receipt_note_id')->references('id')->on('goods_receipt_notes');

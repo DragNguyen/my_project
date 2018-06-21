@@ -1,15 +1,9 @@
 @extends('admin.master')
 
-@section('title', 'Chi tiết nhập hàng')
-
-@section('nav_title', 'Chi tiết nhập hàng')
+@section('title', 'Nhập hàng')
 
 @section('content')
-    <h2 class="ui dividing header">
-        Nhập hàng >> <span class="header-2">
-            Chi tiết nhập hàng ({{ $goods_receipt_note->date }})
-        </span>
-    </h2>
+    <h2 class="ui dividing header">Nhập hàng</h2>
 
     @include('admin.layouts.components.success')
 
@@ -22,13 +16,14 @@
             <i class="delete fitted icon"></i>
         </button>
 
-        <a onclick="$('#modal-create-goods-receipt-note-child').modal('show')"
+        <a onclick="$('#modal-create-goods-receipt-note').modal('show')"
            class="blue ui button" data-tooltip="Thêm mới">
             <i class="fitted add icon"></i>
         </a>
+
+        @include('admin.goods-receipt-note.index.table')
     </form>
 
-    @include('admin.goods-receipt-note.child-index.table')
-    @include('admin.goods-receipt-note.child-index.modal')
+    @include('admin.goods-receipt-note.index.modal')
 
 @endsection

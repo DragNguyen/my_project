@@ -4,9 +4,9 @@
     <th>Tên sản phẩm</th>
     <th>Loại sản phẩm</th>
     <th>Thương hiệu</th>
-    <th>Giá tiền</th>
-    <th>Số lượng</th>
-    <th>Tình trạng</th>
+    <th class="center aligned">Giá tiền</th>
+    <th class="center aligned">Số lượng</th>
+    <th class="center aligned">Tình trạng</th>
     <th class="center aligned">Sửa</th>
     </thead>
 
@@ -21,9 +21,9 @@
             </td>
             <td>{{ $product->productType->name }}</td>
             <td>{{ $product->trademark->name }}</td>
-            <td class="collapsing">{{ number_format($product->currentPrice()) }} đ</td>
-            <td>{{ $product->quantity }}</td>
-            <td class="green">{{ $product->status() }}</td>
+            <td class="collapsing center aligned">{{ number_format($product->currentPrice()) }} đ</td>
+            <td class="center aligned">{{ $product->quantity }}</td>
+            <td class="green center aligned">{{ $product->status() }}</td>
             <td class="collapsing center aligned">
                 <a class="ui green mini button" onclick="$('#modal-edit-product-{{$product->id}}').modal('show')">
                     <i class="edit fitted icon"></i>

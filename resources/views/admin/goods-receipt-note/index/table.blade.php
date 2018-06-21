@@ -4,22 +4,28 @@
         <input type="checkbox" id="check-all" class="flat">
     </th>
     <th class="collapsing">STT</th>
+    <th>Người nhập hàng</th>
+    <th>Ngày nhập</th>
     <th>Nhà cung cấp</th>
     <th class="collapsing center aligned">Xem</th>
     <th class="collapsing center aligned">Sửa</th>
     </thead>
 
     <tbody>
-    @foreach($goods_receipt_note_childs as $stt => $goods_receipt_note_child)
+    @foreach($goods_receipt_notes as $stt => $goods_receipt_note)
         <tr>
             <td class="center aligned">
-                <input type="checkbox" id="table_records" class="flat"
-                       name="goods-receipt-note-child-id[]" value="{{ $goods_receipt_note_child->id }}">
+                @if($goods_receipt_note->canDelete())
+                    <input type="checkbox" id="table_records" class="flat"
+                           name="goods-receipt-note-id[]" value="{{ $goods_receipt_note->id }}">
+                @endif
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
-            <td>{{ $goods_receipt_note_child->supplier_name }}</td>
+            <td>{{ $goods_receipt_note->name }}</td>
+            <td>{{ $goods_receipt_note->date }}</td>
+            <td>{{ $goods_receipt_note->supplier_name }}</td>
             <td class="collapsing center aligned">
-                <a href="{{ route('goods_receipt_note_child.show', [$goods_receipt_note_child->id]) }}" class="ui blue mini button">
+                <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue mini button">
                     <i class="fitted eye icon"></i>
                 </a>
             </td>
@@ -34,5 +40,5 @@
 </table>
 
 <div class="ui column centered grid">
-    {{ $goods_receipt_note_childs->links() }}
+    {{ $goods_receipt_notes->links() }}
 </div>

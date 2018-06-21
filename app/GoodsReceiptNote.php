@@ -18,4 +18,18 @@ class GoodsReceiptNote extends Model
         }
         return false;
     }
+
+    public function matchedProduct($product_id) {
+        $goods_receipt_note_products = GoodsReceiptNoteProduct::where('goods_receipt_note_id', $this->id)->get();
+        foreach ($goods_receipt_note_products as $goods_receipt_note_product) {
+            if ($goods_receipt_note_product->product_id == $product_id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public function canDelete() {
+        return GoodsReceiptNoteProduct::where('goods_receipt_note_id', $this->id)->count() == 0;
+    }
 }

@@ -5,6 +5,8 @@
         .dropdown()
     ;
 
+    $('.ui.dropdown').dropdown({ fullTextSearch: true });
+
     // close message
 
     $('.message .close')
@@ -95,3 +97,12 @@
             context: $('#context1')
         })
     ;
+
+    // Modal
+
+    $('.long.modal')
+        .modal('show')
+    ;
+
+    // Date
+

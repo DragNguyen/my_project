@@ -2,14 +2,16 @@
 
 @section('title', 'Nhập hàng')
 
-@section('nav_title', 'Nhập hàng')
-
 @section('content')
-    <h2 class="ui dividing header">Nhập hàng</h2>
+    <h2 class="ui dividing header">
+        Nhập hàng ({{ $goods_receipt_note->date }}) >>
+        <span class="header-2">Sản phẩm</span>
+    </h2>
 
     @include('admin.layouts.components.success')
+    @include('admin.layouts.components.errors')
 
-    <form action="{{ route('goods_receipt_note.destroy', [0])}}" method="post">
+    <form action="{{ route('goods_receipt_note_product.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
 
@@ -18,13 +20,14 @@
             <i class="delete fitted icon"></i>
         </button>
 
-        <a onclick="$('#modal-create-goods-receipt-note').modal('show')"
+        <a onclick="$('#modal-create-goods-receipt-note-product').modal('show')"
            class="blue ui button" data-tooltip="Thêm mới">
             <i class="fitted add icon"></i>
         </a>
+
+        @include('admin.goods-receipt-note.product.table')
     </form>
 
-    @include('admin.goods-receipt-note.parent-index.table')
-    @include('admin.goods-receipt-note.parent-index.modal')
+    @include('admin.goods-receipt-note.product.modal')
 
 @endsection

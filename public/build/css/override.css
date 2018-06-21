@@ -137,3 +137,9 @@ td .ui.button {
 .header-2 {
     font-size: 20px;
 }
+
+/*Modal*/
+
+.ui.modal .actions>.button {
+    margin-left: 0px;
+}
