@@ -19,8 +19,8 @@
                     {{ $product->name }}
                 </a>
             </td>
-            <td>{{ $product->productType->name }}</td>
-            <td>{{ $product->trademark->name }}</td>
+            <td>{{ $product->getProductType()->name }}</td>
+            <td>{{ $product->getTrademark()->name }}</td>
             <td class="collapsing center aligned">{{ number_format($product->currentPrice()) }} đ</td>
             <td class="center aligned">{{ $product->quantity }}</td>
             <td class="green center aligned">{{ $product->status() }}</td>

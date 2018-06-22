@@ -23,16 +23,20 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function productType() {
-        return $this->belongsTo(ProductType::class);
-    }
-
-    public function trademark() {
-        return $this->belongsTo(Trademark::class);
+    public function productTypeTrademark() {
+        return $this->belongsTo(ProductTypeTrademark::class);
     }
 
     public function status() {
         return ($this->is_activated) ? 'Đang bán' : 'Ngừng kinh doanh';
+    }
+
+    public function getProductType() {
+        return $this->productTypeTrademark->productType;
+    }
+
+    public function getTrademark() {
+        return $this->productTypeTrademark->trademark;
     }
 
     public function currentPrice() {

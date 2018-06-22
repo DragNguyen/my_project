@@ -121,17 +121,19 @@ class SupplierController extends Controller
     }
 
     public function validation(Request $request) {
+        $character = 'áàảãạăắằẳẵặâấầẩẫậúùủũụứừửữựéèẻẽẹếềểễệíìỉĩịýỳỷỹỵóòỏõọốồổỗộớờởỡợ';
         $validate = Validator::make(
             $request->all(),
             [
-                'supplier-name' => 'required|max:100',
-                'phone' => 'required|max:20',
-                'address' => 'required|max:200',
-                'website' => 'required|max:50'
+                'supplier-name' => array('required', 'max:100', "regex:/^[\w$character ]*$/"),
+                'phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
+                'address' => array('required', 'max:200', "regex:/^[\w$character \.,-]*$/"),
+                'website' => array('required', 'max:50', "regex:/^\w+(\.[a-z]+)+$/")
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'max' => ':attribute không được vượt quá :max ký tự!'
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
             ],
             [
                 'supplier-name' => 'Tên nhà cung cấp',

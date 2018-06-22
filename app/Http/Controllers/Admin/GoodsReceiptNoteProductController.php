@@ -103,7 +103,7 @@ class GoodsReceiptNoteProductController extends Controller
             return back()->withErrors($validate);
         }
 
-        $price = $request->get('price');
+        $price = str_replace(',', '', $request->get('price'));
         if ($price > 100000000) {
             return back()->with('error', 'Đơn giá không được vượt quá 100,000,000đ !');
         }
@@ -119,7 +119,7 @@ class GoodsReceiptNoteProductController extends Controller
 
         $goods_receipt_note_product->product_id = $request->get('product-name');
         $goods_receipt_note_product->quantity = $request->get('quantity');
-        $goods_receipt_note_product->price = $request->get('price');
+        $goods_receipt_note_product->price = $price;
         $goods_receipt_note_product->quantity_updated = $quantity;
 
         if ($goods_receipt_note_product->update()) {
