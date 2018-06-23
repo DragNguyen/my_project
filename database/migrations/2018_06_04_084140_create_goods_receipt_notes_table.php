@@ -20,6 +20,7 @@ class CreateGoodsReceiptNotesTable extends Migration
             $table->integer('admin_id')->unsigned()->nullable();
             $table->string('supplier_name', 100);
             $table->integer('supplier_id')->unsigned()->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
 
             $table->foreign('admin_id')->references('id')->on('admins');

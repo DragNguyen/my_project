@@ -62,6 +62,17 @@
                     <li><a href="{{ route('customer.index') }}">Khách hàng</a></li>
                 </ul>
             </li>
+            <li >
+                <a>
+                    <i class="fa fa-undo"></i>
+                    Phục hồi
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('supplier_restore.index') }}">Nhà cung cấp</a></li>
+                    <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
+                </ul>
+            </li>
         </ul>
     </div>
 

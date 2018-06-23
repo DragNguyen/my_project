@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsReceiptNote;
 use App\Supplier;
 use Validator;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        $suppliers = Supplier::paginate(10);
+        $suppliers = Supplier::where('is_deleted', false)->paginate(10);
 
         return view('admin.supplier.index', compact('suppliers'));
     }
@@ -113,22 +114,34 @@ class SupplierController extends Controller
      */
     public function destroy(Request $request)
     {
+        if (!$request->has('supplier-id')) {
+            return back();
+        }
         $ids = $request->get('supplier-id');
 
-        Supplier::destroy($ids);
+        foreach($ids as $id) {
+            $supplier = Supplier::findOrFail($id);
+            if ($supplier->canDelete()) {
+                $supplier->delete();
+            }
+            else {
+                $supplier->is_deleted = true;
+                $supplier->update();
+            }
+        }
 
-        return back();
+        return back()->with('success', 'Xóa thành công.');
     }
 
     public function validation(Request $request) {
-        $character = 'áàảãạăắằẳẵặâấầẩẫậúùủũụứừửữựéèẻẽẹếềểễệíìỉĩịýỳỷỹỵóòỏõọốồổỗộớờởỡợ';
         $validate = Validator::make(
             $request->all(),
             [
-                'supplier-name' => array('required', 'max:100', "regex:/^[\w$character ]*$/"),
+                'supplier-name' => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/"),
                 'phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
-                'address' => array('required', 'max:200', "regex:/^[\w$character \.,-]*$/"),
-                'website' => array('required', 'max:50', "regex:/^\w+(\.[a-z]+)+$/")
+                'address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/"),
+                'website' => array('required', 'max:50',
+                    "regex:/^((http:\/\/)|(https:\/\/))?(www\.)?[a-z0-9]+(\.[a-z0-9]+)*(\.[a-z]+)+(\/[a-z0-9]*)*(\/|(\.php)|(\.html))?$/")
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

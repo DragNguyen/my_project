@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Image;
 use App\Price;
 use App\Product;
+use App\ProductTypeTrademark;
 use App\SpecificationProductType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -20,8 +21,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::paginate(10);
+        $product_type_trademarks = ProductTypeTrademark::all();
 
-        return view('admin.product.index.index', compact('products'));
+        return view('admin.product.index.index', compact(['products', 'product_type_trademarks']));
     }
 
     /**
@@ -43,27 +45,33 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $validate = $this->validation($request);
+        if (empty($request->get('product-type-trademark-name'))) {
+            return back()->with('error', 'Bạn chưa chọn thương hiệu - loại sản phẩm!');
+        }
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
+        $price_input = str_replace(',', '', $request->get('price'));
+        if ($price_input < 1000) {
+            return back()->with('error', 'Giá tiền không được nhỏ hơn 1,000đ !');
+        }
         if (!$request->hasFile('product-image-upload') || !$request->hasFile('product-avatar-upload'))
         {
-            return back();
+            return back()->with('error', 'Bạn chưa upload hình ảnh!');
         }
         $product_images = $request->file('product-image-upload');
         $ext = $request->file('product-avatar-upload')->extension();
 
         $product = new Product();
         $product->name = $request->get('product-name');
-        $product->product_type_id = $request->get('product-type-name');
-        $product->trademark_id = $request->get('trademark-name');
+        $product->product_type_trademark_id = $request->get('product-type-trademark-name');
         $path = $request->file('product-avatar-upload')
             ->move('assets\img\product\avatar', "avatar-$product->id.$ext");
         $product->avatar = str_replace('\\', '/', $path);
         $product->save();
 
         $price = new Price();
-        $price->price = str_replace(' ', '', $request->get('price'));
+        $price->price = $price_input;
         $price->product_id = $product->id;
         $price->save();
 
@@ -76,7 +84,7 @@ class ProductController extends Controller
             $image->save();
         }
 
-        return back()->with('success', 'Thêm sản phẩm thành công.');
+        return back()->with('success', 'Thêm thành công.');
 
 
     }
@@ -116,14 +124,18 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
+        }
+
         $product = Product::findOrFail($id);
         $product->name = $request->get('product-name');
-        $product->product_type_id = $request->get('product_type_name');
-        $product->trademark_id = $request->get('trademark_id');
+        $product->product_type_trademark_id = $request->get('product_type_trademark_name');
 
         $product->update();
 
-        return back()->with('success', 'Sửa thông tin sản phẩm thành công.');
+        return back()->with('success', 'Sửa thành công.');
     }
 
     /**
@@ -141,12 +153,13 @@ class ProductController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'product-name' => 'required|max:100',
-                'price' => 'required'
+                'product-name' => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/"),
+                'price' => array('required', "regex:/^\d[\d,]*\d$/")
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'max' => ':attribute không được vượt quá :max ký tự!'
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
             ],
             [
                 'product-name' => 'Tên sản phẩm',

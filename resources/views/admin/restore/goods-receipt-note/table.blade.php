@@ -15,12 +15,14 @@
     @foreach($goods_receipt_notes as $stt => $goods_receipt_note)
         <tr>
             <td class="center aligned">
-                <input type="checkbox" id="table_records" class="flat"
-                       name="goods-receipt-note-id[]" value="{{ $goods_receipt_note->id }}">
+                @if($goods_receipt_note->canDelete())
+                    <input type="checkbox" id="table_records" class="flat"
+                           name="goods-receipt-note-id[]" value="{{ $goods_receipt_note->id }}">
+                @endif
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $goods_receipt_note->name }}</td>
-            <td>{{ date_format(date_create($goods_receipt_note->date), 'd/m/Y') }}</td>
+            <td>{{ $goods_receipt_note->date }}</td>
             <td>{{ $goods_receipt_note->supplier_name }}</td>
             <td class="collapsing center aligned">
                 <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue mini button">
@@ -28,8 +30,7 @@
                 </a>
             </td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button"
-                   onclick="$('#modal-edit-goods-receipt-note-{{ $goods_receipt_note->id }}').modal('show')">
+                <a class="ui green mini button" onclick="$('#modal-edit-product-type-').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>
             </td>

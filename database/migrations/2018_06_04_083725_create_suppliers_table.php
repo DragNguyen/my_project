@@ -19,6 +19,7 @@ class CreateSuppliersTable extends Migration
             $table->string('phone', 20);
             $table->string('address', 100);
             $table->string('website', 50);
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

@@ -65,13 +65,13 @@
                         <strong>Thương hiệu:</strong>
                     </div>
                     <div class="eleven wide column">
-                        {{ $product->trademark->name }}
+                        {{ $product->getTrademark()->name }}
                     </div>
                     <div class="five wide column">
                         <strong>Loại sản phẩm:</strong>
                     </div>
                     <div class="eleven wide column">
-                        {{ $product->productType->name }}
+                        {{ $product->getProductType()->name }}
                     </div>
                 </div>
             </div>

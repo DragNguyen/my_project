@@ -105,4 +105,14 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * */
     Route::post('my_self/change_avatar/{id}', 'Admin\AdminController@updateAvatar')->name('update_avatar');
     Route::post('my_self/change_password/{id}', 'Admin\AdminController@updatePassword')->name('update_password');
+
+    /*
+     * Restore
+     * */
+
+    // Supplier
+    Route::resource('supplier_restore', 'Admin\Restore\SupplierRestoreController');
+
+    // Goods_receipt_note
+    Route::resource('goods_receipt_note_restore', 'Admin\Restore\GoodsReceiptNoteRestoreController');
 });

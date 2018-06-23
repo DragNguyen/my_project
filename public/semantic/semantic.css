@@ -8080,7 +8080,7 @@ for instance `lemon icon` not `lemon outline icon` since there is only one lemon
 
 /* Icons */
 
-i.icon.\35 00px:before {
+i.icon.\3500px:before {
   content: "\f26e";
 }
 
@@ -13269,7 +13269,7 @@ i.icon.star.empty:before {
 
 /* Brand Icon Font Family */
 
-i.icon.\35 00px,
+i.icon.\3500px,
 i.icon.accessible.icon,
 i.icon.accusoft,
 i.icon.adn,

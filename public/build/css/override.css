@@ -143,3 +143,7 @@ td .ui.button {
 .ui.modal .actions>.button {
     margin-left: 0px;
 }
+
+.ui.dropdown .menu .ui.label {
+    width: 50%;
+}

@@ -1,12 +1,14 @@
 <div class="mini ui modal" id="modal-create-product">
     <div class="header modal-header">Thêm sản phẩm</div>
     <div class="scrolling content">
-        <form class="ui form" method="post" action="{{ route('product.store') }}" enctype="multipart/form-data">
+        <form class="ui form" method="post" id="form-create-product"
+              action="{{ route('product.store') }}" enctype="multipart/form-data">
             {{ csrf_field() }}
 
             <div class="ui secondary menu" style="margin-top: 0px">
                 <a class="item active" data-tab="first">Thông tin</a>
-                <a class="item" data-tab="second">Hình ảnh</a>
+                <a class="item" data-tab="second">Ảnh đại diện</a>
+                <a class="item" data-tab="third">Ảnh chi tiết</a>
             </div>
             <div class="ui tab active segment" data-tab="first">
                 @include('admin.product.create.tab-info')
@@ -14,13 +16,13 @@
             <div class="ui tab segment" data-tab="second">
                 @include('admin.product.create.tab-image')
             </div>
-
-            <div class="field">
-                <button class="ui fluid blue button" type="submit">
-                    <strong>OK</strong>
-                </button>
+            <div class="ui tab segment" data-tab="third">
+                @include('admin.product.create.tab-images')
             </div>
         </form>
+    </div>
+    <div class="actions">
+        <input type="submit" class="ui fluid blue button" value="OK" form="form-create-product">
     </div>
 </div>
 
