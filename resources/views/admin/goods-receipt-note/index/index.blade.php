@@ -24,6 +24,6 @@
         @include('admin.goods-receipt-note.index.table')
     </form>
 
-    @include('admin.goods-receipt-note.index.modal')
+    @include('admin.goods-receipt-note.index.modals')
 
 @endsection

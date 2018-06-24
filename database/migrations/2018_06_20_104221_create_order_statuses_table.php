@@ -15,13 +15,15 @@ class CreateOrderStatusesTable extends Migration
     {
         Schema::create('order_statuses', function (Blueprint $table) {
             $table->increments('id');
-            $table->tinyInteger('status');
-            $table->dateTime('approved_at');
-            $table->string('approver', 50);
-            $table->integer('admin_id')->unsigned();
+            $table->tinyInteger('status')->default(0);
+            $table->dateTime('approved_at')->nullable();
+            $table->string('approver', 50)->nullable();
+            $table->integer('admin_id')->unsigned()->nullable();
+            $table->integer('order_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('admin_id')->references('id')->on('admins');
+            $table->foreign('admin_id')->references('id')->on('admins')->onDelete('cascade');
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 

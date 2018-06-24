@@ -71,6 +71,8 @@
                 <ul class="nav child_menu">
                     <li><a href="{{ route('supplier_restore.index') }}">Nhà cung cấp</a></li>
                     <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
+                    <li><a href="{{ route('product_restore.index') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('order_restore.index') }}">Đơn hàng</a></li>
                 </ul>
             </li>
         </ul>

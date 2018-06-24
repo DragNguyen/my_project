@@ -15,11 +15,14 @@ class CreateOrdersTable extends Migration
     {
         Schema::create('orders', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('code', 12);
             $table->string('recipient', 50);
             $table->string('email', 100);
             $table->string('phone', 20);
             $table->string('address', 100);
-            $table->dateTime('order_created_at')->default(date('Y-m-d h:i:s'));
+            $table->double('price');
+            $table->boolean('is_deleted')->default(false);
+            $table->dateTime('order_created_at')->default(date('Y-m-d H:i:s'));
             $table->timestamps();
         });
     }

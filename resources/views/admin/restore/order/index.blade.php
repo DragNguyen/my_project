@@ -1,15 +1,17 @@
 @extends('admin.master')
 
-@section('title', 'Phục hồi - Nhập hàng')
+@section('title', 'Đơn hàng')
 
 @section('content')
-    <h2 class="ui dividing header">Phục hồi >>
-        <span class="header-2">Nhập hàng</span>
-    </h2>
+    <div class="ui dividing header">
+        <h2>Phục hồi >>
+            <span class="header-2">Đơn hàng</span>
+        </h2>
+    </div>
 
     @include('admin.layouts.components.success')
 
-    <form action="{{ route('goods_receipt_note_restore.store', [0]) }}" method="post">
+    <form action="{{ route('order_restore.store', [0]) }}" method="post">
         {{ csrf_field() }}
 
         <button class="ui blue button" data-tooltip="Phục hồi đã chọn" type="submit"
@@ -17,7 +19,6 @@
             <i class="undo fitted icon"></i>
         </button>
 
-        @include('admin.restore.goods-receipt-note.table')
+        @include('admin.restore.order.table')
     </form>
-
 @endsection

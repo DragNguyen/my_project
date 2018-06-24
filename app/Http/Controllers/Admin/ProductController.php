@@ -20,7 +20,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        $products = Product::where('is_deleted', false)->paginate(10);
         $product_type_trademarks = ProductTypeTrademark::all();
 
         return view('admin.product.index.index', compact(['products', 'product_type_trademarks']));
@@ -144,9 +144,24 @@ class ProductController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if (!$request->has('product-ids')) {
+            return back();
+        }
+        $ids = $request->get('product-ids');
+        foreach($ids as $id) {
+            $product = Product::findOrFail($id);
+            if ($product->canDelete()) {
+                $product->delete();
+            }
+            else {
+                $product->is_deleted = true;
+                $product->update();
+            }
+        }
+
+        return back()->with('success', 'Xóa thành công.');
     }
 
     public function validation(Request $request) {

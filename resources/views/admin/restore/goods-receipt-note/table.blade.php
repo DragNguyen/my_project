@@ -15,10 +15,8 @@
     @foreach($goods_receipt_notes as $stt => $goods_receipt_note)
         <tr>
             <td class="center aligned">
-                @if($goods_receipt_note->canDelete())
-                    <input type="checkbox" id="table_records" class="flat"
-                           name="goods-receipt-note-id[]" value="{{ $goods_receipt_note->id }}">
-                @endif
+                <input type="checkbox" id="table_records" class="flat"
+                       name="goods-receipt-note-ids[]" value="{{ $goods_receipt_note->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $goods_receipt_note->name }}</td>

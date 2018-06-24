@@ -2,8 +2,6 @@
 
 @section('title', 'Chi tiết sản phẩm')
 
-@section('nav_title', 'Chi tiết sản phẩm')
-
 @section('content')
 
     <h2 class="ui dividing header">

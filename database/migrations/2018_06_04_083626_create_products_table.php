@@ -23,6 +23,7 @@ class CreateProductsTable extends Migration
             $table->boolean('is_activated')->default(true);
             $table->string('describe', 255)->nullable();
             $table->integer('product_type_trademark_id')->unsigned();
+            $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });
     }

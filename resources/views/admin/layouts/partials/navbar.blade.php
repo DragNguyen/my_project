@@ -133,6 +133,11 @@
                         {{--</li>--}}
                     </ul>
                 </li>
+                <li>
+                    <a>
+                        <i class="fa fa-chevron-left"></i>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>

@@ -15,10 +15,11 @@ class CreateSalesOffsTable extends Migration
     {
         Schema::create('sales_offs', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 100);
-            $table->integer('value');
-            $table->date('begin_at');
-            $table->date('end_at');
+            $table->string('name', 100)->nullable();
+            $table->integer('value')->nullable();
+            $table->date('begin_at')->nullable();
+            $table->date('end_at')->nullable();
+            $table->boolean('is_deleted')->default(false);
             $table->integer('sales_off_id')->unsigned()->nullable();
             $table->timestamps();
 

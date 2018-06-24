@@ -66,26 +66,34 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * Product
      * */
     Route::resource('product', 'Admin\ProductController');
+    Route::resource('product_restore', 'Admin\Restore\ProductRestoreController', ['only' => ['index', 'store']]);
 
     /*
      * Supplier
      * */
     Route::resource('supplier', 'Admin\SupplierController');
+    Route::resource('supplier_restore', 'Admin\Restore\SupplierRestoreController', ['only' => ['index', 'store']]);
 
     /*
      * Order
      * */
     Route::resource('order', 'Admin\OrderController');
+    Route::resource('order_restore', 'Admin\Restore\OrderRestoreController', ['only' => ['index', 'store']]);
+    Route::get('order/destroy/{id}', 'Admin\OrderController@orderDestroy')->name('order_destroy');
+    Route::get('order/approve/{id}', 'Admin\OrderController@orderApprove')->name('order_approve');
 
     /*
      * Sales off
      * */
     Route::resource('sales_off', 'Admin\SalesOffController');
+    Route::resource('sales_off_product', 'Admin\SalesOffProduct');
 
     /*
      * Goods receipt note - Nhap hang
      * */
     Route::resource('goods_receipt_note', 'Admin\GoodsReceiptNoteController');
+    Route::resource('goods_receipt_note_restore', 'Admin\Restore\GoodsReceiptNoteRestoreController',
+        ['only' => ['index', 'store']]);
     Route::resource('goods_receipt_note_product', 'Admin\GoodsReceiptNoteProductController');
 
     /*
@@ -105,14 +113,4 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * */
     Route::post('my_self/change_avatar/{id}', 'Admin\AdminController@updateAvatar')->name('update_avatar');
     Route::post('my_self/change_password/{id}', 'Admin\AdminController@updatePassword')->name('update_password');
-
-    /*
-     * Restore
-     * */
-
-    // Supplier
-    Route::resource('supplier_restore', 'Admin\Restore\SupplierRestoreController');
-
-    // Goods_receipt_note
-    Route::resource('goods_receipt_note_restore', 'Admin\Restore\GoodsReceiptNoteRestoreController');
 });

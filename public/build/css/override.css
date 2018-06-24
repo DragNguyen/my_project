@@ -13,10 +13,10 @@
 
 body {
     overflow: auto;
-    color: #73879C;
+    /*color: #73879C;*/
     background: #F7F7F7;
     font-size: 13px;
-    font-family: "Helvetica Neue",Roboto,Arial,"Droid Sans",sans-serif;
+    font-family: "Helvetica Neue",Roboto,Arial,"Droid S ans",sans-serif;
 }
 
 .sidebar-footer a, .nav.toggle a {
@@ -146,4 +146,16 @@ td .ui.button {
 
 .ui.dropdown .menu .ui.label {
     width: 50%;
+}
+
+.ui.header {
+    color: #73879C;
+}
+
+.ui.label {
+    font-family: 'Segoe UI', Tahoma, Arial, san-serif !important;
+}
+
+.ui.button {
+    font-family: 'Segoe UI', Tahoma, Arial, san-serif !important;
 }

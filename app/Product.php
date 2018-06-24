@@ -27,8 +27,19 @@ class Product extends Model
         return $this->belongsTo(ProductTypeTrademark::class);
     }
 
+    public function goodsReceiptNoteProducts() {
+        return $this->hasMany(GoodsReceiptNoteProduct::class);
+    }
+
+    public function orderProducts() {
+        return $this->hasMany(OrderProduct::class);
+    }
+
     public function status() {
-        return ($this->is_activated) ? 'Đang bán' : 'Ngừng kinh doanh';
+        if ($this->is_deleted) {
+            return 'Ngừng kinh doanh';
+        }
+        return ($this->is_activated) ? 'Đang bán' : 'Tạm hết hàng';
     }
 
     public function getProductType() {
@@ -51,5 +62,15 @@ class Product extends Model
     public function getChangedQuantity($quantity) {
         $changed_quantity = $this->quantity + $quantity;
         return ($changed_quantity > 0) ? $changed_quantity : 0;
+    }
+
+    public function canDelete() {
+        if ($this->goodsReceiptNoteProducts->count() > 0) {
+            return false;
+        }
+        if ($this->orderProducts->count() > 0) {
+            return false;
+        }
+        return true;
     }
 }

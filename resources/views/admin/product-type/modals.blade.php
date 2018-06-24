@@ -1,19 +1,18 @@
 <div class="mini ui modal" id="modal-create-product-type">
     <div class="header modal-header">Thêm loại sản phẩm</div>
     <div class="content">
-        <form class="ui form" method="post" action="{{ route('product_type.store') }}">
+        <form class="ui form" method="post" action="{{ route('product_type.store') }}" id="form-add-product-type">
             {{ csrf_field() }}
 
             <div class="field">
                 <label>Tên loại sản phẩm</label>
-                <input type="text" name="product-type-name" value="bla bla">
+                <input type="text" name="product-type-name" value="bla bla" id="product_type_name">
             </div>
             <div class="field">
                 <button class="ui fluid blue button" type="submit">
                     <strong>OK</strong>
                 </button>
             </div>
-
         </form>
     </div>
 </div>
