@@ -5,6 +5,7 @@
     </th>
     <th class="collapsing center aligned">STT</th>
     <th>Giá trị</th>
+    <th class="collapsing center aligned">Sản phẩm</th>
     <th class="collapsing center aligned">Sửa</th>
     </thead>
 
@@ -13,13 +14,18 @@
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
-                       name="goods-receipt-note-id[]" value="{{ $sales_off_child->id }}">
+                       name="sales-off-child-ids[]" value="{{ $sales_off_child->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $sales_off_child->value }}%</td>
+            <td class="center aligned">
+                <a href="{{ route('sales_off.edit', [$sales_off_child->id]) }}">
+                    <i class="laptop fitted icon"></i>
+                </a>
+            </td>
             <td class="collapsing center aligned">
                 <a class="ui green mini button"
-                   onclick="$('#modal-edit-sales-off-product-{{ $sales_off_child->id }}').modal('show')">
+                   onclick="$('#modal-edit-sales-off-child-{{ $sales_off_child->id }}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>
             </td>

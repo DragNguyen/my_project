@@ -134,8 +134,14 @@ td .ui.button {
     }
 }
 
+/*Header*/
+
 .header-2 {
     font-size: 20px;
+}
+
+.header-3 {
+    font-size: 17px;
 }
 
 /*Modal*/

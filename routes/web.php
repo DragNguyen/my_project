@@ -86,7 +86,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * Sales off
      * */
     Route::resource('sales_off', 'Admin\SalesOffController');
-    Route::resource('sales_off_product', 'Admin\SalesOffProduct');
+    Route::resource('sales_off_restore', 'Admin\Restore\SalesOffRestoreController', ['only' => ['index', 'store']]);
+    Route::resource('sales_off_child', 'Admin\SalesOffChildController');
+    Route::resource('sales_off_product', 'Admin\SalesOffProductController');
 
     /*
      * Goods receipt note - Nhap hang

@@ -73,6 +73,7 @@
                     <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
                     <li><a href="{{ route('product_restore.index') }}">Sản phẩm</a></li>
                     <li><a href="{{ route('order_restore.index') }}">Đơn hàng</a></li>
+                    <li><a href="{{ route('sales_off_restore.index') }}">Khuyến mãi</a></li>
                 </ul>
             </li>
         </ul>

@@ -34,43 +34,33 @@
     </div>
 </div>
 
-{{--@foreach($goods_receipt_notes as $goods_receipt_note)--}}
-    {{--<div class="mini ui modal" id="modal-edit-goods-receipt-note-{{ $goods_receipt_note->id }}">--}}
-        {{--<div class="header modal-header">Sửa phiếu nhập hàng</div>--}}
-        {{--<div class="scrolling content">--}}
-            {{--<form class="ui form" id="form-edit-goods-receipt-note-{{ $goods_receipt_note->id }}" method="post"--}}
-                  {{--action="{{ route('goods_receipt_note.update', [$goods_receipt_note->id]) }}">--}}
-                {{--{{ csrf_field() }}--}}
-                {{--{{ method_field('PUT') }}--}}
+@foreach($sales_offs as $sales_off)
+    <div class="mini ui modal" id="modal-edit-sales-off-{{ $sales_off->id }}">
+        <div class="header modal-header">Sửa khuyến mãi</div>
+        <div class="scrolling content">
+            <form class="ui form" id="form-edit-sales-off-{{ $sales_off->id }}" method="post"
+                  action="{{ route('sales_off.update', [$sales_off->id]) }}">
+                {{ csrf_field() }}
+                {{ method_field('PUT') }}
 
-                {{--<div class="field">--}}
-                    {{--<label>Tên nhà cung cấp</label>--}}
-                    {{--<select class="ui search selection dropdown" name="supplier">--}}
-                        {{--@foreach($suppliers as $supplier)--}}
-                            {{--<option value="{{ $supplier->id }}"--}}
-                                    {{--{{ ($goods_receipt_note->supplier_id==$supplier->id)?'selected':'' }}>--}}
-                                {{--{{ $supplier->name }}--}}
-                            {{--</option>--}}
-                        {{--@endforeach--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                    {{--<label>Ngày nhập hàng</label>--}}
-                    {{--<input type="date" name="date" value="{{ $goods_receipt_note->date }}">--}}
-                {{--</div>--}}
-                {{--<div class="field">--}}
-                    {{--<label>Tên người nhập hàng</label>--}}
-                    {{--<select class="ui selection dropdown" name="admin" disabled>--}}
-                        {{--<option value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">--}}
-                            {{--{{ \Illuminate\Support\Facades\Auth::user()->name }}--}}
-                        {{--</option>--}}
-                    {{--</select>--}}
-                {{--</div>--}}
-            {{--</form>--}}
-        {{--</div>--}}
-        {{--<div class="actions">--}}
-            {{--<input type="submit" value="OK"--}}
-                   {{--form="form-edit-goods-receipt-note-{{ $goods_receipt_note->id }}" class="ui fluid blue button">--}}
-        {{--</div>--}}
-    {{--</div>--}}
-{{--@endforeach--}}
+                <input type="hidden" value="true" name="sales-off-parent">
+                <div class="field">
+                    <label>Tên khuyến mãi</label>
+                    <input type="text" name="sales-off-name" value="{{ $sales_off->name }}">
+                </div>
+                <div class="field">
+                    <label>Ngày bắt đầu</label>
+                    <input type="date" name="begin-at" value="{{ $sales_off->begin_at }}">
+                </div>
+                <div class="field">
+                    <label>Ngày kết thúc</label>
+                    <input type="date" name="end-at"
+                           value="{{ $sales_off->end_at }}">
+                </div>
+            </form>
+        </div>
+        <div class="actions">
+            <input type="submit" value="OK" form="form-edit-sales-off-{{ $sales_off->id }}" class="ui fluid blue button">
+        </div>
+    </div>
+@endforeach

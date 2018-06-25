@@ -6,6 +6,11 @@
     ;
 
     $('.ui.dropdown').dropdown({ fullTextSearch: true });
+    $('.dropdown-tag')
+        .dropdown({
+            allowAdditions: true
+        })
+    ;
 
     // close message
 
@@ -97,12 +102,15 @@
             context: $('#context1')
         })
     ;
-
+    
     // Modal
 
-    $('.long.modal')
-        .modal('show')
-    ;
+    $(".ui.modal").modal("setting",{
+        onVisible: function(){
+            $(this).modal("set type");
+        }
+    });
+    $(".ui.modal").modal({ observeChanges: true });
 
     // Date
 

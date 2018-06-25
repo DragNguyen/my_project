@@ -19,7 +19,7 @@ class CreateSalesOffProductsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('sales_off_id')->references('id')->on('sales_offs');
+            $table->foreign('sales_off_id')->references('id')->on('sales_offs')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products');
         });
     }

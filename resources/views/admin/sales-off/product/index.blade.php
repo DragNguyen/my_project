@@ -6,14 +6,19 @@
     <h2 class="ui dividing header">
         <a href="{{ route('sales_off.index') }}">Khuyến mãi</a>
         >>
-        <span class="header-2">{{ $sales_off->name }}</span>
+        <span class="header-3">
+            <a href="{{ route('sales_off.show', [$sales_off_child->salesOff->id]) }}">
+            {{ $sales_off_child->salesOff->name }}</a>
+            >>
+        </span>
+        <span class="header-3">{{ $sales_off_child->value }}%</span>
     </h2>
 
     @include('admin.layouts.components.success')
     @include('admin.layouts.components.errors')
     @include('admin.layouts.components.error')
 
-    <form action="{{ route('sales_off.destroy', [0])}}" method="post">
+    <form action="{{ route('sales_off_product.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
 
@@ -22,13 +27,13 @@
             <i class="delete fitted icon"></i>
         </button>
 
-        <a onclick="$('#modal-create-sales-off-child').modal('show')"
+        <a onclick="$('#modal-create-sales-off-product').modal('show')"
            class="blue ui button" data-tooltip="Thêm mới">
             <i class="fitted add icon"></i>
         </a>
 
-        @include('admin.sales-off.child.table')
+        @include('admin.sales-off.product.table')
     </form>
 
-    @include('admin.sales-off.child.modals')
+    @include('admin.sales-off.product.modals')
 @endsection

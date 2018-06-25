@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Product;
 use App\SalesOff;
 use App\SalesOffProduct;
 use Illuminate\Http\Request;
@@ -27,9 +28,9 @@ class SalesOffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -91,7 +92,12 @@ class SalesOffController extends Controller
      */
     public function edit($id)
     {
-        //
+        $sales_off_child = SalesOff::find($id);
+        $sales_off_products = $sales_off_child->salesOffProducts()->paginate(10);
+        $products = Product::all();
+
+        return view('admin.sales-off.product.index',
+            compact(['sales_off_child', 'sales_off_products', 'products']));
     }
 
     /**
@@ -103,7 +109,13 @@ class SalesOffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $sales_off = SalesOff::findOrFail($id);
+        $sales_off->name = $request->get('sales-off-name');
+        $sales_off->begin_at = $request->get('begin-at');
+        $sales_off->end_at = $request->get('end-at');
+        $sales_off->update();
+
+        return back()->with('success', 'Cập nhật thành công.');
     }
 
     /**
@@ -112,8 +124,33 @@ class SalesOffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if ($request->has('sales-off-ids')) {
+            $ids = $request->get('sales-off-ids');
+            foreach($ids as $id) {
+                $sales_off = SalesOff::findOrFail($id);
+                if ($sales_off->canDelete()) {
+                    $sales_off->delete();
+                }
+                else {
+                    $sales_off->is_deleted = true;
+                    $sales_off->update();
+                }
+            }
+
+            return back()->with('success', 'Xóa thành công.');
+        }
+        if ($request->has('sales-off-child-ids')) {
+            $ids = $request->get('sales-off-child-ids');
+            SalesOff::destroy($ids);
+
+            return back()->with('success', 'Xóa thành công.');
+        }
+        return back();
+    }
+
+    public function validation($request) {
+
     }
 }

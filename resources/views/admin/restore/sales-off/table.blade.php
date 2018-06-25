@@ -7,7 +7,6 @@
     <th>Tên khuyến mãi</th>
     <th>Ngày bắt đầu</th>
     <th>Ngày kết thúc</th>
-    <th class="collapsing center aligned">Sửa</th>
     </thead>
 
     <tbody>
@@ -15,7 +14,7 @@
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
-                       name="sales-off-ids[]" value="{{ $sales_off->id }}">
+                       name="sales-off-restore-ids[]" value="{{ $sales_off->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>
@@ -25,12 +24,6 @@
             </td>
             <td>{{ date_format(date_create($sales_off->begin_at), 'd/m/Y') }}</td>
             <td>{{ date_format(date_create($sales_off->end_at), 'd/m/Y') }}</td>
-            <td class="collapsing center aligned">
-                <a class="ui green mini button"
-                   onclick="$('#modal-edit-sales-off-{{ $sales_off->id }}').modal('show')">
-                    <i class="edit fitted icon"></i>
-                </a>
-            </td>
         </tr>
     @endforeach
     </tbody>
