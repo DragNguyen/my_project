@@ -23,12 +23,12 @@
             <td>{{ date_format(date_create($goods_receipt_note->date), 'd/m/Y') }}</td>
             <td>{{ $goods_receipt_note->supplier_name }}</td>
             <td class="collapsing center aligned">
-                <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue mini button">
+                <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue small label">
                     <i class="fitted eye icon"></i>
                 </a>
             </td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button"
+                <a class="ui green small label"
                    onclick="$('#modal-edit-goods-receipt-note-{{ $goods_receipt_note->id }}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>

@@ -20,9 +20,10 @@ class CreateProductsTable extends Migration
             $table->dateTime('product_updated_at')->nullable();
             $table->string('avatar')->nullable();
             $table->integer('quantity')->default(0);
-            $table->boolean('is_activated')->default(true);
+//            $table->boolean('is_activated')->default(true);
             $table->string('describe', 255)->nullable();
-            $table->integer('product_type_trademark_id')->unsigned();
+            $table->integer('product_type_id')->unsigned();
+            $table->integer('trademark_id')->unsigned();
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });

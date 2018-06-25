@@ -134,7 +134,7 @@
                     </ul>
                 </li>
                 <li>
-                    <a>
+                    <a href="{{ URL::previous() }}">
                         <i class="fa fa-chevron-left"></i>
                     </a>
                 </li>

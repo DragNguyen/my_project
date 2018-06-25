@@ -99,7 +99,7 @@ class OrderController extends Controller
      */
     public function edit($id)
     {
-        //
+
     }
 
     /**
@@ -109,9 +109,9 @@ class OrderController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update($id)
     {
-        //
+
     }
 
     /**
@@ -158,5 +158,18 @@ class OrderController extends Controller
         $order_status->update();
 
         return back()->with('success', 'Duyệt đơn hàng thành công.');
+    }
+
+    public function orderChangeStatus($id) {
+        $order_status = OrderStatus::findOrFail(Order::find($id)->orderStatus->first()->id);
+        if ($order_status->status == 1) {
+            $order_status->status = 2;
+        }
+        else {
+            $order_status->status = 1;
+        }
+        $order_status->update();
+
+        return back()->with('success', 'Cập nhật thành công.');
     }
 }

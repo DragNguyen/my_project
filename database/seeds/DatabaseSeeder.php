@@ -16,7 +16,6 @@ class DatabaseSeeder extends Seeder
              SupplierSeeder::class,
              ProductTypeSeeder::class,
              TrademarkSeeder::class,
-             ProductTypeTrademarkSeeder::class,
              ProductSeeder::class,
              PriceSeeder::class,
          ]);

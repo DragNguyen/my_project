@@ -16,7 +16,7 @@
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
-                       name="goods-receipt-note-product-id[]" value="{{ $goods_receipt_note_product->id }}">
+                       name="goods-receipt-note-product-ids[]" value="{{ $goods_receipt_note_product->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>

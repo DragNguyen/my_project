@@ -19,7 +19,7 @@
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $sales_off_child->value }}%</td>
             <td class="center aligned">
-                <a href="{{ route('sales_off.edit', [$sales_off_child->id]) }}">
+                <a href="{{ route('sales_off_child.show', [$sales_off_child->id]) }}">
                     <i class="laptop fitted icon"></i>
                 </a>
             </td>

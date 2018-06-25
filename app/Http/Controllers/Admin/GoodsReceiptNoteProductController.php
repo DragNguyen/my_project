@@ -43,7 +43,12 @@ class GoodsReceiptNoteProductController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-
+        if($request->get('quantity') > 500) {
+            return back()->with('error', 'Số luọng không được vượt quá 500!');
+        }
+        if($request->get('quantity') < 1) {
+            return back()->with('error', 'Số luọng không được nhỏ hơn 1!');
+        }
         $price = str_replace(',', '', $request->get('price'));
         if ($price > 100000000) {
             return back()->with('error', 'Giá tiền không được vượt quá 100,000,000đ !');
@@ -103,6 +108,12 @@ class GoodsReceiptNoteProductController extends Controller
             return back()->withErrors($validate);
         }
 
+        if($request->get('quantity') > 500) {
+            return back()->with('error', 'Số luọng không được vượt quá 500!');
+        }
+        if($request->get('quantity') < 1) {
+            return back()->with('error', 'Số luọng không được nhỏ hơn 1!');
+        }
         $price = str_replace(',', '', $request->get('price'));
         if ($price > 100000000) {
             return back()->with('error', 'Đơn giá không được vượt quá 100,000,000đ !');
@@ -139,11 +150,11 @@ class GoodsReceiptNoteProductController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->get('goods-receipt-note-product-id');
+        $ids = $request->get('goods-receipt-note-product-ids');
 
         foreach ($ids as $id) {
-            $product = Product::findOrFail($id);
-            $goods_receipt_note_product = GoodsReceiptNoteProduct::find($id);
+            $goods_receipt_note_product = GoodsReceiptNoteProduct::findOrFail($id);
+            $product = $goods_receipt_note_product->product;
             $quantity_changed = - $goods_receipt_note_product->quantity_updated;
             $goods_receipt_note_product->delete();
             $product->quantity = $product->getChangedQuantity($quantity_changed);
@@ -156,8 +167,8 @@ class GoodsReceiptNoteProductController extends Controller
     public function validation($request) {
         $validate = Validator::make($request->all(),
             [
-                'quantity' => 'required|numeric|min:1|max:500',
-                'price' => array('required', 'regex:/^(\d|,)*$/')
+                'quantity' => array('required', 'regex:/^\d+$/'),
+                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]{1,3}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

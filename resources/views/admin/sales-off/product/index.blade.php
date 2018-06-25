@@ -6,7 +6,7 @@
     <h2 class="ui dividing header">
         <a href="{{ route('sales_off.index') }}">Khuyến mãi</a>
         >>
-        <span class="header-3">
+        <span class="header-2">
             <a href="{{ route('sales_off.show', [$sales_off_child->salesOff->id]) }}">
             {{ $sales_off_child->salesOff->name }}</a>
             >>

@@ -1,6 +1,6 @@
 <div class="mini ui modal" id="modal-create-goods-receipt-note">
     <div class="header modal-header">Thêm phiếu nhập hàng</div>
-    <div class="scrolling content">
+    <div class="content">
         <form class="ui form" id="form-add-goods-receipt-note" method="post"
               action="{{ route('goods_receipt_note.store') }}">
             {{ csrf_field() }}
@@ -21,12 +21,16 @@
             </div>
             <div class="field">
                 <label>Tên người nhập hàng</label>
-                <select class="ui selection dropdown" name="admin">
+                <select class="ui disabled selection dropdown" name="admin">
                     <option value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
                         {{ \Illuminate\Support\Facades\Auth::user()->name }}
                     </option>
                 </select>
             </div>
+            <span style="margin-top: 10px">
+                <strong>Lưu ý:</strong>
+                Ngày nhập hàng <strong>không trước</strong> ngày 01/01/2018 hoặc <strong>sau</strong> ngày hiện tại.
+            </span>
         </form>
     </div>
     <div class="actions">
@@ -37,7 +41,7 @@
 @foreach($goods_receipt_notes as $goods_receipt_note)
     <div class="mini ui modal" id="modal-edit-goods-receipt-note-{{ $goods_receipt_note->id }}">
         <div class="header modal-header">Sửa phiếu nhập hàng</div>
-        <div class="scrolling content">
+        <div class="content">
             <form class="ui form" id="form-edit-goods-receipt-note-{{ $goods_receipt_note->id }}" method="post"
                   action="{{ route('goods_receipt_note.update', [$goods_receipt_note->id]) }}">
                 {{ csrf_field() }}

@@ -7,16 +7,32 @@
 
             <div class="field">
                 <label>Tên khuyến mãi</label>
-                <input type="text" name="sales-off-name" value="Quốc tế thiếu nhi 1/6">
+                <div class="ui corner labeled input">
+                    <input type="text" placeholder="Nhập tên khuyến mãi..."
+                           name="sales-off-name" value="Quốc tế thiếu nhi 1/6">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <label>Ngày bắt đầu</label>
-                <input type="date" name="begin-at" value="{{ date('Y-m-d') }}">
+                <div class="ui corner labeled input">
+                    <input type="date" name="begin-at" value="{{ date('Y-m-d') }}">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <label>Ngày kết thúc</label>
-                <input type="date" name="end-at"
-                       value="{{ date_format(date_modify(date_create(date('Y-m-d')), '+5 days'), 'Y-m-d') }}">
+                <div class="ui corner labeled input">
+                    <input type="date" name="end-at"
+                           value="{{ date_format(date_modify(date_create(date('Y-m-d')), '+5 days'), 'Y-m-d') }}">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
             </div>
             <div class="field">
                 <label>Giá trị khuyến mãi</label>

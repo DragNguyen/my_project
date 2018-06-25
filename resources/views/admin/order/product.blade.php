@@ -5,7 +5,9 @@
 @section('content')
 
     <h2 class="ui dividing header">
-        Đơn hàng >> <span class="header-2">Chi tiết đơn hàng</span>
+        <a href="{{ route('order.index') }}">Đơn hàng</a>
+        >>
+        <span class="header-2">Chi tiết đơn hàng</span>
     </h2>
 
     @include('admin.layouts.components.success')
@@ -46,7 +48,7 @@
                     <strong>Ngày tạo đơn hàng:</strong>
                 </div>
                 <div class="nine wide column">
-                    {{ $order->order_created_at }}
+                    {{ date_format(date_create($order->order_created_at), 'd/m/Y H:i:s') }}
                 </div>
                 <div class="seven wide column">
                     <strong>Tình trạng đơn hàng:</strong>
@@ -63,7 +65,11 @@
                             Đang vận chuyển
                         </span>
                         @if($order->is_deleted == false)
-                            <a class="ui small blue label">Thay đổi</a>
+                            <a href="{{ route('order_change_status', [$order->id]) }}"
+                               onclick="return confirm('Xác nhận thay đổi sang (đã giao hàng)?')"
+                               class="ui small blue label">
+                                Thay đổi
+                            </a>
                         @endif
                     @else
                         <span class="green">
@@ -71,7 +77,11 @@
                             Đã giao hàng
                         </span>
                         @if($order->is_deleted == false)
-                            <a class="ui small blue label">Thay đổi</a>
+                            <a href="{{ route('order_change_status', [$order->id]) }}"
+                               onclick="return confirm('Xác nhận thay đổi sang (đang vận chuyển)?')"
+                               class="ui small blue label">
+                                Thay đổi
+                            </a>
                         @endif
                     @endif
                 </div>
@@ -85,7 +95,7 @@
                     <strong>Thời gian duyệt đơn hàng:</strong>
                 </div>
                 <div class="nine wide column">
-                    {{ $order->orderStatus->first()->approved_at }}
+                    {{ date_format(date_create($order->orderStatus->first()->approved_at), 'd/m/Y H:i:s') }}
                 </div>
             </div>
         </div>

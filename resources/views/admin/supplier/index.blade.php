@@ -7,9 +7,6 @@
     @include('admin.supplier.modals')
 
     <h2 class="ui dividing header">Nhà cung cấp<a class="anchor" id="introduction"></a></h2>
-    <div class="floating right">
-        <a class="ui button"><i class="print icon"></i></a>
-    </div>
 
     @include('admin.layouts.components.errors')
 

@@ -16,7 +16,7 @@ class CreatePricesTable extends Migration
         Schema::create('prices', function (Blueprint $table) {
             $table->increments('id');
             $table->double('price');
-            $table->dateTime('price_updated_at')->default(date('Y-m-d'));
+            $table->dateTime('price_updated_at')->default(date('Y-m-d H:i:s'));
             $table->integer('product_id')->unsigned();
             $table->timestamps();
 

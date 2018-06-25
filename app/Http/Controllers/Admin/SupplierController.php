@@ -114,10 +114,10 @@ class SupplierController extends Controller
      */
     public function destroy(Request $request)
     {
-        if (!$request->has('supplier-id')) {
+        if (!$request->has('supplier-ids')) {
             return back();
         }
-        $ids = $request->get('supplier-id');
+        $ids = $request->get('supplier-ids');
 
         foreach($ids as $id) {
             $supplier = Supplier::findOrFail($id);

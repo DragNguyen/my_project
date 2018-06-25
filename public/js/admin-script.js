@@ -29,7 +29,12 @@
         $(".notification-message").fadeTo(500, 0).slideUp(500, function(){
             $(this).remove();
         });
-    }, 3000);
+    }, 5000);
+    window.setTimeout(function() {
+        $(".notification-message-errors").fadeTo(500, 0).slideUp(500, function(){
+            $(this).remove();
+        });
+    }, 10000);
 
     // auto position toggle
 
@@ -96,12 +101,6 @@
     $('.menu .item')
         .tab()
     ;
-
-    $('#context1 .menu .item')
-        .tab({
-            context: $('#context1')
-        })
-    ;
     
     // Modal
 
@@ -110,7 +109,7 @@
             $(this).modal("set type");
         }
     });
-    $(".ui.modal").modal({ observeChanges: true });
+    // $(".modal-autoscrolling").modal({ observeChanges: true });
 
     // Date
 

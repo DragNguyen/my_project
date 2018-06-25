@@ -13,7 +13,7 @@
     @include('admin.layouts.components.errors')
     @include('admin.layouts.components.error')
 
-    <form action="{{ route('sales_off.destroy', [0])}}" method="post">
+    <form action="{{ route('sales_off_child.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
 

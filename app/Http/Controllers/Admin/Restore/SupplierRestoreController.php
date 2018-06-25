@@ -33,7 +33,7 @@ class SupplierRestoreController extends Controller
         }
         $ids = $request->get('supplier-ids');
         foreach($ids as $id) {
-            $supplier = GoodsReceiptNote::findOrFail($id);
+            $supplier = Supplier::findOrFail($id);
             $supplier->is_deleted = false;
             $supplier->update();
         }

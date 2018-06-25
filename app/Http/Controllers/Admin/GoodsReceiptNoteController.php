@@ -7,6 +7,7 @@ use App\GoodsReceiptNote;
 use App\GoodsReceiptNoteProduct;
 use App\Product;
 use App\Supplier;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -46,13 +47,14 @@ class GoodsReceiptNoteController extends Controller
      */
     public function store(Request $request)
     {
-        if (!$request->has('date')) {
-            return back()->with('error', 'Bạn chưa chọn ngày nhập hàng!');
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
         }
         $date = $request->get('date');
         $toDate = date('Y-m-d');
-        if ($date < date_format(date_modify(date_create($toDate), '-30 days'), 'Y-m-d')) {
-            return back()->with('error', 'Ngày nhập hàng không được trước 30 ngày so với ngày hiện tại!');
+        if ($date < '2018-01-01') {
+            return back()->with('error', 'Ngày nhập hàng không được trước ngày 01/01/2018!');
         }
         if ($date > $toDate) {
             return back()->with('error', 'Ngày nhập hàng không được vượt quá ngày hiện tại!');
@@ -111,8 +113,9 @@ class GoodsReceiptNoteController extends Controller
      */
     public function update(Request $request, $id)
     {
-        if (!$request->has('date')) {
-            return back()->with('error', 'Bạn chưa chọn ngày nhập hàng!');
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
         }
         $goods_receipt_note = GoodsReceiptNote::findOrFail($id);
         $date = $request->get('date');
@@ -122,8 +125,8 @@ class GoodsReceiptNoteController extends Controller
         if (($date==$old_date) && ($supplier_id==$old_supplier)) {
             return back();
         }
-        if ($date < date_format(date_modify(date_create($old_date), '-30 days'), 'Y-m-d')) {
-            return back()->with('error', 'Ngày nhập hàng không được trước 30 ngày so với ngày trước đó!');
+        if ($date < '2018-01-01') {
+            return back()->with('error', 'Ngày nhập hàng không được trước ngày 01/01/2018!');
         }
         if ($date > date('Y-m-d')) {
             return back()->with('error', 'Ngày nhập hàng không được vượt quá ngày hiện tại!');
@@ -166,5 +169,21 @@ class GoodsReceiptNoteController extends Controller
         }
 
         return back()->with('success', 'Xóa thành công.');
+    }
+
+    public function validation($request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'date' => 'required'
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!'
+            ],
+            [
+                'date' => 'Ngày nhập hàng'
+            ]
+        );
+        return $validate;
     }
 }

@@ -9,18 +9,14 @@
     </h2>
 
     @include('admin.layouts.components.success')
-    @include('admin.layouts.components.errors')
 
-    <form action="{{ route('product.destroy', [0]) }}" method="post">
-        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit"
+    <form action="{{ route('product_restore.store', [0]) }}" method="post">
+        {{ csrf_field() }}
+
+        <button class="ui blue button" data-tooltip="Phục hồi đã chọn" type="submit" data-position="right center"
                 onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
-            <i class="delete fitted icon"></i>
+            <i class="undo fitted icon"></i>
         </button>
-
-        <a onclick="$('#modal-create-product').modal('show')"
-           class="blue ui button" data-tooltip="Thêm mới">
-            <i class="fitted add icon"></i>
-        </a>
 
         @include('admin.restore.product.table')
     </form>

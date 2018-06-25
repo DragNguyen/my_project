@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Product;
 use App\SalesOff;
 use Validator;
 use Illuminate\Http\Request;
@@ -80,7 +81,12 @@ class SalesOffChildController extends Controller
      */
     public function show($id)
     {
-        //
+        $sales_off_child = SalesOff::find($id);
+        $sales_off_products = $sales_off_child->salesOffProducts()->paginate(10);
+        $products = Product::all();
+
+        return view('admin.sales-off.product.index',
+            compact(['sales_off_child', 'sales_off_products', 'products']));
     }
 
     /**
@@ -111,7 +117,8 @@ class SalesOffChildController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'min' => ':attribute không được nhỏ hơn :min%!',
-                'max' => ':attribute không được vượt quá :max%!'
+                'max' => ':attribute không được vượt quá :max%!',
+                'numeric' => ':attribute không đúng định dạng!'
             ],
             [
                 'value' => 'Giá trị khuyến mãi'
@@ -133,8 +140,14 @@ class SalesOffChildController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
+        if (!$request->has('sales-off-child-ids')) {
+            return back();
+        }
+        $ids = $request->get('sales-off-child-ids');
+        SalesOff::destroy($ids);
+
+        return back()->with('success', 'Xóa thành công.');
     }
 }

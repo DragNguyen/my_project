@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Product;
 use App\SalesOff;
 use App\SalesOffProduct;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -41,9 +42,20 @@ class SalesOffController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
+        }
+
         $sales_off_name = $request->get('sales-off-name');
         $begin_at = $request->get('begin-at');
         $end_at = $request->get('end-at');
+        if ($begin_at < date('Y-m-d')) {
+            return back()->with('error', 'Ngày bắt đầu không được nhỏ hơn ngày hôm nay!');
+        }
+        if ($end_at < $begin_at) {
+            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!');
+        }
         if (SalesOff::where('name', $sales_off_name)
                 ->where('begin_at', $begin_at)
                 ->where('end_at', $end_at)->count() > 0)
@@ -92,12 +104,7 @@ class SalesOffController extends Controller
      */
     public function edit($id)
     {
-        $sales_off_child = SalesOff::find($id);
-        $sales_off_products = $sales_off_child->salesOffProducts()->paginate(10);
-        $products = Product::all();
 
-        return view('admin.sales-off.product.index',
-            compact(['sales_off_child', 'sales_off_products', 'products']));
     }
 
     /**
@@ -109,7 +116,33 @@ class SalesOffController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate);
+        }
+
         $sales_off = SalesOff::findOrFail($id);
+        $sales_off_name = $request->get('sales-off-name');
+        $begin_at = $request->get('begin-at');
+        $end_at = $request->get('end-at');
+
+        if (($sales_off_name == $sales_off->name) && ($begin_at == $sales_off->begin_at)
+            && ($end_at == $sales_off->end_at)) {
+            return back();
+        }
+        if ($begin_at < date('Y-m-d')) {
+            return back()->with('error', 'Ngày bắt đầu không được nhỏ hơn ngày hôm nay!');
+        }
+        if ($end_at < $begin_at) {
+            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!');
+        }
+        if (SalesOff::where('name', $sales_off_name)
+                ->where('begin_at', $begin_at)
+                ->where('end_at', $end_at)->count() > 0)
+        {
+            return back()->with('error', 'Khuyến mãi đã tồn tại!');
+        }
+
         $sales_off->name = $request->get('sales-off-name');
         $sales_off->begin_at = $request->get('begin-at');
         $sales_off->end_at = $request->get('end-at');
@@ -126,31 +159,44 @@ class SalesOffController extends Controller
      */
     public function destroy(Request $request)
     {
-        if ($request->has('sales-off-ids')) {
-            $ids = $request->get('sales-off-ids');
-            foreach($ids as $id) {
-                $sales_off = SalesOff::findOrFail($id);
-                if ($sales_off->canDelete()) {
-                    $sales_off->delete();
-                }
-                else {
-                    $sales_off->is_deleted = true;
-                    $sales_off->update();
-                }
+        if (!$request->has('sales-off-ids')) {
+            return back();
+        }
+        $ids = $request->get('sales-off-ids');
+        foreach($ids as $id) {
+            $sales_off = SalesOff::findOrFail($id);
+            if ($sales_off->canDelete()) {
+                $sales_off->delete();
             }
-
-            return back()->with('success', 'Xóa thành công.');
+            else {
+                $sales_off->is_deleted = true;
+                $sales_off->update();
+            }
         }
-        if ($request->has('sales-off-child-ids')) {
-            $ids = $request->get('sales-off-child-ids');
-            SalesOff::destroy($ids);
 
-            return back()->with('success', 'Xóa thành công.');
-        }
-        return back();
+        return back()->with('success', 'Xóa thành công.');
     }
 
     public function validation($request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'sales-off-name' => array('required', 'max:100', 'regex:/^\w[\wÀ-ỹ\/,\- ]*[\wÀ-ỹ]$/'),
+                'begin-at' => 'required',
+                'end-at' => 'required'
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
+            ],
+            [
+                'sales-off-name' => 'Tên khuyến mãi',
+                'begin-at' => 'Ngày bắt đầu',
+                'end-at' => 'Ngày kết thúc'
+            ]
+        );
 
+        return $validate;
     }
 }

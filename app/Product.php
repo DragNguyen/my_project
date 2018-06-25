@@ -23,8 +23,11 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
-    public function productTypeTrademark() {
-        return $this->belongsTo(ProductTypeTrademark::class);
+    public function productType() {
+        return $this->belongsTo(ProductType::class);
+    }
+    public function trademark() {
+        return $this->belongsTo(Trademark::class);
     }
 
     public function goodsReceiptNoteProducts() {
@@ -42,14 +45,6 @@ class Product extends Model
         return ($this->is_activated) ? 'Đang bán' : 'Tạm hết hàng';
     }
 
-    public function getProductType() {
-        return $this->productTypeTrademark->productType;
-    }
-
-    public function getTrademark() {
-        return $this->productTypeTrademark->trademark;
-    }
-
     public function currentPrice() {
         return $this->prices->max()->price;
     }
@@ -62,6 +57,10 @@ class Product extends Model
     public function getChangedQuantity($quantity) {
         $changed_quantity = $this->quantity + $quantity;
         return ($changed_quantity > 0) ? $changed_quantity : 0;
+    }
+
+    public function matchedName($product_name) {
+        return Product::where('name', $product_name)->count() > 0;
     }
 
     public function canDelete() {

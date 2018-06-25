@@ -47,11 +47,11 @@
 
                 <div class="field">
                     <label>Giá trị khuyến mãi (%)</label>
-                    <input type="number" name="value" value="{{ $sales_off_child->value }}">
+                    <input type="text" name="value" value="{{ $sales_off_child->value }}">
                 </div>
                 <span style="margin-top: 10px">
                     <strong>Lưu ý:</strong>
-                    Giá trị không <strong>vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>
+                    Chỉ nhập số nguyên không <strong>vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>.
             </span>
             </form>
         </div>

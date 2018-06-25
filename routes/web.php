@@ -67,6 +67,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * */
     Route::resource('product', 'Admin\ProductController');
     Route::resource('product_restore', 'Admin\Restore\ProductRestoreController', ['only' => ['index', 'store']]);
+    Route::get('product/change_price/{id}', 'Admin\ProductController@changePrice')->name('product_change_price');
 
     /*
      * Supplier
@@ -81,6 +82,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::resource('order_restore', 'Admin\Restore\OrderRestoreController', ['only' => ['index', 'store']]);
     Route::get('order/destroy/{id}', 'Admin\OrderController@orderDestroy')->name('order_destroy');
     Route::get('order/approve/{id}', 'Admin\OrderController@orderApprove')->name('order_approve');
+    Route::get('order/change_status/{id}', 'Admin\OrderController@orderChangeStatus')->name('order_change_status');
 
     /*
      * Sales off

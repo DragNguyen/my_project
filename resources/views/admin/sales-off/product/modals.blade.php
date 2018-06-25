@@ -1,4 +1,4 @@
-<div class="mini ui modal" id="modal-create-sales-off-product">
+<div class="mini ui modal modal-autoscrolling" id="modal-create-sales-off-product">
     <div class="header modal-header">Thêm sản phẩm cho khuyến mãi</div>
     <div class="content">
         <form class="ui form" id="form-add-sales-off-product" method="post"

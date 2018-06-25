@@ -10,19 +10,13 @@
 
     @include('admin.layouts.components.errors')
 
-    <form action="{{ route('supplier.destroy', [0])}}" method="post">
-        {{ method_field('DELETE') }}
+    <form action="{{ route('supplier_restore.store', [0])}}" method="post">
         {{ csrf_field() }}
 
-        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit"
-                onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
-            <i class="delete fitted icon"></i>
+        <button class="ui blue button" data-tooltip="Phục hồi đã chọn" type="submit"
+                onclick="return confirm('Xác nhận phục hồi?')" data-position="right center">
+            <i class="undo fitted icon"></i>
         </button>
-
-        <a onclick="$('#modal-create-supplier').modal('show')"
-           class="blue ui button" data-tooltip="Thêm mới">
-            <i class="fitted add icon"></i>
-        </a>
 
         @include('admin.restore.supplier.table')
     </form>

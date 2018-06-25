@@ -14,7 +14,7 @@
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
 
-        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit"
+        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit" data-position="right center"
                 onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
             <i class="delete fitted icon"></i>
         </button>
