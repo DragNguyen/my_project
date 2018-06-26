@@ -42,25 +42,23 @@ class SalesOffController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationStore($request);
         if ($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
 
         $sales_off_name = $request->get('sales-off-name');
         $begin_at = $request->get('begin-at');
         $end_at = $request->get('end-at');
-        if ($begin_at < date('Y-m-d')) {
-            return back()->with('error', 'Ngày bắt đầu không được nhỏ hơn ngày hôm nay!');
-        }
         if ($end_at < $begin_at) {
-            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!');
+            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!')
+                ->withInput($request->all());
         }
         if (SalesOff::where('name', $sales_off_name)
                 ->where('begin_at', $begin_at)
                 ->where('end_at', $end_at)->count() > 0)
         {
-            return back()->with('error', 'Khuyến mãi đã tồn tại!');
+            return back()->with('error', 'Khuyến mãi đã tồn tại!')->withInput($request->all());
         }
 
         $sales_off = new SalesOff();
@@ -116,36 +114,34 @@ class SalesOffController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
 
         $sales_off = SalesOff::findOrFail($id);
-        $sales_off_name = $request->get('sales-off-name');
-        $begin_at = $request->get('begin-at');
-        $end_at = $request->get('end-at');
+        $sales_off_name = $request->get("sales-off-name-$id");
+        $begin_at = $request->get("begin-at-$id");
+        $end_at = $request->get("end-at-$id");
 
         if (($sales_off_name == $sales_off->name) && ($begin_at == $sales_off->begin_at)
             && ($end_at == $sales_off->end_at)) {
             return back();
         }
-        if ($begin_at < date('Y-m-d')) {
-            return back()->with('error', 'Ngày bắt đầu không được nhỏ hơn ngày hôm nay!');
-        }
         if ($end_at < $begin_at) {
-            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!');
+            return back()->with('error', 'Ngày kết thúc không được nhỏ hơn ngày bắt đầu!')
+                ->withInput($request->all());
         }
         if (SalesOff::where('name', $sales_off_name)
                 ->where('begin_at', $begin_at)
                 ->where('end_at', $end_at)->count() > 0)
         {
-            return back()->with('error', 'Khuyến mãi đã tồn tại!');
+            return back()->with('error', 'Khuyến mãi đã tồn tại!')->withInput($request->all());
         }
 
-        $sales_off->name = $request->get('sales-off-name');
-        $sales_off->begin_at = $request->get('begin-at');
-        $sales_off->end_at = $request->get('end-at');
+        $sales_off->name = $sales_off_name;
+        $sales_off->begin_at = $begin_at;
+        $sales_off->end_at = $end_at;
         $sales_off->update();
 
         return back()->with('success', 'Cập nhật thành công.');
@@ -177,23 +173,48 @@ class SalesOffController extends Controller
         return back()->with('success', 'Xóa thành công.');
     }
 
-    public function validation($request) {
+    public function validationStore($request) {
         $validate = Validator::make(
             $request->all(),
             [
                 'sales-off-name' => array('required', 'max:100', 'regex:/^\w[\wÀ-ỹ\/,\- ]*[\wÀ-ỹ]$/'),
-                'begin-at' => 'required',
-                'end-at' => 'required'
+                'begin-at' => "required|after:yesterday",
+                'end-at' => "required"
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không đúng định dạng!',
+                'after' => ':attribute không được trước ngày hiện tại!'
             ],
             [
                 'sales-off-name' => 'Tên khuyến mãi',
                 'begin-at' => 'Ngày bắt đầu',
                 'end-at' => 'Ngày kết thúc'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate($request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                "sales-off-name-$id" => array('required', 'max:100', 'regex:/^\w[\wÀ-ỹ\/,\- ]*[\wÀ-ỹ]$/'),
+                "begin-at-$id" => "required|after:yesterday",
+                "end-at-$id" => "required"
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!',
+                'after' => ':attribute không được trước ngày hiện tại!'
+            ],
+            [
+                "sales-off-name-$id" => 'Tên khuyến mãi',
+                "begin-at-$id" => 'Ngày bắt đầu',
+                "end-at-$id" => 'Ngày kết thúc'
             ]
         );
 

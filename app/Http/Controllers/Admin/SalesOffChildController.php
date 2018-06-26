@@ -38,39 +38,35 @@ class SalesOffChildController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = Validator::make(
-            $request->all(),
-            [
-                'values' => array('required', 'regex:/^\d[,\d]*$/')
-            ],
-            [
-                'required' => ':attribute không được bỏ trống!',
-                'regex' => ':attribute không đúng định dạng!'
-            ],
-            [
-                'values' => 'Giá trị khuyến mãi'
-            ]
-        );
+        $validate = $this->validationStore($request);
         if ($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
-
-        if (!$request->has('values')) {
-            return back();
-        }
-        $values = explode(',', $request->get('values'));
+        $values = explode(',', $request->get('sales-off-values'));
         $sales_off = SalesOff::find($request->get('sales-off-id'));
+        $errors = array();
+        $success = false;
         foreach($values as $value) {
             if (($sales_off->matchedValue($value)) || ($value <= 0) || ($value >= 100)) {
+                array_push($errors,"Giá trị $value% không thể thêm!");
                 continue;
             }
+            $success = true;
             $sales_off_child = new SalesOff();
             $sales_off_child->sales_off_id = $sales_off->id;
             $sales_off_child->value = $value;
             $sales_off_child->save();
         }
 
-        return back()->with('success', 'Thêm thành công.');
+        if(count($errors) == 0) {
+            return back()->with('success', 'Thêm thành công.');
+        }
+        elseif($success) {
+            return back()->with('success', 'Thêm thành công.')->withErrors($errors);
+        }
+        else {
+            return back()->withErrors($errors);
+        }
     }
 
     /**
@@ -109,29 +105,61 @@ class SalesOffChildController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = Validator::make(
-            $request->all(),
-            [
-                'value' => 'required|numeric|min:1|max:99'
-            ],
-            [
-                'required' => ':attribute không được bỏ trống!',
-                'min' => ':attribute không được nhỏ hơn :min%!',
-                'max' => ':attribute không được vượt quá :max%!',
-                'numeric' => ':attribute không đúng định dạng!'
-            ],
-            [
-                'value' => 'Giá trị khuyến mãi'
-            ]
-        );
+        $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-        $value = $request->get('value');
+        $value = $request->get("sales-off-value-$id");
+
         $sales_off_child = SalesOff::find($id);
-        if ($sales_off_child->salesOff->matchedValue($value)) {
+        if($sales_off_child->value == $value) {
+            return back();
+        }
+        if (($value != $sales_off_child->value) && $sales_off_child->salesOff->matchedValue($value)) {
             return back()->with('error', 'Giá trị khuyến mãi đã tồn tại!');
         }
+        $sales_off_child->value = $value;
+        $sales_off_child->update();
+
+        return back()->with('success', 'Sửa thành công.');
+    }
+
+    public function validationStore($request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'sales-off-values' => array('required', 'regex:/^\d[,\d]*$/')
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'regex' => ':attribute không đúng định dạng!'
+            ],
+            [
+                'sales-off-values' => 'Giá trị khuyến mãi'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate($request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                "sales-off-value-$id" => 'required|integer|min:1|max:99'
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'integer' => ':attribute phải là số nguyên!',
+                'min' => ':attribute không được nhỏ hơn :max%!',
+                'max' => ':attribute không được lớn hơn :min%!'
+            ],
+            [
+                "sales-off-value-$id" => 'Giá trị khuyến mãi'
+            ]
+        );
+
+        return $validate;
     }
 
     /**

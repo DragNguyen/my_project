@@ -8,19 +8,28 @@
             <input type="hidden" value="{{ $sales_off->id }}" name="sales-off-id">
             <div class="field">
                 <label>Giá trị khuyến mãi (%)</label>
-                <div class="ui fluid multiple search selection dropdown dropdown-tag">
-                    <input type="hidden" name="values">
-                    <i class="dropdown icon"></i>
-                    <div class="default text">Chọn hoặc nhập nhiều giá trị...</div>
-                    <div class="menu">
-                        @for($i=5; $i<100; $i=$i+5)
-                            @if($sales_off->matchedValue($i))
-                                @continue
-                            @endif
-                            <div class="item" data-value="{{ $i }}">{{ $i }}</div>
-                        @endfor
+                <div class="ui corner labeled input">
+                    <div class="ui fluid multiple search selection dropdown dropdown-tag">
+                        <input type="hidden" name="sales-off-values" value="{{ old('sales-off-values') }}">
+                        <div class="default text">Chọn hoặc nhập nhiều giá trị...</div>
+                        <div class="menu">
+                            @for($i=5; $i<100; $i=$i+5)
+                                @if($sales_off->matchedValue($i))
+                                    @continue
+                                @endif
+                                <div class="item" data-value="{{ $i }}">{{ $i }}</div>
+                            @endfor
+                        </div>
+                    </div>
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
                     </div>
                 </div>
+                @if($errors->has('sales-off-values'))
+                    <div style="color: red; margin-top: 5px; font-size: 13px">
+                        {{ $errors->first('sales-off-values') }}
+                    </div>
+                @endif
             </div>
             <span style="margin-top: 10px">
                     <strong>Lưu ý:</strong>
@@ -47,7 +56,18 @@
 
                 <div class="field">
                     <label>Giá trị khuyến mãi (%)</label>
-                    <input type="text" name="value" value="{{ $sales_off_child->value }}">
+                    <div class="ui corner labeled input">
+                        <input type="text" name="sales-off-value-{{ $sales_off_child->id }}" placeholder="Nhập giá trị..."
+                               value="{{ $sales_off_child->value }}">
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                    @if($errors->has("sales-off-value-$sales_off_child->id"))
+                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                            {{ $errors->first("sales-off-value-$sales_off_child->id") }}
+                        </div>
+                    @endif
                 </div>
                 <span style="margin-top: 10px">
                     <strong>Lưu ý:</strong>

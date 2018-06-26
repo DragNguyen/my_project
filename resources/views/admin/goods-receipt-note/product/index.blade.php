@@ -9,7 +9,6 @@
         <span class="header-2">Sản phẩm</span>
     </h2>
 
-    @include('admin.layouts.components.success')
     @include('admin.layouts.components.errors')
 
     <form action="{{ route('goods_receipt_note_product.destroy', [0])}}" method="post">

@@ -17,7 +17,17 @@
             </div>
             <div class="field">
                 <label>Ngày nhập hàng</label>
-                <input type="date" name="date" value="{{ date('Y-m-d') }}">
+                <div class="ui corner labeled input">
+                    <input type="date" name="date" value="{{ date('Y-m-d') }}">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
+                @if($errors->has('date'))
+                    <div style="color: red; margin-top: 5px; font-size: 13px">
+                        {{ $errors->first('date') }}
+                    </div>
+                @endif
             </div>
             <div class="field">
                 <label>Tên người nhập hàng</label>
@@ -60,11 +70,21 @@
                 </div>
                 <div class="field">
                     <label>Ngày nhập hàng</label>
-                    <input type="date" name="date" value="{{ $goods_receipt_note->date }}">
+                    <div class="ui corner labeled input">
+                        <input type="date" name="date-{{ $goods_receipt_note->id }}" value="{{ $goods_receipt_note->date }}">
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                    @if($errors->has("date-{{ $goods_receipt_note->id }}"))
+                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                            {{ $errors->first("date-$goods_receipt_note->id") }}
+                        </div>
+                    @endif
                 </div>
                 <div class="field">
                     <label>Tên người nhập hàng</label>
-                    <select class="ui selection dropdown" name="admin" disabled>
+                    <select class="ui selection dropdown disabled" name="admin">
                         <option value="{{ \Illuminate\Support\Facades\Auth::user()->id }}">
                             {{ \Illuminate\Support\Facades\Auth::user()->name }}
                         </option>

@@ -26,7 +26,7 @@
             <td>{{ date_format(date_create($sales_off->begin_at), 'd/m/Y') }}</td>
             <td>{{ date_format(date_create($sales_off->end_at), 'd/m/Y') }}</td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button"
+                <a class="ui green small label"
                    onclick="$('#modal-edit-sales-off-{{ $sales_off->id }}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>

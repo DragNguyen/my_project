@@ -19,11 +19,33 @@
             </div>
             <div class="field">
                 <label>Số lượng</label>
-                <input type="text" name="quantity" value="" autofocus placeholder="Chỉ nhập số...">
+                <div class="ui corner labeled input">
+                    <input type="text" name="quantity" {{ $errors->has('quantity')?'autofocus':'' }}
+                           value="{{ old('quantity') }}" placeholder="Chỉ nhập số nguyên...">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
+                @if($errors->has('quantity'))
+                    <div style="color: red; margin-top: 5px; font-size: 13px">
+                        {{ $errors->first('quantity') }}
+                    </div>
+                @endif
             </div>
             <div class="field">
                 <label>Đơn giá</label>
-                <input type="text" name="price" value="" placeholder="2990000 hoặc 2,990,000...">
+                <div class="ui corner labeled input">
+                    <input type="text" name="price" {{ $errors->has('price')?'autofocus':'' }}
+                           placeholder="2990000 hoặc 2,990,000..." value="{{ old('price') }}">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
+                @if($errors->has('price'))
+                    <div style="color: red; margin-top: 5px; font-size: 13px">
+                        {{ $errors->first('price') }}
+                    </div>
+                @endif
             </div>
             <span style="margin-top: 10px">
                 <strong>Lưu ý:</strong>
@@ -55,13 +77,37 @@
                 </div>
                 <div class="field">
                     <label>Số lượng</label>
-                    <input type="text" name="quantity" placeholder="Chỉ nhập số..."
-                           value="{{ $goods_receipt_note_product->quantity }}" autofocus>
+                    <div class="ui corner labeled input">
+                        <input type="text" name="quantity-{{ $goods_receipt_note_product->id }}"
+                               placeholder="Chỉ nhập số..."
+                               {{ $errors->has("quantity-$goods_receipt_note_product->id")?'autofocus':'' }}
+                               value="{{ $goods_receipt_note_product->quantity }}" autofocus>
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                    @if($errors->has("quantity-$goods_receipt_note_product->id"))
+                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                            {{ $errors->first("quantity-$goods_receipt_note_product->id") }}
+                        </div>
+                    @endif
                 </div>
                 <div class="field">
                     <label>Đơn giá</label>
-                    <input type="text" name="price" value="{{ number_format($goods_receipt_note_product->price) }}"
-                           placeholder="2990000 hoặc 2,990,000...">
+                    <div class="ui corner labeled input">
+                        <input type="text" name="price-{{ $goods_receipt_note_product->id }}"
+                               value="{{ number_format($goods_receipt_note_product->price) }}"
+                               {{ $errors->has("price-$goods_receipt_note_product->id")?'autofocus':'' }}
+                               placeholder="2990000 hoặc 2,990,000...">
+                        <div class="ui corner label">
+                            <i class="asterisk icon"></i>
+                        </div>
+                    </div>
+                    @if($errors->has("price-$goods_receipt_note_product->id"))
+                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                            {{ $errors->first("price-$goods_receipt_note_product->id") }}
+                        </div>
+                    @endif
                 </div>
                 <span style="margin-top: 10px">
                 <strong>Lưu ý:</strong>

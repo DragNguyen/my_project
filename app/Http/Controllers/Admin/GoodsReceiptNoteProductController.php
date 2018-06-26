@@ -38,38 +38,28 @@ class GoodsReceiptNoteProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $this->validation($request);
-
+        $validate = $this->validationStore($request);
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-        if($request->get('quantity') > 500) {
-            return back()->with('error', 'Số luọng không được vượt quá 500!');
-        }
-        if($request->get('quantity') < 1) {
-            return back()->with('error', 'Số luọng không được nhỏ hơn 1!');
-        }
+
         $price = str_replace(',', '', $request->get('price'));
-        if ($price > 100000000) {
-            return back()->with('error', 'Giá tiền không được vượt quá 100,000,000đ !');
-        }
-        if ($price < 1000) {
-            return back()->with('error', 'Giá tiền không được nhỏ quá 1,000đ !');
-        }
         $quantity = $request->get('quantity');
+
         $goods_receipt_note_product = new GoodsReceiptNoteProduct();
         $goods_receipt_note_product->goods_receipt_note_id = $request->get('id');
         $goods_receipt_note_product->product_id = $request->get('product-name');
         $goods_receipt_note_product->quantity = $quantity;
         $goods_receipt_note_product->price = $price;
         $goods_receipt_note_product->quantity_updated = $quantity;
+
         if ($goods_receipt_note_product->save()) {
             $product = Product::findOrFail($goods_receipt_note_product->product_id);
             $product->quantity += $quantity;
             $product->update();
         }
 
-        return back()->with('success', 'Thêm sản phẩm cho phiếu nhập thành công.');
+        return back()->with('success', 'Thêm thành công.');
     }
 
     /**
@@ -103,33 +93,20 @@ class GoodsReceiptNoteProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
 
-        if($request->get('quantity') > 500) {
-            return back()->with('error', 'Số luọng không được vượt quá 500!');
-        }
-        if($request->get('quantity') < 1) {
-            return back()->with('error', 'Số luọng không được nhỏ hơn 1!');
-        }
-        $price = str_replace(',', '', $request->get('price'));
-        if ($price > 100000000) {
-            return back()->with('error', 'Đơn giá không được vượt quá 100,000,000đ !');
-        }
-        if ($price < 1000) {
-            return back()->with('error', 'Đơn giá không được nhỏ hơn 1,000đ !');
-        }
-
-        $quantity = $request->get('quantity');
+        $quantity = $request->get("quantity-$id");
+        $price = $request->get("price-$id");
 
         $goods_receipt_note_product = GoodsReceiptNoteProduct::findOrFail($id);
 
         $quantity_changed = $quantity - $goods_receipt_note_product->quantity_updated;
 
         $goods_receipt_note_product->product_id = $request->get('product-name');
-        $goods_receipt_note_product->quantity = $request->get('quantity');
+        $goods_receipt_note_product->quantity = $quantity;
         $goods_receipt_note_product->price = $price;
         $goods_receipt_note_product->quantity_updated = $quantity;
 
@@ -164,22 +141,46 @@ class GoodsReceiptNoteProductController extends Controller
         return back()->with('success', 'Xóa sản phẩm khỏi phiếu nhập thành công.');
     }
 
-    public function validation($request) {
+    public function validationStore($request) {
         $validate = Validator::make($request->all(),
             [
-                'quantity' => array('required', 'regex:/^\d+$/'),
+                'quantity' => 'required|integer|min:1|max:500',
                 'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]{1,3}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'min' => ':attribute không được nhỏ hơn :min!',
                 'max' => ':attribute không được lớn hơn :max!',
-                'regex' => ':attribute nhập không đúng định dạng!'
+                'regex' => ':attribute sai định dạng!',
+                'integer' => ':attribute phải là số nguyên!'
             ],
             [
                 'product-name' => 'Tên sản phẩm',
                 'quantity' => 'Số lượng',
                 'price' => 'Đơn giá'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate($request, $id) {
+        $validate = Validator::make($request->all(),
+            [
+                "quantity-$id" => 'required|integer|min:1|max:500',
+                "price-$id" => array('required', 'regex:/^(([1-9]\d*)|([1-9]{1,3}(,\d{3})*))$/')
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'min' => ':attribute không được nhỏ hơn :min!',
+                'max' => ':attribute không được lớn hơn :max!',
+                'regex' => ':attribute sai định dạng!',
+                'integer' => ":attribute phải là số nguyên!"
+            ],
+            [
+                'product-name' => 'Tên sản phẩm',
+                "quantity-$id" => 'Số lượng',
+                "price-$id" => 'Đơn giá'
             ]
         );
 

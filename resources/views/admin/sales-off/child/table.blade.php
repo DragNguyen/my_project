@@ -23,8 +23,8 @@
                     <i class="laptop fitted icon"></i>
                 </a>
             </td>
-            <td class="collapsing center aligned">
-                <a class="ui green mini button"
+            <td class="center aligned">
+                <a class="ui green small label"
                    onclick="$('#modal-edit-sales-off-child-{{ $sales_off_child->id }}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>

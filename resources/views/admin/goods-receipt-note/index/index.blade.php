@@ -5,7 +5,7 @@
 @section('content')
     <h2 class="ui dividing header">Nhập hàng</h2>
 
-    @include('admin.layouts.components.success')
+    @include('admin.layouts.components.errors')
 
     <form action="{{ route('goods_receipt_note.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
