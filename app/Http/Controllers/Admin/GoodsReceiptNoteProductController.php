@@ -40,11 +40,19 @@ class GoodsReceiptNoteProductController extends Controller
     {
         $validate = $this->validationStore($request);
         if ($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
 
         $price = str_replace(',', '', $request->get('price'));
         $quantity = $request->get('quantity');
+        if ($price > 100000000) {
+            return back()->withErrors(['price' => 'Đơn giá không được vượt quá 100,000,000đ !'])
+                ->withInput($request->all());
+        }
+        if ($price < 1000) {
+            return back()->withErrors(['price' => 'Đơn giá không được nhỏ hơn 1,000đ !'])
+                ->withInput($request->all());
+        }
 
         $goods_receipt_note_product = new GoodsReceiptNoteProduct();
         $goods_receipt_note_product->goods_receipt_note_id = $request->get('id');
@@ -95,13 +103,24 @@ class GoodsReceiptNoteProductController extends Controller
     {
         $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->all());
         }
 
         $quantity = $request->get("quantity-$id");
-        $price = $request->get("price-$id");
+        $price = str_replace(',', '', $request->get("price-$id"));
+        if ($price > 100000000) {
+            return back()->withErrors(["price-$id" => 'Đơn giá không được vượt quá 100,000,000đ !'])
+                ->withInput($request->all());
+        }
+        if ($price < 1000) {
+            return back()->withErrors(["price-$id" => 'Đơn giá không được nhỏ hơn 1,000đ !'])
+                ->withInput($request->all());
+        }
 
         $goods_receipt_note_product = GoodsReceiptNoteProduct::findOrFail($id);
+        if (($goods_receipt_note_product->price == $price) && ($goods_receipt_note_product->quantity == $quantity)) {
+            return back();
+        }
 
         $quantity_changed = $quantity - $goods_receipt_note_product->quantity_updated;
 
@@ -145,7 +164,7 @@ class GoodsReceiptNoteProductController extends Controller
         $validate = Validator::make($request->all(),
             [
                 'quantity' => 'required|integer|min:1|max:500',
-                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]{1,3}(,\d{3})*))$/')
+                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -168,7 +187,7 @@ class GoodsReceiptNoteProductController extends Controller
         $validate = Validator::make($request->all(),
             [
                 "quantity-$id" => 'required|integer|min:1|max:500',
-                "price-$id" => array('required', 'regex:/^(([1-9]\d*)|([1-9]{1,3}(,\d{3})*))$/')
+                "price-$id" => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

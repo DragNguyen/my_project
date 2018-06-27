@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Product;
 use App\ProductType;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -15,7 +17,7 @@ class ProductTypeController extends Controller
      */
     public function index()
     {
-        $product_types = ProductType::paginate(10);
+        $product_types = ProductType::where('is_deleted', false)->paginate(10);
 
         return view('admin.product-type.index', compact('product_types'));
     }
@@ -38,12 +40,17 @@ class ProductTypeController extends Controller
      */
     public function store(Request $request)
     {
+        $validate = $this->validationStore($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput($request->only('product-type-name'));
+        }
+
         $product_type = new ProductType();
         $product_type->name = $request->get('product-type-name');
 
         $product_type->save();
 
-        return back();
+        return back()->with('success', 'Thêm thành công.');
     }
 
     /**
@@ -77,12 +84,18 @@ class ProductTypeController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $validate = $this->validationUpdate($request, $id);
+        if ($validate->fails()) {
+            return back()->withErrors($validate)
+                ->withInput($request->only("product-type-name-$id"));
+        }
+
         $product_type = ProductType::findOrFail($id);
-        $product_type->name = $request->get('product-type-name');
+        $product_type->name = $request->get("product-type-name-$id");
 
         $product_type->update();
 
-        return back();
+        return back()->with('success', 'Sửa thành công.');
     }
 
     /**
@@ -93,10 +106,60 @@ class ProductTypeController extends Controller
      */
     public function destroy(Request $request)
     {
-        $ids = $request->get('product-type-id');
+        if (!$request->has('product-type-ids')) {
+            return back();
+        }
 
-        ProductType::destroy($ids);
+        $ids = $request->get('product-type-ids');
+        foreach($ids as $id) {
+            $product_type = ProductType::findOrFail($id);
+            if ($product_type->canDelete()) {
+                $product_type->delete();
+            }
+            else {
+                $product_type->is_deleted = true;
+                $product_type->update();
+            }
+        }
 
-        return back();
+        return back()->with('success', 'Xóa thành công.');
+    }
+
+    public function validationStore($request) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                'product-type-name' => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
+            ],
+            [
+                'product-type-name' => 'Tên loại sản phẩm'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate($request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                "product-type-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
+            ],
+            [
+                "product-type-name-$id" => 'Tên loại sản phẩm'
+            ]
+        );
+
+        return $validate;
     }
 }

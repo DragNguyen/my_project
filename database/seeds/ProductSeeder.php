@@ -92,241 +92,241 @@ class ProductSeeder extends Seeder
         DB::table('products')->insert([
            [
                'name' => 'Laptop Dell Inspiron 3467 i3 7100U',
-               'product_created_at' => date('Y-m-d h:i:s'),
+               'product_created_at' => date('Y-m-d H:i:s'),
                'product_type_id' => 1,
                'trademark_id' => 1
            ],
             [
                 'name' => 'Laptop Dell Vostro 3468 i3 6006U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 1
             ],
             [
                 'name' => 'Laptop Dell Vostro 3468 i5 7200U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 1
             ],
             [
                 'name' => 'Laptop Dell Inspiron 7570 i5 8250U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 1
             ],
             [
                 'name' => 'Laptop Dell Inspiron 5379 i7 8550U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 1
             ],
             [
                 'name' => 'Laptop Apple Macbook Air MQD32SA',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 2
             ],
             [
                 'name' => 'Máy tính nguyên bộ iMac 21.5 inch MMQA2SA',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 2
             ],
             [
                 'name' => 'Laptop Apple Macbook 12" MNYF2SA',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 2
             ],
             [
                 'name' => 'Laptop Apple Macbook Pro MPXT2SA',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 2
             ],
             [
                 'name' => 'Laptop Apple Macbook Pro Touch MPXX2SA',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 2
             ],
             [
                 'name' => 'Laptop Asus GL503GE i7 8750H',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 3
             ],
             [
                 'name' => 'Laptop Asus FX503VD i7 7700HQ',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 3
             ],
             [
                 'name' => 'Laptop Asus UX430UA i5 8250U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 3
             ],
             [
                 'name' => 'Laptop Asus A540UP i5 7200U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 3
             ],
             [
                 'name' => 'Laptop Asus S510UA i3 7100U',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 1,
                 'trademark_id' => 3
             ],
             [
                 'name' => 'Điện thoại iPhone X 256GB Sliver',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone X 64GB Silver',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 8 Plus Red 256GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 8 256GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 8 Plus 64GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 7 Plus 128GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 7 Plus 32GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 6s Plus 32GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại iPhone 6s 32GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 4
             ],
             [
                 'name' => 'Điện thoại Mobiistar Prime X Max 2018',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 5
             ],
             [
                 'name' => 'Điện thoại Mobiistar Zumbo S2 Dual',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 5
             ],
             [
                 'name' => 'Điện thoại Mobiistar E Selfie',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 5
             ],
             [
                 'name' => 'Điện thoại Mobiistar Lai Zumbo S',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 5
             ],
             [
                 'name' => 'Điện thoại Sony Xperia XZ2',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Sony Xperia XZ Dual',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Sony Xperia XA1 Ultra',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Sony Xperia X',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Sony Xperia L2',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Sony Xperia L1',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 6
             ],
             [
                 'name' => 'Điện thoại Nokia 7 plus',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ],
             [
                 'name' => 'Điện thoại Nokia 6 new 64GB',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ],
             [
                 'name' => 'Điện thoại Nokia 6 new',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ],
             [
                 'name' => 'Điện thoại Nokia 6',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ],
             [
                 'name' => 'Điện thoại Nokia 5',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ],
             [
                 'name' => 'Điện thoại Nokia 3',
-                'product_created_at' => date('Y-m-d h:i:s'),
+                'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_id' => 2,
                 'trademark_id' => 7
             ]

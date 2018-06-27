@@ -2,21 +2,25 @@
 
 @section('title', 'Thương hiệu')
 
-@section('nav_title', 'Thương hiệu')
-
 @section('content')
-    <div class="ui fluid search selection dropdown">
-        <input type="hidden" name="country">
-        <i class="dropdown icon"></i>
-        <div class="default text">Select Country</div>
-        <div class="menu">
-            <div class="item" data-value="af"><span class="ui center aligned label">fasdf</span>Afghanistan</div>
-            <div class="item" data-value="ax"><span class="ui center aligned label">fasfwefwdf</span>Aland Islands</div>
-            <div class="item" data-value="al"><span class="ui center aligned label">sdf</span>Albania</div>
-            <div class="item" data-value="dz"><i class="dz flag"></i>Algeria</div>
-            <div class="item" data-value="as"><i class="as flag"></i>American Samoa</div>
-            <div class="item" data-value="ad"><i class="ad flag"></i>Andorra</div>
-            <div class="item" data-value="ao"><i class="ao flag"></i>Angola</div>
-        </div>
-    </div>
+    @include('admin.trademark.modals')
+
+    <h2 class="ui dividing header">Thương hiệu</h2>
+
+    <form action="{{ route('trademark.destroy', [0])}}" method="post">
+        {{ method_field('DELETE') }}
+        {{ csrf_field() }}
+
+        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit" data-position="right center"
+                onclick="return confirm('Xác nhận xóa?')">
+            <i class="delete fitted icon"></i>
+        </button>
+
+        <a onclick="$('#modal-create-trademark').modal('show')"
+           class="blue ui button" data-tooltip="Thêm mới">
+            <i class="fitted add icon"></i>
+        </a>
+
+        @include('admin.trademark.table')
+    </form>
 @endsection

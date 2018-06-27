@@ -159,7 +159,7 @@ class GoodsReceiptNoteController extends Controller
     }
 
     public function validationStore($request) {
-        $begin_at = '2018-01-01';
+        $begin_at = '2017-12-31';
         $validate = Validator::make(
             $request->all(),
             [
@@ -167,7 +167,7 @@ class GoodsReceiptNoteController extends Controller
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'after' => ":attribute không được trước ngày $begin_at",
+                'after' => ":attribute không được trước ngày 01/01/2018!",
                 'before' => ":attribute không được vượt quá ngày hiện tại!",
             ],
             [
@@ -178,7 +178,7 @@ class GoodsReceiptNoteController extends Controller
     }
 
     public function validationUpdate($request, $id) {
-        $begin_at = '2018-01-01';
+        $begin_at = '2017-12-31';
         $validate = Validator::make(
             $request->all(),
             [
@@ -186,7 +186,7 @@ class GoodsReceiptNoteController extends Controller
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'after' => ":attribute không được trước ngày $begin_at",
+                'after' => ":attribute không được trước ngày 01/01/2018!",
                 'before' => ":attribute không được vượt quá ngày hiện tại!",
             ],
             [

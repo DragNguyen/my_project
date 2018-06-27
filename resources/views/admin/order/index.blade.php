@@ -18,7 +18,7 @@
                 onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
             <i class="delete fitted icon"></i>
         </button>
-        <a class="ui blue button" onclick="$('#modal-create-order').modal('show')">
+        <a class="ui blue button" onclick="$('#modal-create-order').modal('show')" data-tooltip="Thêm mới">
             <i class="add fitted icon"></i>
         </a>
 

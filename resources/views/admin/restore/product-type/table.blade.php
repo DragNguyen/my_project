@@ -6,7 +6,6 @@
     <th class="collapsing">STT</th>
     <th>Tên loại sản phẩm</th>
     <th class="collapsing center aligned">Sản phẩm</th>
-    <th class="center aligned">Sửa</th>
     </thead>
 
     <tbody>
@@ -21,11 +20,6 @@
             <td class="collapsing center aligned">
                 <a href="#" class="ui small label">
                     <i class="fitted blue {{ $product_type->icon }} icon"></i>
-                </a>
-            </td>
-            <td class="collapsing center aligned">
-                <a class="ui green small label" onclick="$('#modal-edit-product-type-{{$product_type->id}}').modal('show')">
-                    <i class="edit fitted icon"></i>
                 </a>
             </td>
         </tr>

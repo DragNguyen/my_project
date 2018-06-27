@@ -1,22 +1,22 @@
-<div class="mini ui modal" id="modal-create-product-type">
-    <div class="header modal-header">Thêm loại sản phẩm</div>
+<div class="mini ui modal" id="modal-create-trademark">
+    <div class="header modal-header">Thêm thương hiệu</div>
     <div class="content">
         <form class="ui form" method="post"
-              action="{{ route('product_type.store') }}" id="form-add-product-type">
+              action="{{ route('trademark.store') }}" id="form-add-trademark">
             {{ csrf_field() }}
 
             <div class="field">
-                <label>Tên loại sản phẩm</label>
+                <label>Tên thương hiệu</label>
                 <div class="ui corner labeled input">
-                    <input type="text" name="product-type-name" placeholder="Nhập tên loại sản phẩm..."
-                           value="{{ old('product-type-name') }}">
+                    <input type="text" name="trademark-name" placeholder="Nhập tên thương hiệu..."
+                           value="{{ old('trademark-name') }}">
                     <div class="ui corner label">
                         <i class="asterisk icon"></i>
                     </div>
                 </div>
-                @if($errors->has('product-type-name'))
+                @if($errors->has('trademark-name'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
-                        {{ $errors->first('product-type-name') }}
+                        {{ $errors->first('trademark-name') }}
                     </div>
                 @endif
             </div>
@@ -28,31 +28,31 @@
     </div>
 
     <div class="actions">
-        <input type="submit" value="OK" form="form-add-product-type" class="ui blue fluid button">
+        <input type="submit" value="OK" form="form-add-trademark" class="ui blue fluid button">
     </div>
 </div>
 
-@foreach($product_types as $product_type)
-    <div class="mini ui modal" id="modal-edit-product-type-{{ $product_type->id }}">
+@foreach($trademarks as $trademark)
+    <div class="mini ui modal" id="modal-edit-trademark-{{ $trademark->id }}">
         <div class="header modal-header">Sửa loại sản phẩm</div>
         <div class="content">
-            <form class="ui form" id="form-edit-product-type-{{ $product_type->id }}"
-                  action="{{ route('product_type.update', [$product_type->id]) }}" method="post">
+            <form class="ui form" id="form-edit-trademark-{{ $trademark->id }}"
+                  action="{{ route('trademark.update', [$trademark->id]) }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
 
                 <div class="field">
                     <label>Tên loại sản phẩm</label>
                     <div class="ui corner labeled input">
-                        <input type="text" name="product-type-name-{{ $product_type->id }}"
-                               value="{{ $product_type->name }}">
+                        <input type="text" name="trademark-name-{{ $trademark->id }}"
+                               value="{{ $trademark->name }}">
                         <div class="ui corner label">
                             <i class="asterisk icon"></i>
                         </div>
                     </div>
-                    @if($errors->has("product-type-name-$product_type->id"))
+                    @if($errors->has("trademark-name-$trademark->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first("product-type-name-$product_type->id") }}
+                            {{ $errors->first("trademark-name-$trademark->id") }}
                         </div>
                     @endif
                 </div>
@@ -64,7 +64,7 @@
         </div>
         <div class="actions">
             <input type="submit" value="OK"
-                   form="form-edit-product-type-{{ $product_type->id }}" class="ui fluid blue button">
+                   form="form-edit-trademark-{{ $trademark->id }}" class="ui fluid blue button">
         </div>
     </div>
 @endforeach

@@ -13,10 +13,12 @@ class ProductTypeSeeder extends Seeder
     {
         DB::table('product_types')->insert([
             [
-                'name' => 'Laptop'
+                'name' => 'Laptop',
+                'icon' => 'laptop'
             ],
             [
-                'name' => 'Điện thoại'
+                'name' => 'Điện thoại',
+                'icon' => 'mobile alternate'
             ]
         ]);
     }

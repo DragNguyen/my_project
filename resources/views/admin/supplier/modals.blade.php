@@ -1,15 +1,16 @@
 <div class="mini ui modal" id="modal-create-supplier">
     <div class="modal-header">Thêm nhà cung cấp</div>
     <div class="content">
-        <form class="ui form" method="post" action="{{ route('supplier.store') }}">
+        <form class="ui form" method="post" id="form-add-supplier"
+              action="{{ route('supplier.store') }}">
             {{ csrf_field() }}
 
             <div class="field">
                 <label>Tên nhà cung cấp</label>
-                <input type="text" name="supplier-name"
-                       value="{{ (old('id')==null)?old('supplier-name'):'' }}"
-                       {{ ($errors->has('supplier-name')&&old('id')==null)?'autofocus':'' }}>
-                @if($errors->has('supplier-name') && old('id')==null)
+                <input type="text" name="supplier-name" placeholder="Nhập tên nhà cung cấp..."
+                       value="{{ old('supplier-name') }}"
+                       {{ $errors->has('supplier-name')?'autofocus':'' }}>
+                @if($errors->has('supplier-name'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('supplier-name') }}
                     </div>
@@ -18,42 +19,42 @@
             </div>
             <div class="field">
                 <label>Số điện thoại</label>
-                <input type="text" name="phone"
-                       value="{{ (old('id')==null)?old('phone'):'' }}"
-                        {{ ($errors->has('phone')&&old('id')==null)?'autofocus':'' }}>
-                @if($errors->has('phone') && old('id')==null)
+                <input type="text" name="supplier-phone" placeholder="Nhập số điện thoại..."
+                       value="{{ old('supplier-phone') }}"
+                        {{ $errors->has('supplier-phone')?'autofocus':'' }}>
+                @if($errors->has('supplier-phone'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
-                        {{ $errors->first('phone') }}
+                        {{ $errors->first('supplier-phone') }}
                     </div>
                 @endif
             </div>
             <div class="field">
                 <label>Địa chỉ</label>
-                <input type="text" name="address" value="{{ (old('id')==null)?old('address'):'' }}"
-                        {{ ($errors->has('address')&&old('id')==null)?'autofocus':'' }}>
-                @if($errors->has('address') && old('id')==null)
+                <input type="text" name="supplier-address" placeholder="Nhập địa chỉ..."
+                       value="{{ old('supplier-address') }}"
+                        {{ $errors->has('supplier-address')?'autofocus':'' }}>
+                @if($errors->has('supplier-address'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
-                        {{ $errors->first('address') }}
+                        {{ $errors->first('supplier-address') }}
                     </div>
                 @endif
             </div>
             <div class="field">
                 <label>Website</label>
-                <input type="text" name="website" value="{{ (old('id')==null)?old('website'):'' }}"
-                        {{ ($errors->has('website')&&old('id')==null)?'autofocus':'' }}>
-                @if($errors->has('website') && old('id')==null)
+                <input type="text" name="supplier-website" placeholder="Nhập website..."
+                       value="{{ old('supplier-website') }}"
+                        {{ $errors->has('supplier-website')?'autofocus':'' }}>
+                @if($errors->has('supplier-website'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
-                        {{ $errors->first('website') }}
+                        {{ $errors->first('supplier-website') }}
                     </div>
                 @endif
             </div>
-            <div class="field">
-                <button class="ui fluid blue button" type="submit">
-                    <strong>OK</strong>
-                </button>
-            </div>
-
         </form>
+    </div>
+
+    <div class="actions">
+        <input type="submit" class="ui fluid blue button" value="OK" form="form-add-supplier">
     </div>
 </div>
 
@@ -61,57 +62,60 @@
     <div class="mini ui modal" id="modal-edit-supplier-{{ $supplier->id }}">
         <div class="header modal-header">Sửa nhà cung cấp</div>
         <div class="content">
-            <form class="ui form" action="{{ route('supplier.update', [$supplier->id]) }}" method="post">
+            <form class="ui form" id="form-edit-supplier-{{ $supplier->id }}"
+                  action="{{ route('supplier.update', [$supplier->id]) }}" method="post">
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
 
-                <input type="hidden" name="id" value="{{ $supplier->id }}">
                 <div class="field">
                     <label>Tên nhà cung cấp</label>
-                    <input type="text" name="supplier-name" value="{{ $supplier->name }}"
-                            {{ $errors->has('supplier-name')?'autofocus':'' }}>
-                    @if($errors->has('supplier-name') && (old('id')==$supplier->id))
+                    <input type="text" name="supplier-name-{{ $supplier->id }}" placeholder="Nhập tên nhà cung cấp..."
+                           value="{{ $supplier->name }}"
+                            {{ $errors->has("supplier-name-$supplier->id")?'autofocus':'' }}>
+                    @if($errors->has("supplier-name-$supplier->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first('supplier-name') }}
+                            {{ $errors->first("supplier-name-$supplier->id") }}
                         </div>
                     @endif
                 </div>
                 <div class="field">
                     <label>Số điện thoại</label>
-                    <input type="text" name="phone" value="{{ $supplier->phone }}"
-                            {{ $errors->has('phone')?'autofocus':'' }}>
-                    @if($errors->has('phone') && (old('id')==$supplier->id))
+                    <input type="text" name="supplier-phone-{{ $supplier->id }}" placeholder="Nhập số điện thoại..."
+                           value="{{ $supplier->phone }}"
+                            {{ $errors->has("supplier-phone-$supplier->id")?'autofocus':'' }}>
+                    @if($errors->has("supplier-phone-$supplier->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first('phone') }}
+                            {{ $errors->first("supplier-phone-$supplier->id") }}
                         </div>
                     @endif
                 </div>
                 <div class="field">
                     <label>Địa chỉ</label>
-                    <input type="text" name="address" value="{{ $supplier->address }}"
-                            {{ $errors->has('address')?'autofocus':'' }}>
-                    @if($errors->has('address') && (old('id')==$supplier->id))
+                    <input type="text" name="supplier-address-{{ $supplier->id }}" placeholder="Nhập địa chỉ..."
+                           value="{{ $supplier->address }}"
+                            {{ $errors->has("supplier-address-$supplier->id")?'autofocus':'' }}>
+                    @if($errors->has("supplier-address-$supplier->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first('address') }}
+                            {{ $errors->first("supplier-address-$supplier->id") }}
                         </div>
                     @endif
                 </div>
                 <div class="field">
                     <label>Website</label>
-                    <input type="text" name="website" value="{{ $supplier->website }}"
-                            {{ $errors->has('website')?'autofocus':'' }}>
-                    @if($errors->has('website') && (old('id')==$supplier->id))
+                    <input type="text" name="supplier-website-{{ $supplier->id }}" placeholder="Nhập website..."
+                           value="{{ $supplier->website }}"
+                            {{ $errors->has("supplier-website-$supplier->id")?'autofocus':'' }}>
+                    @if($errors->has("supplier-website-$supplier->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first('website') }}
+                            {{ $errors->first("supplier-website-$supplier->id") }}
                         </div>
                     @endif
                 </div>
-                <div class="field">
-                    <button class="ui fluid blue button" type="submit">
-                        <strong>OK</strong>
-                    </button>
-                </div>
             </form>
+        </div>
+
+        <div class="actions">
+            <input type="submit" class="ui fluid blue button" value="OK" form="form-edit-supplier-{{ $supplier->id }}">
         </div>
     </div>
 @endforeach

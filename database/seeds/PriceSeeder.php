@@ -57,7 +57,8 @@ class PriceSeeder extends Seeder
         for ($i=1; $i <= count($prices); $i++) {
             $rows[] = [
                 'price' => $prices[$i],
-                'product_id' => $i
+                'product_id' => $i,
+                'price_updated_at' => date('Y-m-d H:i:s')
             ];
         }
         DB::table('prices')->insert($rows);

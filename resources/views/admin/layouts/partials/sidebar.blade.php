@@ -22,16 +22,16 @@
                     Nhà cung cấp
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/product') ? 'current-page' : '' }}">
-                <a href="{{ route('product.index') }}">
-                    <i class="fa fa-laptop"></i>
-                    Sản phẩm
-                </a>
-            </li>
             <li class="{{ \Illuminate\Support\Facades\Request::is('admin/product_type') ? 'current-page' : '' }}">
                 <a href="{{ route('product_type.index') }}">
                     <i class="fa fa-sitemap"></i>
                     Loại sản phẩm
+                </a>
+            </li>
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/product') ? 'current-page' : '' }}">
+                <a href="{{ route('product.index') }}">
+                    <i class="fa fa-laptop"></i>
+                    Sản phẩm
                 </a>
             </li>
             <li class="{{ \Illuminate\Support\Facades\Request::is('admin/goods_receipt_note') ? 'current-page' : '' }}">
@@ -52,15 +52,11 @@
                     Khuyến mãi
                 </a>
             </li>
-            <li >
-                <a>
+            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/employee') ? 'current-page' : '' }}">
+                <a href="{{ route('employee.index') }}">
                     <i class="fa fa-users"></i>
-                    Tài khoản<span class="fa fa-chevron-down"></span>
+                    Tài khoản
                 </a>
-                <ul class="nav child_menu">
-                    <li><a href="{{ route('employee.index') }}">Nhân viên</a></li>
-                    <li><a href="{{ route('customer.index') }}">Khách hàng</a></li>
-                </ul>
             </li>
             <li >
                 <a>
@@ -69,11 +65,14 @@
                     <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
+                    <li><a href="{{ route('trademark_restore.index') }}">Thương hiệu</a></li>
                     <li><a href="{{ route('supplier_restore.index') }}">Nhà cung cấp</a></li>
-                    <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
+                    <li><a href="{{ route('product_type_restore.index') }}">Loại sản phẩm</a></li>
                     <li><a href="{{ route('product_restore.index') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
                     <li><a href="{{ route('order_restore.index') }}">Đơn hàng</a></li>
                     <li><a href="{{ route('sales_off_restore.index') }}">Khuyến mãi</a></li>
+                    <li><a href="{{ route('employee_restore.index') }}">Nhân viên</a></li>
                 </ul>
             </li>
         </ul>

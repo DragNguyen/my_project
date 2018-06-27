@@ -110,9 +110,9 @@
                     @endif
                 </div>
                 <span style="margin-top: 10px">
-                <strong>Lưu ý:</strong>
-                Số lượng không được <strong>nhỏ hơn 1</strong> hoặc <strong>vượt quá 500</strong>.
-            </span>
+                    <strong>Lưu ý:</strong>
+                    Số lượng không được <strong>nhỏ hơn 1</strong> hoặc <strong>vượt quá 500</strong>.
+                </span>
             </form>
         </div>
         <div class="actions">

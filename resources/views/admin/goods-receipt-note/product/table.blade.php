@@ -28,7 +28,7 @@
             <td>{{ $goods_receipt_note_product->quantity }}</td>
             <td>{{ $goods_receipt_note_product->product->quantity }}</td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button"
+                <a class="ui green small label"
                    onclick="$('#modal-edit-goods-receipt-note-product-{{ $goods_receipt_note_product->id }}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>

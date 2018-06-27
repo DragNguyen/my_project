@@ -40,7 +40,7 @@ class SupplierController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationStore($request);
 
         if ($validate->fails())
         {
@@ -49,12 +49,12 @@ class SupplierController extends Controller
 
         $supplier = new Supplier();
         $supplier->name = $request->get('supplier-name');
-        $supplier->phone = $request->get('phone');
-        $supplier->address = $request->get('address');
-        $supplier->website = $request->get('website');
+        $supplier->phone = $request->get('supplier-phone');
+        $supplier->address = $request->get('supplier-address');
+        $supplier->website = $request->get('supplier-website');
         $supplier->save();
 
-        return back()->with('success', 'Thêm nhà cung cấp thành công.');
+        return back()->with('success', 'Thêm thành công.');
     }
 
     /**
@@ -88,22 +88,31 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationUpdate($request, $id);
 
         if ($validate->fails())
         {
-            return back()->withErrors($validate)->withInput($request->all());
+            return back()->withErrors($validate);
         }
 
         $supplier = Supplier::findOrFail($id);
-        $supplier->name = $request->get('supplier-name');
-        $supplier->phone = $request->get('phone');
-        $supplier->address = $request->get('address');
-        $supplier->website = $request->get('website');
+        $supplier_name = $request->get("supplier-name-$id");
+        $supplier_phone = $request->get("supplier-phone-$id");
+        $supplier_address = $request->get("supplier-address-$id");
+        $supplier_website = $request->get("supplier-website-$id");
+        if (($supplier->name==$supplier_name) && ($supplier->phone==$supplier_phone)
+            && ($supplier->address==$supplier_address) && ($supplier->website==$supplier_website)) {
+            return back();
+        }
+
+        $supplier->name = $supplier_name;
+        $supplier->phone = $supplier_phone;
+        $supplier->address = $supplier_address;
+        $supplier->website = $supplier_website;
 
         $supplier->update();
 
-        return back()->with('success', 'Sửa nhà cung cấp thành công.');
+        return back()->with('success', 'Sửa thành công.');
     }
 
     /**
@@ -133,14 +142,14 @@ class SupplierController extends Controller
         return back()->with('success', 'Xóa thành công.');
     }
 
-    public function validation(Request $request) {
+    public function validationStore(Request $request) {
         $validate = Validator::make(
             $request->all(),
             [
                 'supplier-name' => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/"),
-                'phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
-                'address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/"),
-                'website' => array('required', 'max:50',
+                'supplier-phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
+                'supplier-address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/"),
+                'supplier-website' => array('required', 'max:50',
                     "regex:/^((http:\/\/)|(https:\/\/))?(www\.)?[a-z0-9]+(\.[a-z0-9]+)*(\.[a-z]+)+(\/[a-z0-9]*)*(\/|(\.php)|(\.html))?$/")
             ],
             [
@@ -150,8 +159,35 @@ class SupplierController extends Controller
             ],
             [
                 'supplier-name' => 'Tên nhà cung cấp',
-                'phone' => 'Số điện thoại',
-                'address' => 'Địa chỉ'
+                'supplier-phone' => 'Số điện thoại',
+                'supplier-address' => 'Địa chỉ',
+                'supplier-website' => 'Website'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                "supplier-name-$id" => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/"),
+                "supplier-phone-$id" => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
+                "supplier-address-$id" => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/"),
+                "supplier-website-$id" => array('required', 'max:50',
+                    "regex:/^((http:\/\/)|(https:\/\/))?(www\.)?[a-z0-9]+(\.[a-z0-9]+)*(\.[a-z]+)+(\/[a-z0-9]*)*(\/|(\.php)|(\.html))?$/")
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không đúng định dạng!'
+            ],
+            [
+                "supplier-name-$id" => 'Tên nhà cung cấp',
+                "supplier-phone-$id" => 'Số điện thoại',
+                "supplier-address-$id" => 'Địa chỉ',
+                "supplier-website-$id" => 'Website'
             ]
         );
 

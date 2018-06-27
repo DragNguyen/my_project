@@ -53,14 +53,16 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::resource('dashboard', 'Admin\DashboardController');
 
     /*
-     * Trademark - Thuong hieu
+     * Trademark
      * */
     Route::resource('trademark', 'Admin\TrademarkController');
+    Route::resource('trademark_restore', 'Admin\Restore\TrademarkRestoreController', ['only' => ['index', 'store']]);
 
     /*
      * Product type
      * */
     Route::resource('product_type', 'Admin\ProductTypeController');
+    Route::resource('product_type_restore', 'Admin\Restore\ProductTypeRestoreController', ['only' => ['index', 'store']]);
 
     /*
      * Product
@@ -110,6 +112,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      *  Employees
      * */
     Route::resource('employee', 'Admin\EmployeeController');
+    Route::post('employee/{id}/reset_password', 'Admin\EmployeeController@resetPassword')->name('reset_password');
+    Route::resource('employee_restore', 'Admin\Restore\EmployeeRestoreController', ['only' => ['index', 'store']]);
 
 
     /*

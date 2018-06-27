@@ -4,18 +4,17 @@
 
 @section('content')
 
+    @include('admin.layouts.components.errors')
     @include('admin.supplier.modals')
 
-    <h2 class="ui dividing header">Nhà cung cấp<a class="anchor" id="introduction"></a></h2>
-
-    @include('admin.layouts.components.errors')
+    <h2 class="ui dividing header">Nhà cung cấp</h2>
 
     <form action="{{ route('supplier.destroy', [0]) }}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
 
-        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit"
-                onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
+        <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit" data-position="right center"
+                onclick="return confirm('Xác nhận xóa?')">
             <i class="delete fitted icon"></i>
         </button>
 

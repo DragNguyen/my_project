@@ -16,7 +16,7 @@
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
-                       name="supplier-id[]" value="{{ $supplier->id }}">
+                       name="supplier-ids[]" value="{{ $supplier->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $supplier->name }}</td>
@@ -28,7 +28,7 @@
                 </a>
             </td>
             <td class="collapsing center aligned">
-                <a class="ui green mini button" onclick="$('#modal-edit-supplier-{{$supplier->id}}').modal('show')">
+                <a class="ui green small label" onclick="$('#modal-edit-supplier-{{$supplier->id}}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>
             </td>

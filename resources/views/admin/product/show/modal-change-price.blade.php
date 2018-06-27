@@ -7,7 +7,18 @@
             {{ csrf_field() }}
 
             <div class="field">
-                <input type="text" name="price" placeholder="2990000 hoặc 2,990,000">
+                <div class="ui corner labeled input">
+                    <input type="text" name="price" value="{{ old('price') }}"
+                           placeholder="2990000 hoặc 2,990,000">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
+                @if($errors->has('price'))
+                    <div style="color: red; margin-top: 5px; font-size: 13px">
+                        {{ $errors->first('price') }}
+                    </div>
+                @endif
             </div>
             <span style="margin-top: 10px">
                 <strong>Lưu ý:</strong>

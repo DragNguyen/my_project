@@ -22,7 +22,7 @@ class CreateOrdersTable extends Migration
             $table->string('address', 100);
             $table->double('price');
             $table->boolean('is_deleted')->default(false);
-            $table->dateTime('order_created_at')->default(date('Y-m-d H:i:s'));
+            $table->dateTime('order_created_at');
             $table->timestamps();
         });
     }

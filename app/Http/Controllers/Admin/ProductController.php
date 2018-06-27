@@ -159,6 +159,7 @@ class ProductController extends Controller
         $product->name = $product_name;
         $product->product_type_id = $request->get('product-type-id');
         $product->trademark_id = $request->get('trademark-id');
+        $product->product_updated_at = date('Y-m-d H:i:s');
 
         $product->update();
 
@@ -198,26 +199,27 @@ class ProductController extends Controller
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'regex' => ':attribute nhập không đúng định dạng!'
+                'regex' => ':attribute không đúng định dạng!'
             ],
             [
                 'price' => 'Giá tiền'
             ]
         );
         if($validate->fails()) {
-            return back()->withErrors($validate);
+            return back()->withErrors($validate)->withInput($request->only('price'));
         }
         $price_input = str_replace(',', '', $request->get('price'));
         if ($price_input > 100000000) {
-            return back()->with('error', 'Giá tiền không được vượt quá 100,000,000đ !');
+            return back()->withErrors(['price' => 'Giá tiền không được vượt quá 100,000,000đ !']);
         }
         if ($price_input < 1000) {
-            return back()->with('error', 'Giá tiền không được nhỏ hơn 1,000đ !');
+            return back()->withErrors(['price' => 'Giá tiền không được vượt quá 100,000,000đ !']);
         }
 
         $price = new Price();
         $price->price = $price_input;
         $price->product_id = $id;
+        $price->price_updated_at = date('Y-m-d H:i:s');
         $price->save();
 
         return back()->with('success', 'Thay đổi thành công.');

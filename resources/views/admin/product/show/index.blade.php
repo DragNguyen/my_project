@@ -54,14 +54,16 @@
                         {{ number_format($product->currentPrice()) }} đ
                     </strong>
                     @if(!$product->is_deleted)
-                        <a class="blue small ui label" onclick="$('#modal-change-price').modal('show')">
-                            {{--<i class="edit fitted icon"></i>--}}
-                            Thay đổi
+                        <a class="blue small ui label" data-tooltip="Thay đổi giá"
+                           onclick="$('#modal-change-price').modal('show')">
+                            <i class="edit fitted icon"></i>
+                            {{--Thay đổi--}}
                         </a>
                     @endif
-                    <a class="small ui label" onclick="$('#modal-price-history').modal('show')">
-                        {{--<i class="history fitted icon"></i>--}}
-                        Lịch sử
+                    <a class="small ui label" data-tooltip="Xem lịch sử"
+                       onclick="$('#modal-price-history').modal('show')">
+                        <i class="history fitted icon"></i>
+                        {{--Lịch sử--}}
                     </a>
                 </div>
                 <div class="five wide column">

@@ -16,7 +16,7 @@ class CreateProductsTable extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 100);
-            $table->dateTime('product_created_at')->default(date('Y-m-d H:i:s'));
+            $table->dateTime('product_created_at');
             $table->dateTime('product_updated_at')->nullable();
             $table->string('avatar')->nullable();
             $table->integer('quantity')->default(0);

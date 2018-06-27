@@ -17,12 +17,12 @@ class CreateAdminsTable extends Migration
             $table->increments('id');
             $table->string('email', 100);
             $table->string('name', 50);
-            $table->string('username', 16);
             $table->string('password', 100);
             $table->string('phone', 20);
             $table->tinyInteger('gender');
             $table->string('avatar', 200)->nullable();
             $table->tinyInteger('role')->default(1);
+            $table->boolean('is_deleted')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });
