@@ -20,10 +20,6 @@
                     </div>
                 @endif
             </div>
-            <span style="margin-top: 10px">
-                <strong>Lưu ý:</strong>
-                Chỉ nhập các <strong>ký tự tiếng Việt</strong>.
-            </span>
         </form>
     </div>
 
@@ -56,10 +52,6 @@
                         </div>
                     @endif
                 </div>
-                <span style="margin-top: 10px">
-                    <strong>Lưu ý:</strong>
-                    Chỉ nhập các <strong>ký tự tiếng Việt</strong>.
-                </span>
             </form>
         </div>
         <div class="actions">

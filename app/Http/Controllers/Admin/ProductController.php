@@ -6,7 +6,7 @@ use App\Image;
 use App\Price;
 use App\Product;
 use App\ProductType;
-use App\ProductTypeTrademark;
+use App\Quantity;
 use App\SpecificationProductType;
 use App\Trademark;
 use Illuminate\Http\Request;
@@ -47,20 +47,23 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        $validate = $this->validation($request);
+        $validate = $this->validationStore($request);
         if ($validate->fails()) {
-            return back()->withErrors($validate)->withInput($request->all());
+            return back()->withErrors($validate)->withInput($request->only('price', 'product-name'));
         }
         $price_input = str_replace(',', '', $request->get('price'));
         if ($price_input < 1000) {
-            return back()->with('error', 'Giá tiền không được nhỏ hơn 1,000đ !')->withInput($request->all());
+            return back()->withErrors(['price' => 'Giá tiền không được nhỏ hơn 1,000đ !'])
+                ->withInput($request->only('price', 'product-name'));
         }
         if ($price_input > 100000000) {
-            return back()->with('error', 'Giá tiền không được vượt quá 100,000,000đ !')->withInput($request->all());
+            return back()->withErrors(['price' => 'Giá tiền không được vượt quá 100,000,000đ !'])
+                ->withInput($request->only('price', 'product-name'));
         }
         if (!$request->hasFile('product-image-upload') || !$request->hasFile('product-avatar-upload'))
         {
-            return back()->with('error', 'Bạn chưa upload hình ảnh!')->withInput($request->all());
+            return back()->withErrors(['Bạn chưa upload hình ảnh!'])
+                ->withInput($request->only('price', 'product-name'));
         }
         $product_images = $request->file('product-image-upload');
         $ext = $request->file('product-avatar-upload')->extension();
@@ -69,11 +72,13 @@ class ProductController extends Controller
         $product = new Product();
         $product_name = $request->get('product-name');
         if ($product->matchedName($product_name)) {
-            return back()->with('error', 'Tên sản phẩm đã tồn tại!')->withInput($request->all());
+            return back()->with('error', 'Tên sản phẩm đã tồn tại!')->withInput($request->only('price', 'product-name'));
         }
         $product->name = $product_name;
+        $product->product_created_at = date('Y-m-d H:i:s');
         $product->product_type_id = $request->get('product-type-id');
         $product->trademark_id = $request->get('trademark-id');
+        $product->slug = str_slug($product_name);
         $path = $request->file('product-avatar-upload')
             ->move('assets\img\product\avatar', "avatar-$product->id-$time.$ext");
         $product->avatar = str_replace('\\', '/', $path);
@@ -81,8 +86,14 @@ class ProductController extends Controller
 
         $price = new Price();
         $price->price = $price_input;
+        $price->price_updated_at = date('Y-m-d H:i:s');
         $price->product_id = $product->id;
         $price->save();
+
+        $quantity = new Quantity();
+        $quantity->quantity_updated_at = date('Y-m-d H:i:s');
+        $quantity->product_id = $product->id;
+        $quantity->save();
 
         foreach ($product_images as $key => $product_image) {
             $ext = $product_image->extension();
@@ -133,32 +144,26 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $validate = Validator::make(
-            $request->all(),
-            [
-                "product-name-$id" => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/")
-            ],
-            [
-                'required' => ':attribute không được bỏ trống!',
-                'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
-            ],
-            [
-                "product-name-$id" => 'Tên sản phẩm'
-            ]
-        );
+        $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
         $product_name = $request->get("product-name-$id");
-
+        $product_type_id = $request->get('product-type-id');
+        $trademark_id = $request->get('trademark-id');
         $product = Product::findOrFail($id);
+        if (($product_name == $product->name)
+            && ($product_type_id==$product->product_type_id)
+            && ($trademark_id==$product->trademark_id)) {
+            return back();
+        }
         if(($product->name != $product_name) && ($product->matchedName($product_name))) {
             return back()->with('error', 'Tên sản phẩm đã tồn tại!');
         }
         $product->name = $product_name;
-        $product->product_type_id = $request->get('product-type-id');
-        $product->trademark_id = $request->get('trademark-id');
+        $product->slug = str_slug($product_name);
+        $product->product_type_id =  $product_type_id;
+        $product->trademark_id = $trademark_id;
         $product->product_updated_at = date('Y-m-d H:i:s');
 
         $product->update();
@@ -195,11 +200,11 @@ class ProductController extends Controller
     public function changePrice(Request $request, $id) {
         $validate = Validator::make($request->all(),
             [
-                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
+                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'price' => 'Giá tiền'
@@ -225,21 +230,40 @@ class ProductController extends Controller
         return back()->with('success', 'Thay đổi thành công.');
     }
 
-    public function validation(Request $request) {
+    public function validationStore(Request $request) {
         $validate = Validator::make(
             $request->all(),
             [
-                'product-name' => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ ]*$/"),
-                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
+                'product-name' => array('required', 'max:100', "regex:/^[a-zA-ZÀ-ỹ][\wÀ-ỹ ]*$/"),
+                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'product-name' => 'Tên sản phẩm',
                 'price' => 'Giá tiền'
+            ]
+        );
+
+        return $validate;
+    }
+
+    public function validationUpdate(Request $request, $id) {
+        $validate = Validator::make(
+            $request->all(),
+            [
+                "product-name-$id" => array('required', 'max:100', "regex:/^[a-zA-ZÀ-ỹ][\wÀ-ỹ ]*$/"),
+            ],
+            [
+                'required' => ':attribute không được bỏ trống!',
+                'max' => ':attribute không được vượt quá :max ký tự!',
+                'regex' => ':attribute không hợp lệ!'
+            ],
+            [
+                "product-name-$id" => 'Tên sản phẩm'
             ]
         );
 

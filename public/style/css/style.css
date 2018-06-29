@@ -1,0 +1,252 @@
+.no-margin {
+    margin: 0 !important;
+}
+.no-margin-top {
+    margin-top: 0 !important;
+}
+.no-margin-bottom {
+    margin-bottom: 0 !important;
+}
+.no-margin-left {
+    margin-left: 0 !important;
+}
+.no-margin-right {
+    margin-right: 0 !important;
+}
+.no-td-margin {
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
+}
+.no-td-padding {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+}
+
+.no-lr-margin {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.small-margin {
+    margin: 5px !important;
+}
+.small-lr-margin {
+    margin: 0 5px 0 5px !important;
+}
+.small-td-margin {
+    margin-top: 5px !important;
+    margin-bottom: 5px !important;
+}
+.small-bot-margin {
+    margin-bottom: 5px !important;
+}
+.normal-margin {
+    margin: 10px !important;
+}
+.normal-lr-margin {
+    margin: 0 10px 0 10px !important;
+}
+.normal-td-margin {
+    margin: 10px 0 10px 0 !important;
+}
+.big-margin {
+    margin: 15px !important;
+}
+
+.square-border {
+    border-radius: 0 !important;
+}
+.no-padding {
+    padding: 0 !important;
+}
+.small-padding {
+    padding: 5px !important;
+}
+.small-lr-padding {
+    padding-left: 5px !important;
+    padding-right: 5px !important;
+}
+.normal-padding {
+    padding: 10px !important;
+}
+.normal-td-padding {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.small-td-padding {
+    padding-top: 5px !important;
+    padding-bottom: 5px !important;
+}
+.big-padding {
+    padding: 15px !important;
+}
+
+@media only screen and (min-width: 768px) {
+    .layout-padding {
+        padding: 30px 100px !important;
+    }
+}
+
+.white {
+    background-color: #fff !important;
+}
+.color-white {
+    color: #fff !important;
+}
+.red-text {
+    color: #C6000B !important;
+}
+.blue-text {
+    color: #004D85 !important;
+}
+.green-text {
+    color: #004A20 !important;
+}
+.orange-text {
+    color: #E15100 !important;
+}
+.red-bg {
+    background-color: #C6000B !important;
+}
+.blue-bg {
+    background-color: #004D85 !important;
+}
+.green-bg {
+    background-color: #004A20 !important;
+}
+.orange-bg {
+    background-color: #E15100 !important;
+}
+
+.full-height {
+    height: 100%;
+    overflow: auto;
+}
+.under-navbar {
+    /*top: 50px !important;*/
+}
+#logo {
+    width: 220px;
+}
+.menu .item-padded {
+    padding-top: 50px !important;
+    padding-bottom: 50px !important;
+}
+
+
+#main-container {
+    margin-top: 50px;
+    /*margin-left: 220px;*/
+}
+
+.menu-item-padding {
+    padding: 13px 16px !important;
+}
+.new-price {
+    margin-left: 5px;
+    color: red;
+}
+
+.fotorama {
+    width: 98% !important;
+}
+
+.fotorama img {
+    width: 100% !important;
+}
+
+.icon-left {
+    float: unset !important;
+    margin-right: 15px !important;
+    margin-left: 0 !important;
+    width: 15px !important;
+}
+
+.icon-accordion {
+    margin-right: 13px !important;
+}
+.static-input {
+    /*border: 1px solid red;*/
+    display: inline-block;
+    /*width: 200px !important;*/
+    padding: 0.5em 0;
+}
+
+.static .label-fixed {
+    width: 130px !important;
+    /*text-align: left !important;*/
+}
+
+.static input,
+.ui.form .inline.field > .selection.dropdown,
+.ui.form .inline.fields .field > .selection.dropdown {
+    width: calc(100% - 250px) !important;
+}
+
+.limit-size input[type="number"] {
+    min-width: 45px !important;
+    max-width: 200px !important;
+}
+
+.help-text {
+    margin-top: 5px;
+}
+
+.force-inline {
+    display: inline-block ;
+}
+
+.active-bar {
+    background: rgba(255,255,255,.15) !important;
+    color: #fff!important;
+    border-left: 2px solid #2185d0;
+}
+
+.active-bar-bottom {
+    border-bottom: 2px solid #2185d0;
+}
+
+.pointer {
+    cursor: pointer !important;
+}
+
+.force-hidden{
+    display: none !important;
+}
+.force-left {
+    float: left !important;
+}
+.force-right {
+    float: right !important;
+}
+.form .field.no-clear {
+    clear: unset !important;
+}
+
+.short-space {
+    margin: 0 20px !important;
+}
+.long-space {
+    margin: 0 50px !important;
+}
+
+.pusher {
+    min-height: 330px !important;
+}
+
+.ui.range{
+    min-width: 200px;
+}
+
+.remove-input {
+    position: absolute;
+    top: 8px;
+    left: 5px;
+}
+.need-remove {
+    padding-left: 25px !important;
+}
+
+.statistic .label, .statistic .value {
+    text-transform: none !important;
+}

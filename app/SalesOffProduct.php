@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class SalesOffProduct extends Model
 {
+    public function salesOff() {
+        return $this->belongsTo(SalesOff::class);
+    }
+
     public function product() {
         return $this->belongsTo(Product::class);
     }

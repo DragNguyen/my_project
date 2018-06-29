@@ -4,10 +4,10 @@
 
 @section('content')
 
-    @include('admin.layouts.components.errors')
     @include('admin.supplier.modals')
 
     <h2 class="ui dividing header">Nhà cung cấp</h2>
+    @include('admin.layouts.components.errors')
 
     <form action="{{ route('supplier.destroy', [0]) }}" method="post">
         {{ method_field('DELETE') }}

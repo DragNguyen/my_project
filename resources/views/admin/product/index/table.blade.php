@@ -29,7 +29,7 @@
             <td>{{ $product->productType->name }}</td>
             <td>{{ $product->trademark->name }}</td>
             <td class="collapsing right aligned">{{ number_format($product->currentPrice()) }} đ</td>
-            <td class="center aligned">{{ $product->quantity }}</td>
+            <td class="center aligned">{{ $product->getQuantity() }}</td>
             {{--<td class="center aligned">{{ $product->status() }}</td>--}}
             <td class="collapsing center aligned">
                 <a class="ui green small label" onclick="$('#modal-edit-product-{{$product->id}}').modal('show')">

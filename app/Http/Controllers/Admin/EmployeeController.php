@@ -43,13 +43,21 @@ class EmployeeController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput($request->all());
         }
+        $employee_email = $request->get('employee-email');
+        $employee_phone = $request->get('employee-phone');
+        if (Admin::where('phone', $employee_phone)->count() > 0) {
+            return back()->with('error', 'Số điện thoại đã tồn tại!')->withInput($request->all());
+        }
+        if (Admin::where('email', $employee_email)->count() > 0) {
+            return back()->with('error', 'Email đã tồn tại!')->withInput($request->all());
+        }
 
         $password = substr($request->get('employee-email'),
             0,strpos($request->get('employee-email'),'@'));
         $employee = new Admin();
         $employee->name = $request->get('employee-name');
-        $employee->email = $request->get('employee-email');
-        $employee->phone = $request->get('employee-phone');
+        $employee->email = $employee_email;
+        $employee->phone = $employee_phone;
         $employee->gender = $request->get('employee-gender');
         $employee->password = bcrypt($password.'123');
         $employee->save();
@@ -94,13 +102,19 @@ class EmployeeController extends Controller
         }
 
         $employee = Admin::findOrFail($id);
-        $employee_name = $request->get("employee-name-$id");
+        $employee_name = ucwords($request->get("employee-name-$id"));
         $employee_phone = $request->get("employee-phone-$id");
         $employee_email = $request->get("employee-email-$id");
         $employee_gender = $request->get("employee-gender");
         if (($employee->name == $employee_name) && ($employee->phone == $employee_phone)
             && ($employee->email == $employee_email) && ($employee->gender == $employee_gender)) {
             return back();
+        }
+        if (Admin::where('phone', $employee_phone)->count() > 0) {
+            return back()->with('error', 'Số điện thoại đã tồn tại!')->withInput($request->all());
+        }
+        if (Admin::where('email', $employee_email)->count() > 0) {
+            return back()->with('error', 'Email đã tồn tại!')->withInput($request->all());
         }
 
         $employee->name = $employee_name;
@@ -150,7 +164,7 @@ class EmployeeController extends Controller
                 'required' => ':attribute không được bỏ trống!',
                 'min' => ':attribute không được nhỏ hơn :min ký tự!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 "employee-password-$id" => 'Mật khẩu mới',
@@ -160,22 +174,36 @@ class EmployeeController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-        return back();
+
+        $password = $request->get("employee-password-$id");
+        $password_confirm = $request->get("employee-password-confirm-$id");
+        if($password != $password_confirm) {
+            return back()->withErrors(["employee-password-confirm-$id" => 'Mật khẩu nhập lại không khớp!']);
+        }
+        $employee = Admin::findOrFail($id);
+        if (password_verify($password, $employee->password)) {
+            return back()->with('error', 'Bạn đã nhập lại mật khẩu cũ!');
+        }
+        $employee->password = bcrypt($password);
+        $employee->update();
+
+        return back()->with('success', 'Thay đổi thành công.');
     }
 
     public function validationStore(Request $request) {
         $validate = Validator::make(
             $request->all(),
             [
-                'employee-name' => array('required', 'max:100', "regex:/^([A-Z][a-zA-ZÀ-ỹ]+)( [A-Z][a-zA-ZÀ-ỹ]+)+$/"),
+                'employee-name' => array('required', 'max:100',
+                    "regex:/^[a-zA-ZÀ-ỹ]+ [a-zA-ZÀ-ỹ ]+$/"),
                 'employee-phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
                 'employee-email' => 'required|email|max:100'
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!',
-                'email' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!',
+                'email' => ':attribute không hợp lệ!'
             ],
             [
                 'employee-name' => 'Tên nhân viên',
@@ -191,15 +219,15 @@ class EmployeeController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "employee-name-$id" => array('required', 'max:100', "regex:/^([A-Z][a-zA-ZÀ-ỹ]+)( [A-Z][a-zA-ZÀ-ỹ]+)+$/"),
+                "employee-name-$id" => array('required', 'max:100', "regex:/^[a-zA-ZÀ-ỹ]+ [a-zA-ZÀ-ỹ ]+$/"),
                 "employee-phone-$id" => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
                 "employee-email-$id" => 'required|email|max:100'
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!',
-                'email' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!',
+                'email' => ':attribute không hợp lệ!'
             ],
             [
                 "employee-name-$id" => 'Tên nhân viên',

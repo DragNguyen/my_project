@@ -15,8 +15,10 @@
     @foreach($goods_receipt_note_products as $stt => $goods_receipt_note_product)
         <tr>
             <td class="center aligned">
-                <input type="checkbox" id="table_records" class="flat"
-                       name="goods-receipt-note-product-ids[]" value="{{ $goods_receipt_note_product->id }}">
+                @if(!$goods_receipt_note_product->product->is_deleted)
+                    <input type="checkbox" id="table_records" class="flat"
+                           name="goods-receipt-note-product-ids[]" value="{{ $goods_receipt_note_product->id }}">
+                @endif
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>
@@ -26,12 +28,14 @@
             </td>
             <td>{{ number_format($goods_receipt_note_product->price) }} đ</td>
             <td>{{ $goods_receipt_note_product->quantity }}</td>
-            <td>{{ $goods_receipt_note_product->product->quantity }}</td>
+            <td>{{ $goods_receipt_note_product->product->getQuantity() }}</td>
             <td class="collapsing center aligned">
-                <a class="ui green small label"
-                   onclick="$('#modal-edit-goods-receipt-note-product-{{ $goods_receipt_note_product->id }}').modal('show')">
-                    <i class="edit fitted icon"></i>
-                </a>
+                @if(!$goods_receipt_note_product->product->is_deleted)
+                    <a class="ui green small label"
+                       onclick="$('#modal-edit-goods-receipt-note-product-{{ $goods_receipt_note_product->id }}').modal('show')">
+                        <i class="edit fitted icon"></i>
+                    </a>
+                @endif
             </td>
         </tr>
     @endforeach

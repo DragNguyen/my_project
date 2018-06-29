@@ -1,4 +1,4 @@
-<div class="ui tiny modal" id="modal-price-history">
+<div class="ui tiny modal" id="modal-price-history-price">
     <div class="header modal-header">Lịch sử thay đổi giá</div>
     <div class="scrolling content">
         <table class="ui celled striped table">

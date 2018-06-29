@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    return view('welcome');
+//});
 
 Auth::routes();
 
@@ -24,8 +24,14 @@ Auth::routes();
 /*
  * Test
  * */
-Route::get('/test', function() {
-   return view('admin.test');
+Route::get('/', function() {
+    $products = \App\Product::paginate(24);
+   return view('customer', compact('products'));
+});
+
+Route::get('/product_viewer/{slug}', function ($slug) {
+    $product = \App\Product::where('slug', $slug)->first();
+    return view('customer.product.index', compact('product'));
 });
 
 /*

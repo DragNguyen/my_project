@@ -24,7 +24,7 @@
                 </a>
             </td>
             <td class="collapsing center aligned">
-                <a class="ui green small label" onclick="$('#modal-edit-product-type-{{$trademark->id}}').modal('show')">
+                <a class="ui green small label" onclick="$('#modal-edit-trademark-{{$trademark->id}}').modal('show')">
                     <i class="edit fitted icon"></i>
                 </a>
             </td>

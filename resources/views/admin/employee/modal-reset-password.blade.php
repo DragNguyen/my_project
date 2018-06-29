@@ -30,16 +30,15 @@
                             <i class="asterisk icon"></i>
                         </div>
                     </div>
-                    @if($errors->has("employee-password-$employee->id"))
+                    @if($errors->has("employee-password-confirm-$employee->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first("employee-password-$employee->id") }}
+                            {{ $errors->first("employee-password-confirm-$employee->id") }}
                         </div>
                     @endif
                 </div>
                 <span style="margin-top: 10px">
-                    <strong>Lưu ý:</strong>
-                    chỉ nhập các ký tự <strong>không dấu</strong>
-                    hoặc các ký tự đặc biệt sau: <strong>! @ # $ &</strong>
+                    <strong>Lưu ý:</strong>Chỉ được dùng ký tự <strong>không dấu</strong>
+                    và các ký tự đặc biệt sau: <strong>! @ # $ &</strong>
                 </span>
             </form>
         </div>

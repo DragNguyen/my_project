@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\GoodsReceiptNoteProduct;
 use App\Product;
+use App\Quantity;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -63,8 +64,14 @@ class GoodsReceiptNoteProductController extends Controller
 
         if ($goods_receipt_note_product->save()) {
             $product = Product::findOrFail($goods_receipt_note_product->product_id);
-            $product->quantity += $quantity;
-            $product->update();
+            $product_quantity = new Quantity();
+            $product_quantity->oldQuantity = $product->getQuantity();
+            $product_quantity->quantity = $product->getQuantity() + $quantity;
+            $product_quantity->quantity_changed = $product_quantity->quantity - $product_quantity->oldQuantity;
+            $product_quantity->event = 2;
+            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
+            $product_quantity->product_id = $product->id;
+            $product_quantity->save();
         }
 
         return back()->with('success', 'Thêm thành công.');
@@ -131,8 +138,14 @@ class GoodsReceiptNoteProductController extends Controller
 
         if ($goods_receipt_note_product->update()) {
             $product = Product::findOrFail($goods_receipt_note_product->product_id);
-            $product->quantity = $product->getChangedQuantity($quantity_changed);
-            $product->update();
+            $product_quantity = new Quantity();
+            $product_quantity->quantity = $product->getChangedQuantity($quantity_changed);
+            $product_quantity->oldQuantity = $product->getQuantity();
+            $product_quantity->quantity_changed = $quantity_changed;
+            $product_quantity->event = -2;
+            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
+            $product_quantity->product_id = $product->id;
+            $product_quantity->save();
         }
 
         return back()->with('success', 'Sửa thành công.');
@@ -152,19 +165,27 @@ class GoodsReceiptNoteProductController extends Controller
             $goods_receipt_note_product = GoodsReceiptNoteProduct::findOrFail($id);
             $product = $goods_receipt_note_product->product;
             $quantity_changed = - $goods_receipt_note_product->quantity_updated;
+
+            $product_quantity = new Quantity();
+            $product_quantity->oldQuantity = $product->getQuantity();
+            $product_quantity->quantity = $product->getChangedQuantity($quantity_changed);
+            $product_quantity->quantity_changed = $quantity_changed;
+            $product_quantity->event = -3;
+            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
+            $product_quantity->product_id = $product->id;
+            $product_quantity->save();
+
             $goods_receipt_note_product->delete();
-            $product->quantity = $product->getChangedQuantity($quantity_changed);
-            $product->update();
         }
 
-        return back()->with('success', 'Xóa sản phẩm khỏi phiếu nhập thành công.');
+        return back()->with('success', 'Xóa thành công.');
     }
 
     public function validationStore($request) {
         $validate = Validator::make($request->all(),
             [
                 'quantity' => 'required|integer|min:1|max:500',
-                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
+                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

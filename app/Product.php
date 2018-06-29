@@ -23,6 +23,14 @@ class Product extends Model
         return $this->hasMany(Image::class);
     }
 
+    public function salesOffProducts() {
+        return $this->hasMany(SalesOffProduct::class);
+    }
+
+    public function quantities() {
+        return $this->hasMany(Quantity::class);
+    }
+
     public function productType() {
         return $this->belongsTo(ProductType::class);
     }
@@ -49,18 +57,29 @@ class Product extends Model
         return $this->prices->max()->price;
     }
 
-    public function getSpecValue($id) {
-        $spec = SpecificationProduct::where('specification_id', $id)->where('product_id', $this->id)->first();
-        return $spec->value;
+    public function getQuantity() {
+        return $this->quantities->max()->quantity;
+    }
+
+    public function isSalesOff() {
+        return $this->salesOffProducts()->count() > 0;
+    }
+
+    public function getSalesOffPercent() {
+        return ($this->isSalesOff()) ? $this->salesOffProducts()->first()->salesOff->value : 0;
+    }
+
+    public function getSalesOffPrice() {
+        return $this->currentPrice() - ($this->currentPrice() * $this->getSalesOffPercent() / 100);
     }
 
     public function getChangedQuantity($quantity) {
-        $changed_quantity = $this->quantity + $quantity;
+        $changed_quantity = $this->getQuantity() + $quantity;
         return ($changed_quantity > 0) ? $changed_quantity : 0;
     }
 
     public function matchedName($product_name) {
-        return Product::where('name', $product_name)->count() > 0;
+        return Product::where('slug', str_slug($product_name))->count() > 0;
     }
 
     public function canDelete() {

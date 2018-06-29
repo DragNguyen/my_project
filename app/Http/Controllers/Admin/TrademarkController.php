@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Trademark;
+use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -42,9 +43,13 @@ class TrademarkController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput($request->only('trademark-name'));
         }
+        $trademark_name = $request->get('trademark-name');
+        if (Trademark::where('name', $trademark_name)->count() > 0) {
+            return back()->with('error', 'Tên thương hiệu đã tồn tại!');
+        }
 
         $trademark = new Trademark();
-        $trademark->name = $request->get('trademark-name');
+        $trademark->name = $trademark_name;
 
         $trademark->save();
 
@@ -87,9 +92,16 @@ class TrademarkController extends Controller
             return back()->withErrors($validate)
                 ->withInput($request->only("trademark-name-$id"));
         }
-
         $trademark = Trademark::findOrFail($id);
-        $trademark->name = $request->get("trademark-name-$id");
+        $trademark_name = $request->get("trademark-name-$id");
+        if ($trademark_name == $trademark->name) {
+            return back();
+        }
+        if (Trademark::where('name', $trademark_name)->count() > 0) {
+            return back()->with('error', 'Tên thương hiệu đã tồn tại!');
+        }
+
+        $trademark->name = $trademark_name;
 
         $trademark->update();
 
@@ -127,12 +139,12 @@ class TrademarkController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'trademark-name' => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                'trademark-name' => array('required', 'max:100', 'regex:/^[[:alpha:]]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'trademark-name' => 'Tên thương hiệu'
@@ -146,12 +158,12 @@ class TrademarkController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "trademark-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                "trademark-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 "trademark-name-$id" => 'Tên thương hiệu'

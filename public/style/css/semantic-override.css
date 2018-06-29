@@ -1,0 +1,128 @@
+.mobile.search input.prompt {
+    /*border-radius: 7px !important;*/
+    width: 10em !important;
+}
+
+.search .results .image {
+    display: inline-block !important;
+    float: unset !important;
+    width: 3.5em !important;
+}
+
+.search .results .content {
+    position: relative !important;
+    display: inline-block !important;
+    float: right !important;
+    margin: 0 !important;
+}
+
+.search .results .content .price {
+    float: unset !important;
+    position: absolute !important;
+    top: 20px !important;
+}
+
+.search .results .content .title {
+    height: 20px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.mobile.search .results .content {
+    width: calc(18em - 35px - 3.5em) !important;
+}
+
+.computer.search .results .content {
+    width: calc(350px - 35px - 3.5em) !important;
+}
+
+.computer.search {
+    margin-left: 5%;
+    margin-top: 5px;
+}
+
+.computer.search input.prompt {
+    border-radius: 3px !important;
+    width: 350px !important;
+}
+
+.computer.search .results {
+    margin-top: 0 !important;
+    width: 350px !important;
+}
+
+.computer.search .results .image {
+    display: inline-block !important;
+    float: unset !important;
+    width: 3.5em !important;
+}
+
+.ui.search img {
+    margin-right: 0 !important;
+}
+
+.ui.search .price {
+    color: red !important;
+}
+
+.center-aligned {
+    text-align: center !important;
+}
+
+.menu .floating.label {
+    top: 0 !important;
+}
+
+.ui.card, .ui.cards .card, .card .image {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    /*border-radius: 0 !important;*/
+}
+
+.card .corner.label {
+    padding: 8px 5px 0 20px;
+}
+
+.no-lr-padding {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+
+.left-aligned {
+    text-align: left !important;
+}
+
+.accordion .menu .title.item {
+    padding-left: 25px !important;
+    font-size: 13px !important;
+}
+
+.accordion .menu .title.item:before {
+    content: '+' !important;
+}
+
+#admin-avt {
+    margin-right: 5px;
+}
+
+.ui.modal > .close {
+    top: .5rem !important;
+    right: .5rem !important;
+    color: rgba(0, 0, 0, .87) !important;
+}
+
+.event .summary a {
+    color: #3e3e3e !important;
+    font-weight: 400 !important;
+}
+
+.pagination a.item.active {
+    border-bottom: 2px solid #2185d0;
+    font-weight: bold;
+}
+
+.segment.table-responsive {
+    overflow: auto;
+    display: block;
+}

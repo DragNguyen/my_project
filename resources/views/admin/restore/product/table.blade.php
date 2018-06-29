@@ -14,7 +14,7 @@
     <tbody>
     @foreach($products as $stt => $product)
         <tr>
-            <td>
+            <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
                        name="product-ids[]" value="{{ $product->id }}">
             </td>
@@ -24,8 +24,8 @@
                     {{ $product->name }}
                 </a>
             </td>
-            <td>{{ $product->getProductType()->name }}</td>
-            <td>{{ $product->getTrademark()->name }}</td>
+            <td>{{ $product->productType->name }}</td>
+            <td>{{ $product->trademark->name }}</td>
             <td class="collapsing right aligned">{{ number_format($product->currentPrice()) }} đ</td>
             <td class="center aligned">{{ $product->quantity }}</td>
         </tr>

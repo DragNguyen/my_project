@@ -6,6 +6,7 @@
     @include('admin.trademark.modals')
 
     <h2 class="ui dividing header">Thương hiệu</h2>
+    @include('admin.layouts.components.errors')
 
     <form action="{{ route('trademark.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}

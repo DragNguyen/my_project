@@ -27,12 +27,20 @@
             <td>{{ $employee->email }}</td>
             <td>{{ $employee->phone }}</td>
             <td class="center aligned">{{ $employee->getGender() }}</td>
-            <td class="collapsing center aligned">{{ $employee->getRole() }}</td>
+            <td class="collapsing center aligned">
+                @if($employee->role == 0)
+                    <strong>{{ $employee->getRole() }}</strong>
+                @else
+                    {{ $employee->getRole() }}
+                @endif
+            </td>
             <td class="center aligned">
-                <a class="ui small label blue" onclick="$('#modal-reset-password-{{ $employee->id }}').modal('show')"
-                   data-tooltip="Đặt lại mật khẩu">
-                    <i class="sync fitted icon"></i>
-                </a>
+                @if($employee->role == 1)
+                    <a class="ui small label blue" onclick="$('#modal-reset-password-{{ $employee->id }}').modal('show')"
+                       data-tooltip="Đặt lại mật khẩu">
+                        <i class="sync fitted icon"></i>
+                    </a>
+                @endif
             </td>
             <td class="collapsing center aligned">
                 <a class="ui green small label" onclick="$('#modal-edit-employee-{{$employee->id}}').modal('show')">

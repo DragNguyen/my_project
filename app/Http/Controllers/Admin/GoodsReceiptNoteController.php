@@ -80,7 +80,7 @@ class GoodsReceiptNoteController extends Controller
     {
         $goods_receipt_note = GoodsReceiptNote::find($id);
         $goods_receipt_note_products = GoodsReceiptNoteProduct::where('goods_receipt_note_id', $id)->paginate(10);
-        $products = Product::all();
+        $products = Product::where('is_deleted', false)->get();
 
         return view('admin.goods-receipt-note.product.index',
             compact(['goods_receipt_note', 'goods_receipt_note_products', 'products']));

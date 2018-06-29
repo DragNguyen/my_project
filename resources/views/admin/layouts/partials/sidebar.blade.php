@@ -55,7 +55,7 @@
             <li class="{{ \Illuminate\Support\Facades\Request::is('admin/employee') ? 'current-page' : '' }}">
                 <a href="{{ route('employee.index') }}">
                     <i class="fa fa-users"></i>
-                    Tài khoản
+                    Nhân viên
                 </a>
             </li>
             <li >

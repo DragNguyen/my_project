@@ -16,7 +16,8 @@
     @include('admin.layouts.components.errors')
     @include('admin.layouts.components.error')
     @include('admin.product.show.modal-change-price')
-    @include('admin.product.show.modal-history')
+    @include('admin.product.show.modal-history-price')
+    @include('admin.product.show.modal-history-quantity')
 
     <h3 class="ui dividing header" style="margin-top: 0px">Thông tin cơ bản</h3>
     <div class="ui two column grid">
@@ -44,13 +45,20 @@
                     <strong>Số lượng tồn kho:</strong>
                 </div>
                 <div class="eleven wide column">
-                    <strong>{{ $product->quantity }}</strong>
+                    <strong>
+                        {{ $product->getQuantity() }}
+                        <a class="small ui label" data-tooltip="Xem lịch sử" style="margin-left: 15px"
+                           onclick="$('#modal-price-history-quantity').modal('show')">
+                            <i class="history fitted icon"></i>
+                            {{--Lịch sử--}}
+                        </a>
+                    </strong>
                 </div>
                 <div class="five wide column">
                     <strong>Giá:</strong>
                 </div>
                 <div class="eleven wide column">
-                    <strong>
+                    <strong style="margin-right: 15px">
                         {{ number_format($product->currentPrice()) }} đ
                     </strong>
                     @if(!$product->is_deleted)
@@ -61,7 +69,7 @@
                         </a>
                     @endif
                     <a class="small ui label" data-tooltip="Xem lịch sử"
-                       onclick="$('#modal-price-history').modal('show')">
+                       onclick="$('#modal-price-history-price').modal('show')">
                         <i class="history fitted icon"></i>
                         {{--Lịch sử--}}
                     </a>
@@ -71,9 +79,11 @@
                 </div>
                 <div class="eleven wide column">
                     @if($product->quantity == 0)
-                        <span class="red"><strong>Tạm hết hàng</strong></span>
-                    @else
+                        <span style="color: #CC9F34"><strong>Tạm hết hàng</strong></span>
+                    @elseif(!$product->is_deleted)
                         <span class="green"><strong>Đang bán</strong></span>
+                    @else
+                        <span class="red"><strong>Ngừng kinh doanh</strong></span>
                     @endif
                 </div>
                 <div class="five wide column">

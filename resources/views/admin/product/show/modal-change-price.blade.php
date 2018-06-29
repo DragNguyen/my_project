@@ -23,7 +23,7 @@
             <span style="margin-top: 10px">
                 <strong>Lưu ý:</strong>
                 Giá tiền <strong>không vượt quá</strong> 100,000,000đ hoặc
-                <strong>không nhỏ hơn</strong> 1,000đ.
+                <strong>nhỏ hơn</strong> 1,000đ.
             </span>
         </form>
     </div>

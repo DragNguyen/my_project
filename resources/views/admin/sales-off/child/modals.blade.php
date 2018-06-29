@@ -33,8 +33,8 @@
             </div>
             <span style="margin-top: 10px">
                     <strong>Lưu ý:</strong>
-                    chỉ nhập số nguyên không
-                    <strong>vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>,
+                    chỉ nhập số nguyên
+                    <strong>không vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>,
                     dùng dấu (<strong>,</strong>) để kết thúc một giá trị nhập.
             </span>
         </form>
@@ -71,7 +71,7 @@
                 </div>
                 <span style="margin-top: 10px">
                     <strong>Lưu ý:</strong>
-                    Chỉ nhập số nguyên không <strong>vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>.
+                    Chỉ nhập số nguyên <strong>không vượt quá 99</strong> hoặc <strong>nhỏ hơn 1</strong>.
             </span>
             </form>
         </div>

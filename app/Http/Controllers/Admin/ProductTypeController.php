@@ -129,7 +129,7 @@ class ProductTypeController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'product-type-name' => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                'product-type-name' => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -148,7 +148,7 @@ class ProductTypeController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "product-type-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                "product-type-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
