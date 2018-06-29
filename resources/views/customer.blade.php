@@ -11,7 +11,7 @@
             @foreach($products as $product)
                 <div class="column">
                     <div class="ui fluid link card center-aligned"
-                         onclick="window.location.href='{{ '/product_viewer/' . $product->slug }}'">
+                         onclick="window.location.href='{{ '/product/' . $product->slug }}'">
                         <div class="image">
                             <img class="lazyload" data-src="{{ asset($product->avatar) }}">
                         </div>

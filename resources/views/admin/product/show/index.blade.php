@@ -78,7 +78,7 @@
                     <strong>Tình trạng bán:</strong>
                 </div>
                 <div class="eleven wide column">
-                    @if($product->quantity == 0)
+                    @if($product->getQuantity() == 0)
                         <span style="color: #CC9F34"><strong>Tạm hết hàng</strong></span>
                     @elseif(!$product->is_deleted)
                         <span class="green"><strong>Đang bán</strong></span>

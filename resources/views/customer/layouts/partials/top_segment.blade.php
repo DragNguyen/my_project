@@ -60,10 +60,11 @@
             </div>
         {{--@endif--}}
 
-        <a href="#" class="ui white small button" style="position:relative;">
+        <a href="{{ route('shopping_cart.index') }}" class="ui white small button" style="position:relative;">
             <i class="cart icon"></i>
             <strong>Giỏ hàng</strong>
-            <span class="ui red mini floating label">1
+            <span class="ui red mini floating label">
+                {{ \Gloudemans\Shoppingcart\Facades\Cart::count() }}
                 {{--{{ \App\Helper\FrontendHelper::totalProductsInCart() }}--}}
             </span>
         </a>

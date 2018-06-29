@@ -1,6 +1,8 @@
 <body>
 
 {{--@include('sharing.components.message')--}}
+@include('admin.layouts.components.error')
+@include('admin.layouts.components.success')
 
 <div class="ui grid tablet computer only">
     <div class="sixteen wide column">

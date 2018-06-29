@@ -22,17 +22,28 @@ Auth::routes();
 //})->name('home');
 
 /*
- * Test
+ * Customer
  * */
 Route::get('/', function() {
     $products = \App\Product::paginate(24);
    return view('customer', compact('products'));
 });
 
-Route::get('/product_viewer/{slug}', function ($slug) {
+Route::get('/product/{slug}', function ($slug) {
     $product = \App\Product::where('slug', $slug)->first();
+
     return view('customer.product.index', compact('product'));
 });
+
+/*
+ * Shopping cart
+ * */
+
+Route::resource('shopping_cart', 'CartController');
+
+Route::post('check_out_store', 'CartController@checkoutStore')->name('checkout.store');
+
+Route::get('check_out_index', 'CartController@checkoutIndex')->name('checkout.index');
 
 /*
 * Admin login

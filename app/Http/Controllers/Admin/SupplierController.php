@@ -155,7 +155,7 @@ class SupplierController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'supplier-name' => 'Tên nhà cung cấp',
@@ -181,7 +181,7 @@ class SupplierController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 "supplier-name-$id" => 'Tên nhà cung cấp',
