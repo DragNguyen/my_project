@@ -6,6 +6,7 @@ use App\Order;
 use App\OrderProduct;
 use App\OrderStatus;
 use App\Product;
+use App\Quantity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -135,6 +136,12 @@ class OrderController extends Controller
     public function orderDestroy($id) {
         $order = Order::findOrFail($id);
         if ($order->getStatus() == 0) {
+            $order_products = OrderProduct::where('order_id', $id)->get();
+            foreach($order_products as $order_product) {
+                $product_quantity = Quantity::where('product_id', $order_product->product_id)->first();
+                $product_quantity->quantity += $order_product->quantity;
+                $product_quantity->update();
+            }
             $order->delete();
         }
         else {

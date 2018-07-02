@@ -17,7 +17,7 @@
     @include('admin.layouts.components.error')
     @include('admin.product.show.modal-change-price')
     @include('admin.product.show.modal-history-price')
-    @include('admin.product.show.modal-history-quantity')
+    {{--@include('admin.product.show.modal-history-quantity')--}}
 
     <h3 class="ui dividing header" style="margin-top: 0px">Thông tin cơ bản</h3>
     <div class="ui two column grid">
@@ -47,11 +47,6 @@
                 <div class="eleven wide column">
                     <strong>
                         {{ $product->getQuantity() }}
-                        <a class="small ui label" data-tooltip="Xem lịch sử" style="margin-left: 15px"
-                           onclick="$('#modal-price-history-quantity').modal('show')">
-                            <i class="history fitted icon"></i>
-                            {{--Lịch sử--}}
-                        </a>
                     </strong>
                 </div>
                 <div class="five wide column">

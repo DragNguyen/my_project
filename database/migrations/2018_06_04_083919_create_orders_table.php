@@ -20,7 +20,6 @@ class CreateOrdersTable extends Migration
             $table->string('email', 100);
             $table->string('phone', 20);
             $table->string('address', 100);
-            $table->double('price');
             $table->boolean('is_deleted')->default(false);
             $table->dateTime('order_created_at');
             $table->timestamps();

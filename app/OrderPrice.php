@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Quantity extends Model
+class OrderPrice extends Model
 {
-
+    //
 }

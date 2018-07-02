@@ -64,14 +64,9 @@ class GoodsReceiptNoteProductController extends Controller
 
         if ($goods_receipt_note_product->save()) {
             $product = Product::findOrFail($goods_receipt_note_product->product_id);
-            $product_quantity = new Quantity();
-            $product_quantity->oldQuantity = $product->getQuantity();
+            $product_quantity = Quantity::where('product_id', $product->id)->first();
             $product_quantity->quantity = $product->getQuantity() + $quantity;
-            $product_quantity->quantity_changed = $product_quantity->quantity - $product_quantity->oldQuantity;
-            $product_quantity->event = 2;
-            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
-            $product_quantity->product_id = $product->id;
-            $product_quantity->save();
+            $product_quantity->update();
         }
 
         return back()->with('success', 'Thêm thành công.');
@@ -138,14 +133,9 @@ class GoodsReceiptNoteProductController extends Controller
 
         if ($goods_receipt_note_product->update()) {
             $product = Product::findOrFail($goods_receipt_note_product->product_id);
-            $product_quantity = new Quantity();
+            $product_quantity = Quantity::where('product_id', $product->id)->first();
             $product_quantity->quantity = $product->getChangedQuantity($quantity_changed);
-            $product_quantity->oldQuantity = $product->getQuantity();
-            $product_quantity->quantity_changed = $quantity_changed;
-            $product_quantity->event = -2;
-            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
-            $product_quantity->product_id = $product->id;
-            $product_quantity->save();
+            $product_quantity->update();
         }
 
         return back()->with('success', 'Sửa thành công.');

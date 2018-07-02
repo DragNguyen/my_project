@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="twelve wide column">
-                    <form action="{{ route('checkout.store') }}" method="post"
+                    <form action="{{ route('cart.store') }}" method="post"
                           class="ui basic form segment no-lr-padding">
 
                         <h4 class="ui blue-text dividing header">Phương thức thanh toán</h4>
@@ -55,7 +55,7 @@
                         <h4 class="ui blue-text dividing header">
                             Thông tin khách hàng
 
-                            @if (! Auth::guard('admin')->check())
+                            @if (! Auth::guard('customer')->check())
                                 <span type="button" class="ui basic blue label pointer no-lr-margin small-td-margin"
                                       onclick="$('#modal-auth').modal('show');">
                                         Đã có tài khoản?
@@ -66,25 +66,25 @@
 
                         <div class="three fields">
 
-                            @if (Auth::guard('admin')->check())
-                                <input type="hidden" name="admin-id" value="{{ Auth::guard('admin')->user()->id }}">
+                            @if (Auth::guard('customer')->check())
+                                <input type="hidden" name="customer-id" value="{{ Auth::guard('customer')->user()->id }}">
 
                                 <div class="field required">
                                     <label for="name">Họ và tên</label>
                                     <input type="text" id="name" name="name"
-                                           value="{{ Auth::guard('admin')->user()->name }}">
+                                           value="{{ Auth::guard('customer')->user()->name }}">
                                 </div>
 
                                 <div class="field required">
                                     <label for="email">Email</label>
                                     <input type="email" id="email" name="email"
-                                           value="{{ Auth::guard('admin')->user()->email }}">
+                                           value="{{ Auth::guard('customer')->user()->email }}">
                                 </div>
 
                                 <div class="field required">
                                     <label for="phone">Số điện thoại</label>
                                     <input type="text" id="phone" name="phone"
-                                           value="{{ Auth::guard('admin')->user()->phone }}" >
+                                           value="{{ Auth::guard('customer')->user()->phone }}" >
                                 </div>
                             @else
                                 <div class="field required">

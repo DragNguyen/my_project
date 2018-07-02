@@ -11,6 +11,10 @@ class Order extends Model
         return $this->hasMany(OrderStatus::class);
     }
 
+    public function orderPrices() {
+        return $this->hasMany(OrderPrice::class);
+    }
+
     public function orderProducts() {
         return $this->hasMany(OrderProduct::class);
     }
@@ -25,5 +29,9 @@ class Order extends Model
 
     public function getApprover() {
         return $this->orderStatus->first()->approver;
+    }
+
+    public function getPrice() {
+        return $this->orderPrices->first()->price;
     }
 }

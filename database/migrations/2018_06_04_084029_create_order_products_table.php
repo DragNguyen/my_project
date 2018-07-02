@@ -19,6 +19,7 @@ class CreateOrderProductsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('quantity');
             $table->double('price');
+            $table->integer('sales_off_percent');
             $table->timestamps();
 
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');

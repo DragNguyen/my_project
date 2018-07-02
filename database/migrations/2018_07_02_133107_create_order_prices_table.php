@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateCustomersTable extends Migration
+class CreateOrderPricesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,14 +13,13 @@ class CreateCustomersTable extends Migration
      */
     public function up()
     {
-        Schema::create('customers', function (Blueprint $table) {
+        Schema::create('order_prices', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name', 50);
-            $table->string('password', 100);
-            $table->string('email', 100);
-            $table->string('phone', 20);
-            $table->string('address', 100);
+            $table->double('price');
+            $table->integer('order_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
         });
     }
 
@@ -31,6 +30,6 @@ class CreateCustomersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('nguoi_dungs');
+        Schema::dropIfExists('order_prices');
     }
 }

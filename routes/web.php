@@ -27,13 +27,21 @@ Auth::routes();
 Route::get('/', function() {
     $products = \App\Product::paginate(24);
    return view('customer', compact('products'));
-});
+})->name('customer.index');
 
 Route::get('/product/{slug}', function ($slug) {
     $product = \App\Product::where('slug', $slug)->first();
 
     return view('customer.product.index', compact('product'));
 });
+
+/*
+ * Customer login / logout
+ * */
+Route::post('/login', 'Auth\CustomerLoginController@login')->name('customer.login.submit');
+Route::get('/logout', 'Auth\CustomerLoginController@logout')->name('customer.logout');
+Route::get('/register', 'Auth\CustomerLoginController@showRegisterForm')->name('customer.register.show');
+Route::post('/register/submit', 'Auth\CustomerLoginController@register')->name('customer.register.submit');
 
 /*
  * Shopping cart
@@ -44,6 +52,8 @@ Route::resource('shopping_cart', 'CartController');
 Route::post('check_out_store', 'CartController@checkoutStore')->name('checkout.store');
 
 Route::get('check_out_index', 'CartController@checkoutIndex')->name('checkout.index');
+
+Route::post('cart_store', 'CartController@orderStore')->name('cart.store');
 
 /*
 * Admin login

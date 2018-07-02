@@ -15,15 +15,15 @@ class CreateQuantitiesTable extends Migration
     {
         Schema::create('quantities', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('oldQuantity')->default(0);
+//            $table->integer('oldQuantity')->default(0);
             $table->integer('quantity')->default(0);
-            $table->integer('quantity_changed')->default(0);
+//            $table->integer('quantity_changed')->default(0);
             // 0 - created product
             // 1/-1 - order/cancel order
             // 2/-2 - created goods receipt note/ changed goods receipt note
             // -3 - destroy goods receipt note
-            $table->tinyInteger('event')->default(0);
-            $table->dateTime('quantity_updated_at');
+//            $table->tinyInteger('event')->default(0);
+//            $table->dateTime('quantity_updated_at');
             $table->integer('product_id')->unsigned();
             $table->timestamps();
 

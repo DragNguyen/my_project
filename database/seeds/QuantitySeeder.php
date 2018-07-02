@@ -14,7 +14,6 @@ class QuantitySeeder extends Seeder
         foreach(\App\Product::all() as $product) {
             DB::table('quantities')->insert([
                 [
-                    'quantity_updated_at' => date('Y-m-d H:i:s'),
                     'product_id' => $product->id
                 ]
             ]);

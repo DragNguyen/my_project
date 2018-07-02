@@ -95,4 +95,14 @@
         border-top-right-radius: 3px;
         border-bottom-right-radius: 3px;
     }
+
+    .modal-header {
+        font-size: 20px;
+        color: #2185d0;
+        font-weight: Bold;
+    }
+
+    .ui.modal .actions>.button {
+        margin-left: 0px;
+    }
 </style>

@@ -32,6 +32,11 @@ class RedirectIfAuthenticated
                     return redirect()->route('admin.tong-quan');
                 }
                 break;
+            case 'customer':
+                if (Auth::guard($guard)->check()) {
+                    return redirect()->route('customer.index');
+                }
+                break;
             case 'consultant':
                 if (Auth::guard($guard)->check()) {
                     return redirect()->route('consultant.dashboard');

@@ -46,6 +46,10 @@ class Product extends Model
         return $this->hasMany(OrderProduct::class);
     }
 
+    public function shoppingCartProducts() {
+        return $this->hasMany(ShoppingCartProduct::class);
+    }
+
     public function status() {
         if ($this->is_deleted) {
             return 'Ngừng kinh doanh';
@@ -58,7 +62,7 @@ class Product extends Model
     }
 
     public function getQuantity() {
-        return $this->quantities->max()->quantity;
+        return $this->quantities->first()->quantity;
     }
 
     public function isSalesOff() {
@@ -83,7 +87,8 @@ class Product extends Model
     }
 
     public function canDelete() {
-        if ($this->goodsReceiptNoteProducts->count() > 0) {
+        if (($this->goodsReceiptNoteProducts->count() > 0) && ($this->orderProducts->count() > 0)
+            && ($this->shoppingCartProducts->count() > 0)) {
             return false;
         }
         if ($this->orderProducts->count() > 0) {

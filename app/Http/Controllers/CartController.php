@@ -2,7 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Order;
+use App\OrderPrice;
+use App\OrderProduct;
+use App\OrderStatus;
 use App\Product;
+use App\Quantity;
+use App\ShoppingCart;
+use App\ShoppingCartProduct;
+use Illuminate\Support\Facades\Auth;
 use Validator;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
@@ -26,9 +34,9 @@ class CartController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+
     }
 
     /**
@@ -44,16 +52,26 @@ class CartController extends Controller
         $quantity = $request->get('quantity');
         $product = Product::find($id);
         $cart_quantity = empty($rowId) ? 0 : Cart::get($rowId)->qty;
-        if ($cart_quantity == 5) {
-            return back()->with('error', 'Chỉ cho phép mua tối đa số lượng 5 trên mỗi sản phẩm!');
+        if ($quantity + $cart_quantity > 5) {
+            return back()->with('error', 'Chỉ cho phép thêm số lượng tối đa 5 trên mỗi sản phẩm!');
         }
-        if ($quantity + $cart_quantity >= 5) {
-            Cart::add($id, $product->name, 5 - $cart_quantity, 0);
-            return back()->with('success', 'Thêm vào giỏ hàng thành công.');
-        }
-        dd($quantity + $cart_quantity);
-        Cart::add($id, $product->name, $quantity, 0);
 
+        Cart::add($id, $product->name, $quantity, 0);
+        if (Auth::guard('customer')->check()) {
+            $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+            if ($cart_quantity == 0) {
+                $cart_product = new ShoppingCartProduct();
+                $cart_product->shopping_cart_id = $cart->id;
+                $cart_product->product_id = $id;
+                $cart_product->quantity = $quantity;
+                $cart_product->save();
+            }
+            else {
+                $cart_product = $cart->getCartProductById($id);
+                $cart_product->quantity = $quantity + $cart_quantity;
+                $cart_product->update();
+            }
+        }
         return back()->with('success', 'Thêm vào giỏ hàng thành công.');
     }
 
@@ -90,12 +108,19 @@ class CartController extends Controller
     {
         $quantity = $request->get('quantity');
         if ($quantity > 5) {
-            return back()->with('error', 'Chỉ cho phép mua tối đa số lượng 5 trên mỗi sản phẩm!');
+            return back()->with('error', 'Chỉ cho phép mua số lượng tối đa 5 trên mỗi sản phẩm!');
         }
         if ($quantity == 0) {
             return back();
         }
         Cart::update($rowId, $quantity);
+
+        if (Auth::guard('customer')->check()) {
+            $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+            $cart_product = $cart->getCartProductById(Cart::get($rowId)->id);
+            $cart_product->quantity = $quantity;
+            $cart_product->update();
+        }
 
         return back();
     }
@@ -109,6 +134,12 @@ class CartController extends Controller
     public function destroy($rowId)
     {
         Cart::remove($rowId);
+
+        $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+
+        foreach($cart->getCartProduct() as $cart_product) {
+            $cart_product->delete();
+        }
 
         return back();
     }
@@ -124,8 +155,7 @@ class CartController extends Controller
                 'name' => array('required', 'max:50', "regex:/^[a-zA-ZÀ-ỹ]+ [a-zA-ZÀ-ỹ ]+$/"),
                 'email' => 'required|email|max:100',
                 'phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
-                'address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/"),
-                'note' => array('required', 'max:100', "regex:/^[[:alpha:]][\wÀ-ỹ \.]*$/")
+                'address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/")
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -143,6 +173,62 @@ class CartController extends Controller
         );
 
         return $validate;
+    }
+
+    public function orderStore(Request $request) {
+        $validate = $this->validation($request);
+        if ($validate->fails()) {
+            return back()->withErrors($validate)->withInput($request->all());
+        }
+
+        do {
+            $order_id = strtoupper(str_random(12));
+        }
+        while (Order::where('code', $order_id)->count() > 0);
+
+        $order = new Order();
+        $order->code = $order_id;
+        $order->recipient = $request->get('name');
+        $order->email = $request->get('email');
+        $order->phone = $request->get('phone');
+        $order->address = $request->get('address');
+        $order->order_created_at = date('Y-m-d H:i:s');
+        $order->save();
+
+        $orderStatus = new OrderStatus();
+        $orderStatus->order_id = $order->id;
+        $orderStatus->save();
+
+        $cart_products = Cart::content();
+        $total_of_money = 0;
+        foreach($cart_products as $cart_product) {
+            $product = Product::find($cart_product->id);
+            $price = $product->getSalesOffPrice();
+            $total_of_money += $price;
+
+            $order_product = new OrderProduct();
+            $order_product->order_id = $order->id;
+            $order_product->product_id = $product->id;
+            $order_product->quantity = $cart_product->qty;
+            $order_product->price = $price;
+            $order_product->sales_off_percent = $product->getSalesOffPercent();
+            $order_product->save();
+
+            $quantity = Quantity::where('product_id', $product->id)->first();
+            $quantity->quantity = $product->getQuantity() - $cart_product->qty;
+            $quantity->update();
+        }
+
+        $order_price = new OrderPrice();
+        $order_price->price = $total_of_money;
+        $order_price->order_id = $order->id;
+        $order_price->save();
+
+        // Remove cart
+
+        Cart::destroy();
+
+        return redirect('/')->with('success', 'Đặt hàng thành công.');
     }
 
     public function checkoutIndex() {
