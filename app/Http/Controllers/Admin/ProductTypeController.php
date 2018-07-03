@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin;
 
 use App\Product;
 use App\ProductType;
+use App\Specification;
+use App\SpecificationProductType;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -18,8 +20,9 @@ class ProductTypeController extends Controller
     public function index()
     {
         $product_types = ProductType::where('is_deleted', false)->paginate(10);
+        $specifications = Specification::all();
 
-        return view('admin.product-type.index', compact('product_types'));
+        return view('admin.product-type.index', compact(['product_types', 'specifications']));
     }
 
     /**
@@ -86,14 +89,24 @@ class ProductTypeController extends Controller
     {
         $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
-            return back()->withErrors($validate)
-                ->withInput($request->only("product-type-name-$id"));
+            return back()->withErrors($validate);
+        }
+        if (!$request->has("specification")) {
+            return back()->withErrors(["specification" => 'Thông số kỹ thuật không được bỏ trống!']);
         }
 
         $product_type = ProductType::findOrFail($id);
         $product_type->name = $request->get("product-type-name-$id");
-
         $product_type->update();
+
+        $product_type->specificationProductTypes()->delete();
+
+        foreach($request->get("specification") as $spec_id) {
+            $specification_product_type = new SpecificationProductType();
+            $specification_product_type->specification_id = $spec_id;
+            $specification_product_type->product_type_id = $id;
+            $specification_product_type->save();
+        }
 
         return back()->with('success', 'Sửa thành công.');
     }
@@ -129,7 +142,7 @@ class ProductTypeController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'product-type-name' => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                'product-type-name' => array('required', 'max:100', 'regex:/^[A-ỹ][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -148,7 +161,7 @@ class ProductTypeController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "product-type-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]][a-zA-ZÀ-ỹ ]*$/')
+                "product-type-name-$id" => array('required', 'max:100', 'regex:/^[A-ỹ][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

@@ -91,7 +91,6 @@ class ProductController extends Controller
         $price->save();
 
         $quantity = new Quantity();
-        $quantity->quantity_updated_at = date('Y-m-d H:i:s');
         $quantity->product_id = $product->id;
         $quantity->save();
 

@@ -7,6 +7,8 @@
 
     <h2 class="ui dividing header">Loại sản phẩm</h2>
 
+    @include('admin.layouts.components.errors')
+
     <form action="{{ route('product_type.destroy', [0])}}" method="post">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}

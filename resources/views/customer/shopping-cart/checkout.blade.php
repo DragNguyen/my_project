@@ -73,53 +73,63 @@
                                     <label for="name">Họ và tên</label>
                                     <input type="text" id="name" name="name"
                                            value="{{ Auth::guard('customer')->user()->name }}">
+                                    @if($errors->has('name'))
+                                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                                            {{ $errors->first('name') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="field required">
                                     <label for="email">Email</label>
                                     <input type="email" id="email" name="email"
                                            value="{{ Auth::guard('customer')->user()->email }}">
+                                    @if($errors->has('email'))
+                                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                                            {{ $errors->first('email') }}
+                                        </div>
+                                    @endif
                                 </div>
 
                                 <div class="field required">
                                     <label for="phone">Số điện thoại</label>
                                     <input type="text" id="phone" name="phone"
                                            value="{{ Auth::guard('customer')->user()->phone }}" >
+                                    @if($errors->has('phone'))
+                                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                                            {{ $errors->first('phone') }}
+                                        </div>
+                                    @endif
                                 </div>
                             @else
                                 <div class="field required">
                                     <label>Họ và tên</label>
-                                    <div class="ui corner labeled input">
-                                        <input type="text" name="name" value="Nguyen Van A">
-                                        <div class="ui corner label">
-                                            <i class="asterisk icon"></i>
-                                        </div>
-                                    </div>
-                                    @if($errors->has('product-type-name'))
+                                    <input type="text" name="name" value="Nguyen Van A">
+                                    @if($errors->has('name'))
                                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                                            {{ $errors->first('product-type-name') }}
+                                            {{ $errors->first('name') }}
                                         </div>
                                     @endif
                                 </div>
 
                                 <div class="field required">
                                     <label>Email</label>
-                                    <div class="ui corner labeled input">
-                                        <input type="text" name="email" value="nva@gmail.com">
-                                        <div class="ui corner label">
-                                            <i class="asterisk icon"></i>
+                                    <input type="text" name="email" value="nva@gmail.com">
+                                    @if($errors->has('email'))
+                                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                                            {{ $errors->first('email') }}
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
 
                                 <div class="field required">
                                     <label>Số điện thoại</label>
-                                    <div class="ui corner labeled input">
-                                        <input type="text" name="phone" value="0969696969" >
-                                        <div class="ui corner label">
-                                            <i class="asterisk icon"></i>
+                                    <input type="text" name="phone" value="0969696969" >
+                                    @if($errors->has('phone'))
+                                        <div style="color: red; margin-top: 5px; font-size: 13px">
+                                            {{ $errors->first('phone') }}
                                         </div>
-                                    </div>
+                                    @endif
                                 </div>
                             @endif
 
@@ -127,24 +137,23 @@
 
                         <div class="field required">
                             <label>Địa chỉ nhận hàng</label>
-                            <div class="ui corner labeled input">
-                                <textarea name="address" rows="2">Ninh Kieu, Can Tho</textarea>
-                                <div class="ui corner label">
-                                    <i class="asterisk icon"></i>
+                            <textarea name="address" rows="2">Ninh Kieu, Can Tho</textarea>
+                            @if($errors->has('address'))
+                                <div style="color: red; margin-top: 5px; font-size: 13px">
+                                    {{ $errors->first('address') }}
                                 </div>
-                            </div>
-
+                            @endif
                         </div>
 
-                        <div class="field">
-                            <label>Ghi chú</label>
-                            <div class="ui corner labeled input">
-                                <textarea name="note" rows="2">Giao hàng vào đầu tuần</textarea>
-                                <div class="ui corner label">
-                                    <i class="asterisk icon"></i>
-                                </div>
-                            </div>
-                        </div>
+                        {{--<div class="field">--}}
+                            {{--<label>Ghi chú</label>--}}
+                            {{--<div class="ui corner labeled input">--}}
+                                {{--<textarea name="note" rows="2">Giao hàng vào đầu tuần</textarea>--}}
+                                {{--<div class="ui corner label">--}}
+                                    {{--<i class="asterisk icon"></i>--}}
+                                {{--</div>--}}
+                            {{--</div>--}}
+                        {{--</div>--}}
 
                         <div class="field">
                             <button class="ui large fluid blue button">

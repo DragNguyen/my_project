@@ -54,7 +54,7 @@
                 </div>
                 <div class="eleven wide column">
                     <strong style="margin-right: 15px">
-                        {{ number_format($product->currentPrice()) }} đ
+                        {{ number_format($product->currentPrice()) }}<sup>đ</sup>
                     </strong>
                     @if(!$product->is_deleted)
                         <a class="blue small ui label" data-tooltip="Thay đổi giá"
@@ -99,6 +99,7 @@
             <div class="ui grid">
                 <div class="five wide column">
                     <strong>Ảnh đại diện:</strong>
+                    <a class="ui small blue label"><i class="fitted edit icon"></i></a>
                 </div>
                 <div class="eleven wide column">
                     <div class="ui small image">
@@ -109,6 +110,7 @@
             <div class="ui grid">
                 <div class="five wide column">
                     <strong>Ảnh chi tiết:</strong>
+                    <a class="ui small blue label"><i class="fitted edit icon"></i></a>
                 </div>
                 <div class="eleven wide column">
                     <div class="ui three column grid">
@@ -125,20 +127,24 @@
         </div>
     </div>
 
-    <h3 class="ui dividing header" style="margin-top: 40px">Thông số kỹ thuật</h3>
-    <div class="ui two column grid">
-        <div class="column">
-            <div class="ui grid">
-                @foreach($specs as $spec)
-                    <div class="five wide column">
-                        {{ $spec->getSpecName() }}:
-                    </div>
+    <h3 class="ui dividing header" style="margin-top: 40px">
+        Thông số kỹ thuật
+        <a class="ui small blue label"><i class="fitted edit icon"></i></a>
+    </h3>
+    @include('admin.product.show.table-spec')
+    {{--<div class="ui two column grid">--}}
+        {{--<div class="column">--}}
+            {{--<div class="ui grid">--}}
+                {{--@foreach($specs as $spec)--}}
+                    {{--<div class="five wide column">--}}
+                        {{--{{ $spec->getSpecName() }}:--}}
+                    {{--</div>--}}
                     {{--<div class="eleven wide column">--}}
                     {{--{{ $product->getSpecValue($spec->specification_id) }}--}}
                     {{--</div>--}}
-                @endforeach
-            </div>
-        </div>
-    </div>
+                {{--@endforeach--}}
+            {{--</div>--}}
+        {{--</div>--}}
+    {{--</div>--}}
 
 @endsection

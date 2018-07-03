@@ -110,10 +110,10 @@ class EmployeeController extends Controller
             && ($employee->email == $employee_email) && ($employee->gender == $employee_gender)) {
             return back();
         }
-        if (Admin::where('phone', $employee_phone)->count() > 0) {
+        if ((Admin::where('phone', $employee_phone)->count() > 0) && ($employee->phone != $employee_phone)) {
             return back()->with('error', 'Số điện thoại đã tồn tại!')->withInput($request->all());
         }
-        if (Admin::where('email', $employee_email)->count() > 0) {
+        if ((Admin::where('email', $employee_email)->count() > 0) && ($employee->email != $employee_email)) {
             return back()->with('error', 'Email đã tồn tại!')->withInput($request->all());
         }
 

@@ -7,9 +7,9 @@
     <div class="ui segment basic layout-padding clearing">
         {{--<div class="ui blue segment clearing">--}}
         <h3 class="ui dividing header">Giỏ hàng của bạn
-            @if(! Auth::guard('admin')->check())
+            @if(! Auth::guard('customer')->check())
                 <button type="button" class="ui blue basic label pointer small-td-margin no-lr-margin"
-                        onclick="$('#modal-auth').modal('show')">
+                        onclick="$('#modal-customer-login').modal('show')">
                     Đăng nhập để lưu giỏ hàng của bạn!</button>
             @endif
         </h3>

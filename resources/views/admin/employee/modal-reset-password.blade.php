@@ -37,7 +37,7 @@
                     @endif
                 </div>
                 <span style="margin-top: 10px">
-                    <strong>Lưu ý:</strong>Chỉ được dùng ký tự <strong>không dấu</strong>
+                    <strong>Lưu ý:</strong> Chỉ được dùng ký tự <strong>không dấu</strong>
                     và các ký tự đặc biệt sau: <strong>! @ # $ &</strong>
                 </span>
             </form>

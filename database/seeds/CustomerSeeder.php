@@ -17,7 +17,8 @@ class CustomerSeeder extends Seeder
                 'email' => 'nguyennguyencp@gmail.com',
                 'password' => bcrypt('635982359'),
                 'phone' => '01628446973',
-                'address' => 'Trên mặt đất / kế nhà tui'
+                'address' => 'Trên mặt đất / kế nhà tui',
+                'gender' => 1
             ]
         ]);
     }

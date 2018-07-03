@@ -177,7 +177,7 @@ class SalesOffController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'sales-off-name' => array('required', 'max:100', 'regex:/^\w[\wÀ-ỹ\/,\- ]*[\wÀ-ỹ]$/'),
+                'sales-off-name' => array('required', 'max:100', 'regex:/^[A-ỹ][0-ỹ\/,\- ]*[0-ỹ]$/'),
                 'begin-at' => "required|after:yesterday",
                 'end-at' => "required"
             ],

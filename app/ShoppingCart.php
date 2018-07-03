@@ -10,6 +10,10 @@ class ShoppingCart extends Model
         return $this->hasMany(ShoppingCartProduct::class);
     }
 
+    public function isEmpty() {
+        return $this->shoppingCartProducts->count() > 0;
+    }
+
     public function getCartProduct() {
         return $this->shoppingCartProducts;
     }

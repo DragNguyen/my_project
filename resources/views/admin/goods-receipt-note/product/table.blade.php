@@ -26,7 +26,7 @@
                     {{ $goods_receipt_note_product->product->name }}
                 </a>
             </td>
-            <td>{{ number_format($goods_receipt_note_product->price) }} đ</td>
+            <td>{{ number_format($goods_receipt_note_product->price) }}<sup>đ</sup></td>
             <td>{{ $goods_receipt_note_product->quantity }}</td>
             <td>{{ $goods_receipt_note_product->product->getQuantity() }}</td>
             <td class="collapsing center aligned">

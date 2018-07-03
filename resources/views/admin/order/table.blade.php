@@ -32,7 +32,7 @@
             <td>{{ date_format(date_create($order->order_created_at), 'd/m/Y H:i:s') }}</td>
             <td>{{ $order->recipient }}</td>
             <td class="center aligned">{{ $order->phone }}</td>
-            <td class="right aligned">{{ number_format($order->getPrice()) }} đ</td>
+            <td class="right aligned">{{ number_format($order->getPrice()) }}<sup>đ</sup></td>
             <td class="center aligned collapsing">
                 @if($order->getStatus() == 0)
                     <div style="color: #CC9F34">

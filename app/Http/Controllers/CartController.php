@@ -133,13 +133,12 @@ class CartController extends Controller
      */
     public function destroy($rowId)
     {
+        $product_id = Cart::get($rowId)->id;
         Cart::remove($rowId);
 
         $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
 
-        foreach($cart->getCartProduct() as $cart_product) {
-            $cart_product->delete();
-        }
+        $cart->getCartProductById($product_id)->delete();
 
         return back();
     }
@@ -167,8 +166,7 @@ class CartController extends Controller
                 'name' => 'Tên khách hàng',
                 'email' => 'Email',
                 'phone' => 'Số điện thoại',
-                'address' => 'Địa chỉ',
-                'note' => 'Ghi chú'
+                'address' => 'Địa chỉ'
             ]
         );
 

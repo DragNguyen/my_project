@@ -22,8 +22,8 @@
             </div>
             <span style="margin-top: 10px">
                 <strong>Lưu ý:</strong>
-                Giá tiền <strong>không vượt quá</strong> 100,000,000đ hoặc
-                <strong>nhỏ hơn</strong> 1,000đ.
+                Giá tiền <strong>không vượt quá</strong> 100,000,000<sup>đ</sup> hoặc
+                <strong>nhỏ hơn</strong> 1,000<sup>đ</sup>.
             </span>
         </form>
     </div>

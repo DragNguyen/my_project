@@ -18,6 +18,7 @@ class AdminController extends Controller
         else {
             $admin = Admin::findOrFail($id);
             $oldPath = $admin->avatar;
+            dd($oldPath);
             if (!empty($oldPath)) {
                 File::delete($oldPath);
             }

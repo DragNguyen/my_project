@@ -28,7 +28,7 @@
             </td>
             <td>{{ $product->productType->name }}</td>
             <td>{{ $product->trademark->name }}</td>
-            <td class="collapsing right aligned">{{ number_format($product->currentPrice()) }} đ</td>
+            <td class="collapsing right aligned">{{ number_format($product->currentPrice()) }}<sup>đ</sup></td>
             <td class="center aligned">{{ $product->getQuantity() }}</td>
             {{--<td class="center aligned">{{ $product->status() }}</td>--}}
             <td class="collapsing center aligned">

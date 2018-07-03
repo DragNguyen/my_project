@@ -6,10 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class SpecificationProductType extends Model
 {
-    protected $table = 'specification_product_types';
+    public function specification() {
+        return $this->belongsTo(Specification::class);
+    }
 
     public function getSpecName() {
-        $specName = Specification::find($this->specification_id);
-        return $specName->name;
+        return $this->specification->name;
     }
 }
