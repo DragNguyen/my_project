@@ -52,12 +52,14 @@
                     Khuyến mãi
                 </a>
             </li>
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/employee') ? 'current-page' : '' }}">
-                <a href="{{ route('employee.index') }}">
-                    <i class="fa fa-users"></i>
-                    Nhân viên
-                </a>
-            </li>
+            @if (\Illuminate\Support\Facades\Auth::guard('admin')->user()->role == 0)
+                <li class="{{ \Illuminate\Support\Facades\Request::is('admin/employee') ? 'current-page' : '' }}">
+                    <a href="{{ route('employee.index') }}">
+                        <i class="fa fa-users"></i>
+                        Nhân viên
+                    </a>
+                </li>
+            @endif
             <li >
                 <a>
                     <i class="fa fa-undo"></i>
@@ -72,7 +74,9 @@
                     <li><a href="{{ route('goods_receipt_note_restore.index') }}">Nhập hàng</a></li>
                     <li><a href="{{ route('order_restore.index') }}">Đơn hàng</a></li>
                     <li><a href="{{ route('sales_off_restore.index') }}">Khuyến mãi</a></li>
-                    <li><a href="{{ route('employee_restore.index') }}">Nhân viên</a></li>
+                    @if (\Illuminate\Support\Facades\Auth::guard('admin')->user()->role == 0)
+                        <li><a href="{{ route('employee_restore.index') }}">Nhân viên</a></li>
+                    @endif
                 </ul>
             </li>
         </ul>

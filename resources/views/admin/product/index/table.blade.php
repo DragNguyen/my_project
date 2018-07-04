@@ -5,8 +5,8 @@
         </th>
         <th class="collapsing">STT</th>
         <th>Tên sản phẩm</th>
-        <th>Loại sản phẩm</th>
         <th>Thương hiệu</th>
+        <th>Loại sản phẩm</th>
         <th class="right aligned">Giá tiền</th>
         <th class="center aligned">Số lượng</th>
         {{--<th class="center aligned">Tình trạng</th>--}}
@@ -26,8 +26,8 @@
                     {{ $product->name }}
                 </a>
             </td>
-            <td>{{ $product->productType->name }}</td>
-            <td>{{ $product->trademark->name }}</td>
+            <td>{{ $product->getTrademarkName() }}</td>
+            <td>{{ $product->getProductTypeName() }}</td>
             <td class="collapsing right aligned">{{ number_format($product->currentPrice()) }}<sup>đ</sup></td>
             <td class="center aligned">{{ $product->getQuantity() }}</td>
             {{--<td class="center aligned">{{ $product->status() }}</td>--}}

@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductType extends Model
 {
-    public function products() {
-        return $this->hasMany(Product::class);
+    public function productTypeTrademarks() {
+        return $this->hasMany(ProductTypeTrademark::class);
     }
 
     public function specificationProductTypes() {
@@ -15,7 +15,7 @@ class ProductType extends Model
     }
 
     public function canDelete() {
-        return $this->products->count() == 0;
+        return $this->productTypeTrademarks->count() == 0;
     }
 
     public function matchedSpecification($id) {

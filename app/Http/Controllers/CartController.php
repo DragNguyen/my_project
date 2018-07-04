@@ -7,6 +7,7 @@ use App\OrderPrice;
 use App\OrderProduct;
 use App\OrderStatus;
 use App\Product;
+use App\ProductTypeTrademark;
 use App\Quantity;
 use App\ShoppingCart;
 use App\ShoppingCartProduct;
@@ -25,6 +26,24 @@ class CartController extends Controller
     public function index()
     {
         $cart_products = Cart::content();
+        foreach($cart_products as $cart_product) {
+            $product = Product::find($cart_product->id);
+            if ($product->getQuantity() == 0) {
+                if (Auth::guard('customer')->check()) {
+                    $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+                    $cart->getCartProductById($cart_product->id)->delete();
+                }
+                Cart::remove($cart_product->rowId);
+                continue;
+            }
+            if ($product->getQuantity() < $cart_product->qty) {
+                $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+                $shopping_cart_product = $cart->getCartProductById($cart_product->id);
+                $shopping_cart_product->quantity = $product->getQuantity();
+                $shopping_cart_product->update();
+                Cart::update($cart_product->rowId, $product->getQuantity());
+            }
+        }
 
         return view('customer.shopping-cart.index', compact('cart_products'));
     }
@@ -55,7 +74,9 @@ class CartController extends Controller
         if ($quantity + $cart_quantity > 5) {
             return back()->with('error', 'Chỉ cho phép thêm số lượng tối đa 5 trên mỗi sản phẩm!');
         }
-
+        if ($quantity + $cart_quantity > $product->getQuantity()) {
+            return back()->with('error', 'Chỉ còn lại '.$product->getQuantity().' sản phẩm');
+        }
         Cart::add($id, $product->name, $quantity, 0);
         if (Auth::guard('customer')->check()) {
             $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
@@ -106,7 +127,11 @@ class CartController extends Controller
      */
     public function update(Request $request, $rowId)
     {
+        $product = Product::find(Cart::get($rowId)->id);
         $quantity = $request->get('quantity');
+        if ($quantity > $product->getQuantity()) {
+            return back()->with('error', 'Chỉ còn lại '.$product->getQuantity().' sản phẩm!');
+        }
         if ($quantity > 5) {
             return back()->with('error', 'Chỉ cho phép mua số lượng tối đa 5 trên mỗi sản phẩm!');
         }
@@ -136,9 +161,10 @@ class CartController extends Controller
         $product_id = Cart::get($rowId)->id;
         Cart::remove($rowId);
 
-        $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
-
-        $cart->getCartProductById($product_id)->delete();
+        if (Auth::guard('customer')->check()) {
+            $cart = ShoppingCart::where('customer_id', Auth::guard('customer')->user()->id)->first();
+            $cart->getCartProductById($product_id)->delete();
+        }
 
         return back();
     }
@@ -177,6 +203,12 @@ class CartController extends Controller
         $validate = $this->validation($request);
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput($request->all());
+        }
+        foreach(Cart::content() as $cart) {
+            if ($cart->qty > Product::find($cart->id)->getQuantity()) {
+                return back()->with('error', 'Có một số thay đổi về số lượng sản phẩm. 
+                Hãy vào giỏ hàng của bạn để cập nhật lại sản phẩm!');
+            }
         }
 
         do {

@@ -5,12 +5,14 @@
     </th>
     <th class="collapsing">STT</th>
     <th>Tên thương hiệu</th>
+    <th>Loại sản phẩm</th>
     <th class="collapsing center aligned">Sản phẩm</th>
     <th class="center aligned">Sửa</th>
     </thead>
 
     <tbody>
     @foreach($trademarks as $stt => $trademark)
+        @php $product_type_trademarks = $trademark->productTypeTrademarks @endphp
         <tr>
             <td class="center aligned">
                 <input type="checkbox" id="table_records" class="flat"
@@ -18,6 +20,13 @@
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $trademark->name }}</td>
+            <td>
+                @foreach($product_type_trademarks as $product_type_trademark)
+                    <span class="ui small label">
+                        {{ $product_type_trademark->getProductTypeName() }}
+                    </span>
+                @endforeach
+            </td>
             <td class="collapsing center aligned">
                 <a href="#" class="ui small label">
                     <i class="fitted blue laptop icon"></i>

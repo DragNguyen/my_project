@@ -31,11 +31,8 @@ class Product extends Model
         return $this->hasMany(Quantity::class);
     }
 
-    public function productType() {
-        return $this->belongsTo(ProductType::class);
-    }
-    public function trademark() {
-        return $this->belongsTo(Trademark::class);
+    public function productTypeTrademark() {
+        return $this->belongsTo(ProductTypeTrademark::class);
     }
 
     public function goodsReceiptNoteProducts() {
@@ -87,13 +84,18 @@ class Product extends Model
     }
 
     public function canDelete() {
-        if (($this->goodsReceiptNoteProducts->count() > 0) && ($this->orderProducts->count() > 0)
-            && ($this->shoppingCartProducts->count() > 0)) {
-            return false;
-        }
-        if ($this->orderProducts->count() > 0) {
+        if (($this->goodsReceiptNoteProducts->count() > 0) || ($this->orderProducts->count() > 0)
+            || ($this->shoppingCartProducts->count() > 0)) {
             return false;
         }
         return true;
+    }
+
+    public function getProductTypeName() {
+        return $this->productTypeTrademark->getProductTypeName();
+    }
+
+    public function getTrademarkName() {
+        return $this->productTypeTrademark->getTrademarkName();
     }
 }

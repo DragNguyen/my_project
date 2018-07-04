@@ -145,6 +145,14 @@ class CustomerLoginController extends Controller
         $cart_products = $shopping_cart->getCartProduct();
         foreach($cart_products as $cart_product) {
             $product = Product::find($cart_product->product_id);
+            // So sanh so luong gio hang vs so luong san pham hien tai
+            if ($cart_product->quantity > $product->getQuantity()) {
+                if ($product->getQuantity() == 0) {
+                    $cart_product->delete();
+                    continue;
+                }
+                $cart_product->quantity = $product->getQuantity();
+            }
             Cart::add($product->id, $product->name, $cart_product->quantity, 0);
         }
     }

@@ -151,8 +151,8 @@ class SalesOffChildController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'integer' => ':attribute phải là số nguyên!',
-                'min' => ':attribute không được nhỏ hơn :max%!',
-                'max' => ':attribute không được lớn hơn :min%!'
+                'min' => ':attribute không được nhỏ hơn :min%!',
+                'max' => ':attribute không được lớn hơn :max%!'
             ],
             [
                 "sales-off-value-$id" => 'Giá trị khuyến mãi'

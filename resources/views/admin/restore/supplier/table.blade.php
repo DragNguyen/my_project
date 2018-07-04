@@ -22,7 +22,8 @@
             <td>{{ $supplier->phone }}</td>
             <td>{{ $supplier->address }}</td>
             <td class="collapsing center aligned">
-                <a href="{{ $supplier->website }}" target="_blank" data-tooltip="{{ $supplier->website }}">
+                <a href="{{ $supplier->website }}" target="_blank" data-position="left center"
+                   data-tooltip="{{ $supplier->website }}">
                     <i class="fitted large edge icon"></i>
                 </a>
             </td>

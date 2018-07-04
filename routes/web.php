@@ -67,6 +67,10 @@ Route::post('/admin/login', 'Auth\AdminLoginController@login')->name('admin.logi
  * */
 Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
 
+    Route::get('error', function () {
+        return view('admin.404');
+    });
+
     Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
 
     /*
@@ -138,9 +142,12 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     /*
      *  Employees
      * */
-    Route::resource('employee', 'Admin\EmployeeController');
-    Route::post('employee/{id}/reset_password', 'Admin\EmployeeController@resetPassword')->name('reset_password');
-    Route::resource('employee_restore', 'Admin\Restore\EmployeeRestoreController', ['only' => ['index', 'store']]);
+    Route::resource('employee', 'Admin\EmployeeController')
+        ->middleware('employeeAu');
+    Route::post('employee/{id}/reset_password', 'Admin\EmployeeController@resetPassword')->name('reset_password')
+        ->middleware('employeeAu');
+    Route::resource('employee_restore', 'Admin\Restore\EmployeeRestoreController', ['only' => ['index', 'store']])
+        ->middleware('employeeAu');
 
 
     /*

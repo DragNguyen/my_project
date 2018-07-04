@@ -48,7 +48,8 @@
 
                                 <div class="field limit-size">
                                     <input type="number" value="{{ $quantity }}"
-                                           name="quantity" min="1" max="5"
+                                           name="quantity" min="1"
+                                           max="{{ ($product->getQuantity() < 5) ? $product->getQuantity() : 5 }}"
                                            class="small-lr-padding"
                                            onchange="$('#{{ 'form-update-amount' . $idx }}').submit()">
                                 </div>

@@ -5,7 +5,7 @@
     </th>
     <th class="collapsing center aligned">STT</th>
     <th>Tên sản phẩm</th>
-    <th class="collapsing center aligned">Sửa</th>
+    {{--<th class="collapsing center aligned">Sửa</th>--}}
     </thead>
 
     <tbody>
@@ -17,12 +17,12 @@
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $sales_off_product->getProduct() }}</td>
-            <td class="collapsing center aligned">
-                <a class="ui green mini button"
-                   onclick="$('#modal-edit-sales-off-product-{{ $sales_off_product->id }}').modal('show')">
-                    <i class="edit fitted icon"></i>
-                </a>
-            </td>
+            {{--<td class="collapsing center aligned">--}}
+                {{--<a class="ui green small label"--}}
+                   {{--onclick="$('#modal-edit-sales-off-product-{{ $sales_off_product->id }}').modal('show')">--}}
+                    {{--<i class="edit fitted icon"></i>--}}
+                {{--</a>--}}
+            {{--</td>--}}
         </tr>
     @endforeach
     </tbody>

@@ -19,7 +19,7 @@
             <td>{{ $product_type->name }}</td>
             <td class="collapsing center aligned">
                 <a href="#" class="ui small label">
-                    <i class="fitted blue {{ $product_type->icon }} icon"></i>
+                    <i class="fitted blue laptop icon"></i>
                 </a>
             </td>
         </tr>

@@ -14,7 +14,8 @@ class QuantitySeeder extends Seeder
         foreach(\App\Product::all() as $product) {
             DB::table('quantities')->insert([
                 [
-                    'product_id' => $product->id
+                    'product_id' => $product->id,
+                    'quantity' => 10
                 ]
             ]);
         }

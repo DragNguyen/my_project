@@ -14,8 +14,8 @@ class AddFkToProducts extends Migration
     public function up()
     {
         Schema::table('products', function (Blueprint $table) {
-            $table->foreign('product_type_id')->references('id')->on('product_types');
-            $table->foreign('trademark_id')->references('id')->on('trademarks');
+            $table->foreign('product_type_trademark_id')->references('id')
+                ->on('product_type_trademarks')->onDelete('casCade');
         });
     }
 

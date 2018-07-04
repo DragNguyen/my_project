@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class GoodsReceiptNote extends Model
 {
-    protected $table = 'goods_receipt_notes';
+    public function goodsReceiptNotes() {
+        return $this->hasMany(GoodsReceiptNoteProduct::class);
+    }
 
     public function matchedSupplier($supplier_id) {
         $childs = GoodsReceiptNote::where('goods_receipt_note_id', $this->id)->get();
@@ -30,6 +32,6 @@ class GoodsReceiptNote extends Model
     }
 
     public function canDelete() {
-        return GoodsReceiptNoteProduct::where('goods_receipt_note_id', $this->id)->count() == 0;
+        return $this->goodsReceiptNotes->count() == 0;
     }
 }

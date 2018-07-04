@@ -16,12 +16,16 @@ class DatabaseSeeder extends Seeder
              SupplierSeeder::class,
              ProductTypeSeeder::class,
              TrademarkSeeder::class,
+             ProductTypeTrademarkSeeder::class,
              ProductSeeder::class,
+             ImageSeeder::class,
              PriceSeeder::class,
              QuantitySeeder::class,
              CustomerSeeder::class,
              ShoppingCartSeeder::class,
              SpecificationSeeder::class,
+             GoodsReceiptNoteSeeder::class,
+             GoodsReceiptNoteProductSeeder::class,
          ]);
     }
 }

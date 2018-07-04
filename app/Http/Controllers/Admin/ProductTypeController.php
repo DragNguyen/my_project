@@ -47,6 +47,10 @@ class ProductTypeController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput($request->only('product-type-name'));
         }
+        $name = $request->get('name');
+        if (ProductType::where('name', $name)->count() > 0) {
+            return back()->with('error', 'Tên loại sản phẩm đã tồn tại!');
+        }
 
         $product_type = new ProductType();
         $product_type->name = $request->get('product-type-name');
@@ -91,22 +95,29 @@ class ProductTypeController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-        if (!$request->has("specification")) {
-            return back()->withErrors(["specification" => 'Thông số kỹ thuật không được bỏ trống!']);
-        }
+//        if (!$request->has("specification")) {
+//            return back()->withErrors(["specification" => 'Thông số kỹ thuật không được bỏ trống!']);
+//        }
 
+        $name = $request->get("product-type-name-$id");
         $product_type = ProductType::findOrFail($id);
-        $product_type->name = $request->get("product-type-name-$id");
+        if ($product_type->name == $name) {
+            return back();
+        }
+        if (ProductType::where('name', $name)->count() > 0) {
+            return back()->with('error', 'Tên loại sản phẩm đã tồn tại!');
+        }
+        $product_type->name = $name;
         $product_type->update();
 
-        $product_type->specificationProductTypes()->delete();
-
-        foreach($request->get("specification") as $spec_id) {
-            $specification_product_type = new SpecificationProductType();
-            $specification_product_type->specification_id = $spec_id;
-            $specification_product_type->product_type_id = $id;
-            $specification_product_type->save();
-        }
+//        $product_type->specificationProductTypes()->delete();
+//
+//        foreach($request->get("specification") as $spec_id) {
+//            $specification_product_type = new SpecificationProductType();
+//            $specification_product_type->specification_id = $spec_id;
+//            $specification_product_type->product_type_id = $id;
+//            $specification_product_type->save();
+//        }
 
         return back()->with('success', 'Sửa thành công.');
     }
@@ -147,7 +158,7 @@ class ProductTypeController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'product-type-name' => 'Tên loại sản phẩm'
@@ -166,7 +177,7 @@ class ProductTypeController extends Controller
             [
                 'required' => ':attribute không được bỏ trống!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'regex' => ':attribute không đúng định dạng!'
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 "product-type-name-$id" => 'Tên loại sản phẩm'

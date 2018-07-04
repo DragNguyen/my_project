@@ -107,7 +107,7 @@
                         </div>
                     @endif
                 </div>
-                <div class="required field">
+                <div class="field">
                     <label>Giới tính</label>
                     <select class="ui selection dropdown" name="gender">
                         <option value="1" selected>Nam</option>

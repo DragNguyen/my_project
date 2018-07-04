@@ -20,6 +20,16 @@
                     </div>
                 @endif
             </div>
+            <div class="field">
+                <label>Loại sản phẩm</label>
+                <select class="ui selection dropdown" name="product-type-id[]" multiple>
+                    <option value="">Chọn các loại sản phẩm...</option>
+                    @foreach($product_types as $product_type)
+                        <option value="{{ $product_type->id }}">
+                            {{ $product_type->name }}</option>
+                    @endforeach
+                </select>
+            </div>
         </form>
     </div>
 
@@ -51,6 +61,17 @@
                             {{ $errors->first("trademark-name-$trademark->id") }}
                         </div>
                     @endif
+                </div>
+                <div class="field">
+                    <label>Loại sản phẩm</label>
+                    <select class="ui selection dropdown" name="product-type-id-{{ $trademark->id }}[]" multiple>
+                        <option value="">Chọn các loại sản phẩm...</option>
+                        @foreach($product_types as $product_type)
+                            <option value="{{ $product_type->id }}"
+                                    {{ $trademark->matchedProductType($product_type->id)?'selected':'' }}>
+                                {{ $product_type->name }}</option>
+                        @endforeach
+                    </select>
                 </div>
             </form>
         </div>

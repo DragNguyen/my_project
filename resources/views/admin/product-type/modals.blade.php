@@ -20,16 +20,16 @@
                     </div>
                 @endif
             </div>
-            <div class="field">
-                <label>Thông số kỹ thuật</label>
-                <select class="ui selection dropdown" name="specification" multiple>
-                    <option value="">Chọn các thông số kỹ thuật...</option>
-                    @foreach($specifications as $specification)
-                        <option value="{{ $specification->id }}">
-                            {{ $specification->name }}</option>
-                    @endforeach
-                </select>
-            </div>
+            {{--<div class="field">--}}
+                {{--<label>Thông số kỹ thuật</label>--}}
+                {{--<select class="ui selection dropdown" name="specification" multiple>--}}
+                    {{--<option value="">Chọn các thông số kỹ thuật...</option>--}}
+                    {{--@foreach($specifications as $specification)--}}
+                        {{--<option value="{{ $specification->id }}">--}}
+                            {{--{{ $specification->name }}</option>--}}
+                    {{--@endforeach--}}
+                {{--</select>--}}
+            {{--</div>--}}
         </form>
     </div>
 
@@ -62,17 +62,17 @@
                         </div>
                     @endif
                 </div>
-                <div class="field">
-                    <label>Thông số kỹ thuật</label>
-                    <select class="ui selection dropdown" name="specification[]" multiple>
-                        <option value="">Chọn các thông số kỹ thuật...</option>
-                        @foreach($specifications as $specification)
-                            <option value="{{ $specification->id }}"
-                                    {{ $product_type->matchedSpecification($product_type->id) ? 'selected' : '' }}>
-                                {{ $specification->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
+                {{--<div class="field">--}}
+                    {{--<label>Thông số kỹ thuật</label>--}}
+                    {{--<select class="ui selection dropdown" name="specification[]" multiple>--}}
+                        {{--<option value="">Chọn các thông số kỹ thuật...</option>--}}
+                        {{--@foreach($specifications as $specification)--}}
+                            {{--<option value="{{ $specification->id }}"--}}
+                                    {{--{{ $product_type->matchedSpecification($product_type->id) ? 'selected' : '' }}>--}}
+                                {{--{{ $specification->name }}</option>--}}
+                        {{--@endforeach--}}
+                    {{--</select>--}}
+                {{--</div>--}}
             </form>
         </div>
         <div class="actions">

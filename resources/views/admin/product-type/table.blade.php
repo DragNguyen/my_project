@@ -5,7 +5,7 @@
     </th>
     <th class="collapsing">STT</th>
     <th>Tên loại sản phẩm</th>
-    <th>Thông số kỹ thuật</th>
+    {{--<th>Thông số kỹ thuật</th>--}}
     <th class="collapsing center aligned">Sản phẩm</th>
     <th class="center aligned">Sửa</th>
     </thead>
@@ -20,15 +20,15 @@
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>{{ $product_type->name }}</td>
-            <td>
-                @foreach($specification_product_types as $specification_product_type)
-                    <span class="ui label" style="margin-bottom: 5px">
-                        {{ $specification_product_type->getSpecName() }}</span>
-                @endforeach
-            </td>
+            {{--<td>--}}
+                {{--@foreach($specification_product_types as $specification_product_type)--}}
+                    {{--<span class="ui label" style="margin-bottom: 5px">--}}
+                        {{--{{ $specification_product_type->getSpecName() }}</span>--}}
+                {{--@endforeach--}}
+            {{--</td>--}}
             <td class="collapsing center aligned">
                 <a href="#" class="ui small label">
-                    <i class="fitted blue {{ $product_type->icon }} icon"></i>
+                    <i class="fitted blue laptop icon"></i>
                 </a>
             </td>
             <td class="collapsing center aligned">

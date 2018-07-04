@@ -16,7 +16,6 @@ class CreateTrademarksTable extends Migration
         Schema::create('trademarks', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 50);
-            $table->string('logo', 100)->nullable();
             $table->boolean('is_deleted')->default(false);
             $table->timestamps();
         });

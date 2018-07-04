@@ -6,6 +6,7 @@ use App\Image;
 use App\Price;
 use App\Product;
 use App\ProductType;
+use App\ProductTypeTrademark;
 use App\Quantity;
 use App\SpecificationProductType;
 use App\Trademark;
@@ -23,10 +24,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::where('is_deleted', false)->paginate(10);
-        $product_types = ProductType::all();
         $trademarks = Trademark::all();
 
-        return view('admin.product.index.index', compact(['products', 'product_types', 'trademarks']));
+        return view('admin.product.index.index',
+            compact(['products', 'trademarks']));
     }
 
     /**
@@ -50,6 +51,10 @@ class ProductController extends Controller
         $validate = $this->validationStore($request);
         if ($validate->fails()) {
             return back()->withErrors($validate)->withInput($request->only('price', 'product-name'));
+        }
+        if (!$request->has('product-type-trademark-id')) {
+            return back()->withInput($request->only('price', 'product-name'))
+                ->withErrors(['product-type-trademark-id' => 'Bạn chưa chọn thương hiệu - loại sản phẩm!']);
         }
         $price_input = str_replace(',', '', $request->get('price'));
         if ($price_input < 1000) {
@@ -76,8 +81,7 @@ class ProductController extends Controller
         }
         $product->name = $product_name;
         $product->product_created_at = date('Y-m-d H:i:s');
-        $product->product_type_id = $request->get('product-type-id');
-        $product->trademark_id = $request->get('trademark-id');
+        $product->product_type_trademark_id = $request->get('product-type-trademark-id');
         $product->slug = str_slug($product_name);
         $path = $request->file('product-avatar-upload')
             ->move('assets\img\product\avatar', "avatar-$product->id-$time.$ext");
@@ -119,8 +123,9 @@ class ProductController extends Controller
         $product = Product::find($id);
         $images = $product->images;
         $specs = SpecificationProductType::where('product_type_id', $product->product_type_id)->get();
+        $trademarks = Trademark::all();
 
-        return view('admin.product.show.index', compact(['product', 'images', 'specs']));
+        return view('admin.product.show.index', compact(['product', 'images', 'specs', 'trademarks']));
     }
 
     /**
@@ -148,12 +153,10 @@ class ProductController extends Controller
             return back()->withErrors($validate);
         }
         $product_name = $request->get("product-name-$id");
-        $product_type_id = $request->get('product-type-id');
-        $trademark_id = $request->get('trademark-id');
+        $product_type_trademark_id = $request->get('product-type-trademark-id');
         $product = Product::findOrFail($id);
         if (($product_name == $product->name)
-            && ($product_type_id==$product->product_type_id)
-            && ($trademark_id==$product->trademark_id)) {
+            && ($product_type_trademark_id==$product->product_type_trademark_id)) {
             return back();
         }
         if(($product->name != $product_name) && ($product->matchedName($product_name))) {
@@ -161,8 +164,7 @@ class ProductController extends Controller
         }
         $product->name = $product_name;
         $product->slug = str_slug($product_name);
-        $product->product_type_id =  $product_type_id;
-        $product->trademark_id = $trademark_id;
+        $product->product_type_trademark_id = $request->get('product-type-trademark-id');
         $product->product_updated_at = date('Y-m-d H:i:s');
 
         $product->update();
@@ -233,7 +235,7 @@ class ProductController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'product-name' => array('required', 'max:100', "regex:/^[a-zA-ZÀ-ỹ][\wÀ-ỹ ]*$/"),
+                'product-name' => array('required', 'max:100', "regex:/^[A-ỹ][0-ỹ ]*$/"),
                 'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
             ],
             [
@@ -254,7 +256,7 @@ class ProductController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "product-name-$id" => array('required', 'max:100', "regex:/^[a-zA-ZÀ-ỹ][\wÀ-ỹ ]*$/"),
+                "product-name-$id" => array('required', 'max:100', "regex:/^[A-ỹ][0-ỹ ]*$/"),
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\ProductType;
+use App\ProductTypeTrademark;
 use App\Trademark;
 use Validator;
 use Illuminate\Http\Request;
@@ -17,8 +19,9 @@ class TrademarkController extends Controller
     public function index()
     {
         $trademarks = Trademark::where('is_deleted', false)->paginate(10);
+        $product_types = ProductType::all();
 
-        return view('admin.trademark.index', compact('trademarks'));
+        return view('admin.trademark.index', compact(['trademarks', 'product_types']));
     }
 
     /**
@@ -50,8 +53,14 @@ class TrademarkController extends Controller
 
         $trademark = new Trademark();
         $trademark->name = $trademark_name;
-
         $trademark->save();
+
+        foreach($request->get('product-type-id') as $product_type_id) {
+            $product_type_trademark = new ProductTypeTrademark();
+            $product_type_trademark->product_type_id = $product_type_id;
+            $product_type_trademark->trademark_id = $trademark->id;
+            $product_type_trademark->save();
+        }
 
         return back()->with('success', 'Thêm thành công.');
     }
@@ -94,17 +103,19 @@ class TrademarkController extends Controller
         }
         $trademark = Trademark::findOrFail($id);
         $trademark_name = $request->get("trademark-name-$id");
-        if ($trademark_name == $trademark->name) {
-            return back();
-        }
-        if (Trademark::where('name', $trademark_name)->count() > 0) {
+        if ((Trademark::where('name', $trademark_name)->count() > 0) && ($trademark->name != $trademark_name)) {
             return back()->with('error', 'Tên thương hiệu đã tồn tại!');
         }
-
         $trademark->name = $trademark_name;
-
         $trademark->update();
 
+        $trademark->productTypeTrademarks()->delete();
+        foreach($request->get("product-type-id-$id") as $product_type_id) {
+            $product_type_trademark = new ProductTypeTrademark();
+            $product_type_trademark->product_type_id = $product_type_id;
+            $product_type_trademark->trademark_id = $id;
+            $product_type_trademark->save();
+        }
         return back()->with('success', 'Sửa thành công.');
     }
 
@@ -139,7 +150,7 @@ class TrademarkController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                'trademark-name' => array('required', 'max:100', 'regex:/^[[:alpha:]]*$/')
+                'trademark-name' => array('required', 'max:100', 'regex:/^[A-ỹ][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -158,7 +169,7 @@ class TrademarkController extends Controller
         $validate = Validator::make(
             $request->all(),
             [
-                "trademark-name-$id" => array('required', 'max:100', 'regex:/^[[:alpha:]]*$/')
+                "trademark-name-$id" => array('required', 'max:100', 'regex:/^[A-ỹ][a-zA-ZÀ-ỹ ]*$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',

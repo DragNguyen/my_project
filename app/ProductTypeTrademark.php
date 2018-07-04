@@ -14,11 +14,11 @@ class ProductTypeTrademark extends Model
         return $this->belongsTo(Trademark::class);
     }
 
-    public function getProductType() {
+    public function getProductTypeName() {
         return $this->productType->name;
     }
 
-    public function getTrademark() {
+    public function getTrademarkName() {
         return $this->trademark->name;
     }
 }

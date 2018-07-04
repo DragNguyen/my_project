@@ -17,9 +17,15 @@
     @include('admin.layouts.components.error')
     @include('admin.product.show.modal-change-price')
     @include('admin.product.show.modal-history-price')
+    @include('admin.product.show.modal-change-product')
     {{--@include('admin.product.show.modal-history-quantity')--}}
 
-    <h3 class="ui dividing header" style="margin-top: 0px">Thông tin cơ bản</h3>
+    <h3 class="ui dividing header" style="margin-top: 0px">
+        Thông tin cơ bản
+        {{--<a class="ui small green label" onclick="$('#modal-edit-product-{{ $product->id }}')">--}}
+            {{--<i class="fitted edit icon"></i>--}}
+        {{--</a>--}}
+    </h3>
     <div class="ui two column grid">
         <div class="column">
             <div class="ui grid">
@@ -57,13 +63,13 @@
                         {{ number_format($product->currentPrice()) }}<sup>đ</sup>
                     </strong>
                     @if(!$product->is_deleted)
-                        <a class="blue small ui label" data-tooltip="Thay đổi giá"
+                        <a class="green small ui label"
                            onclick="$('#modal-change-price').modal('show')">
                             <i class="edit fitted icon"></i>
                             {{--Thay đổi--}}
                         </a>
                     @endif
-                    <a class="small ui label" data-tooltip="Xem lịch sử"
+                    <a class="small ui label" data-tooltip="Xem lịch sử giá"
                        onclick="$('#modal-price-history-price').modal('show')">
                         <i class="history fitted icon"></i>
                         {{--Lịch sử--}}
@@ -85,13 +91,13 @@
                     <strong>Thương hiệu:</strong>
                 </div>
                 <div class="eleven wide column">
-                    {{ $product->trademark->name }}
+                    {{ $product->getTrademarkName() }}
                 </div>
                 <div class="five wide column">
                     <strong>Loại sản phẩm:</strong>
                 </div>
                 <div class="eleven wide column">
-                    {{ $product->productType->name }}
+                    {{ $product->getProductTypeName() }}
                 </div>
             </div>
         </div>
@@ -99,7 +105,7 @@
             <div class="ui grid">
                 <div class="five wide column">
                     <strong>Ảnh đại diện:</strong>
-                    <a class="ui small blue label"><i class="fitted edit icon"></i></a>
+                    <a class="ui small green label"><i class="fitted edit icon"></i></a>
                 </div>
                 <div class="eleven wide column">
                     <div class="ui small image">
@@ -110,7 +116,7 @@
             <div class="ui grid">
                 <div class="five wide column">
                     <strong>Ảnh chi tiết:</strong>
-                    <a class="ui small blue label"><i class="fitted edit icon"></i></a>
+                    <a class="ui small green label"><i class="fitted edit icon"></i></a>
                 </div>
                 <div class="eleven wide column">
                     <div class="ui three column grid">
@@ -127,11 +133,11 @@
         </div>
     </div>
 
-    <h3 class="ui dividing header" style="margin-top: 40px">
-        Thông số kỹ thuật
-        <a class="ui small blue label"><i class="fitted edit icon"></i></a>
-    </h3>
-    @include('admin.product.show.table-spec')
+    {{--<h3 class="ui dividing header" style="margin-top: 40px">--}}
+        {{--Thông số kỹ thuật--}}
+        {{--<a class="ui small blue label"><i class="fitted edit icon"></i></a>--}}
+    {{--</h3>--}}
+    {{--@include('admin.product.show.table-spec')--}}
     {{--<div class="ui two column grid">--}}
         {{--<div class="column">--}}
             {{--<div class="ui grid">--}}

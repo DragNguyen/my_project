@@ -8,7 +8,6 @@
     <th>Ngày nhập</th>
     <th>Nhà cung cấp</th>
     <th class="collapsing center aligned">Xem</th>
-    <th class="collapsing center aligned">Sửa</th>
     </thead>
 
     <tbody>
@@ -25,11 +24,6 @@
             <td class="collapsing center aligned">
                 <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue small label">
                     <i class="fitted eye icon"></i>
-                </a>
-            </td>
-            <td class="collapsing center aligned">
-                <a class="ui green small label" onclick="$('#modal-edit-product-type-').modal('show')">
-                    <i class="edit fitted icon"></i>
                 </a>
             </td>
         </tr>

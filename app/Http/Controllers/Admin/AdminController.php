@@ -35,14 +35,15 @@ class AdminController extends Controller
         $validate = Validator::make($request->all(),
             [
                 'old-password' => 'required',
-                'password' => 'required|min:6|max:32|confirmed',
-                'password_confirmation' => 'required|min:6|max:32'
+                "password" => array('required', 'min:6', 'confirmed', 'max:32', 'regex:/^[\w\!@#\$&]*$/'),
+                'password_confirmation' => 'required'
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
                 'min' => ':attribute không được nhỏ hơn :min ký tự!',
                 'max' => ':attribute không được vượt quá :max ký tự!',
-                'confirmed' => ':attribute nhập lại không chính xác!'
+                'confirmed' => ':attribute nhập lại không chính xác!',
+                'regex' => ':attribute không hợp lệ!'
             ],
             [
                 'old-password' => 'Mật khẩu cũ',

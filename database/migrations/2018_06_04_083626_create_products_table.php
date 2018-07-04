@@ -21,8 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('avatar')->nullable();
 //            $table->boolean('is_activated')->default(true);
             $table->string('describe', 255)->nullable();
-            $table->integer('product_type_id')->unsigned();
-            $table->integer('trademark_id')->unsigned();
+            $table->integer('product_type_trademark_id')->unsigned();
             $table->boolean('is_deleted')->default(false);
             $table->string('slug', 100);
             $table->timestamps();
