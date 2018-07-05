@@ -12,6 +12,7 @@ use App\SpecificationProductType;
 use App\Trademark;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 use Validator;
 
 class ProductController extends Controller
@@ -21,13 +22,36 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::where('is_deleted', false)->paginate(10);
         $trademarks = Trademark::all();
-
+        $key_filter = '';
+        $key_search = '';
+        $products = Product::where('is_deleted', false)->paginate(10);
+        if ($request->has('key-filter')) {
+            $key_filter_input = explode('-', $request->get('key-filter'));
+            if (count($key_filter_input) == 1) {
+                $products = Product::where('is_deleted', false)
+                    ->where('product_type_trademark_id', $key_filter_input[0])->paginate(10);
+                $key_filter = $key_filter_input[0];
+            }
+            else {
+                $ids = [];
+                foreach(Trademark::find($key_filter_input[1])->productTypeTrademarks as $product_type_trademark) {
+                    array_push($ids, $product_type_trademark->id);
+                }
+                $products = Product::where('is_deleted', false)
+                    ->whereIn('product_type_trademark_id', $ids)->paginate(10);
+                $key_filter = 'all-'.$key_filter_input[1];
+            }
+        }
+        if (!empty($request->get('key-search'))) {
+            $key_search = $request->get('key-search');
+            $products = Product::where('is_deleted', false)
+                ->where('name', 'like', "%$key_search%")->paginate(10);
+        }
         return view('admin.product.index.index',
-            compact(['products', 'trademarks']));
+            compact(['products', 'trademarks', 'key_filter', 'key_search']));
     }
 
     /**

@@ -11,6 +11,11 @@
             allowAdditions: true
         })
     ;
+    $("#key-filter").dropdown({
+        onChange: function () {
+            document.getElementById('form-search-product').submit();
+        }
+    });
 
     // close message
 
