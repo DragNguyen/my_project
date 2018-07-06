@@ -118,3 +118,4 @@
 
     // Date
 
+    $('#example1').calendar();

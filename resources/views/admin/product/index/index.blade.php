@@ -68,12 +68,16 @@
                     {{ $key_search }}
                 </div>
             @endif
-            <div class="ui action input right floating" style="margin-top: 2px">
+            <div class="ui transparent icon input" style="margin-top: 20px;">
                 <input type="text" name="key-search" placeholder="Tìm kiếm">
-                <button class="ui button">
-                    Tìm
-                </button>
+                <i class="search icon"></i>
             </div>
+            {{--<div class="ui action input right floating" style="margin-top: 2px">--}}
+                {{--<input type="text" name="key-search" placeholder="Tìm kiếm">--}}
+                {{--<button class="ui button">--}}
+                    {{--Tìm--}}
+                {{--</button>--}}
+            {{--</div>--}}
         </div>
     </form>
 

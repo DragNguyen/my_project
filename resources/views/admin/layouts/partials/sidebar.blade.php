@@ -60,6 +60,16 @@
                     </a>
                 </li>
             @endif
+            <li>
+                <a>
+                    <i class="fa fa-undo"></i>
+                    Thống kê
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('statictis.order.index') }}">Đơn hàng</a></li>
+                </ul>
+            </li>
             <li >
                 <a>
                     <i class="fa fa-undo"></i>

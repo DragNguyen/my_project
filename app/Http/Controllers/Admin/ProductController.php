@@ -28,7 +28,7 @@ class ProductController extends Controller
         $key_filter = '';
         $key_search = '';
         $products = Product::where('is_deleted', false)->paginate(10);
-        if ($request->has('key-filter')) {
+        if (!empty($request->get('key-filter'))) {
             $key_filter_input = explode('-', $request->get('key-filter'));
             if (count($key_filter_input) == 1) {
                 $products = Product::where('is_deleted', false)
@@ -44,6 +44,7 @@ class ProductController extends Controller
                     ->whereIn('product_type_trademark_id', $ids)->paginate(10);
                 $key_filter = 'all-'.$key_filter_input[1];
             }
+            dd($request->get('key-filter'));
         }
         if (!empty($request->get('key-search'))) {
             $key_search = $request->get('key-search');

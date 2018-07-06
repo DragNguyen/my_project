@@ -26,14 +26,21 @@ Auth::routes();
  * */
 Route::get('/', function() {
     $products = \App\Product::paginate(24);
-   return view('customer', compact('products'));
+    $menuItems = \App\ProductType::all();
+   return view('customer', compact(['products', 'menuItems']));
 })->name('customer.index');
 
-Route::get('/product/{slug}', function ($slug) {
-    $product = \App\Product::where('slug', $slug)->first();
-
-    return view('customer.product.index', compact('product'));
-});
+//Route::get('/{item}/product', function ($item) {
+//    $products = \App\ProductType::where('slug', $item)->first();
+//    $menuItems = \App\ProductType::all();
+//    return view('customer', compact(['products', 'menuItems']));
+//})->name('item.product.index');
+//
+//Route::get('/product/{slug}', function ($slug) {
+//    $product = \App\Product::where('slug', $slug)->first();
+//
+//    return view('customer.product.index', compact('product'));
+//});
 
 /*
  * Customer login / logout
@@ -82,6 +89,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
      * Dashboard
      * */
     Route::resource('dashboard', 'Admin\DashboardController');
+
+    /*
+     * Statictis
+     * */
+    Route::get('statictis/order', 'Admin\StatictisController@order')->name('statictis.order.index');
 
     /*
      * Trademark

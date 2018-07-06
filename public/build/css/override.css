@@ -19,6 +19,10 @@ body {
     font-family: "Helvetica Neue",Roboto,Arial,"Droid S ans",sans-serif;
 }
 
+body .container.body .right_col {
+    background: white;
+}
+
 .sidebar-footer a, .nav.toggle a {
     color: #5A738E;
 }
@@ -155,7 +159,8 @@ td .ui.button {
 }
 
 .ui.header {
-    color: #73879C;
+    /*color: #73879C;*/
+    color: black;
 }
 
 .ui.label {
@@ -164,4 +169,17 @@ td .ui.button {
 
 .ui.button {
     font-family: 'Segoe UI', Tahoma, Arial, san-serif !important;
+}
+
+.ui.statistic>.label, .ui.statistics .statistic>.label {
+    text-transform: unset;
+    font-family: unset;
+}
+
+.ui.statistic>.value, .ui.statistics .statistic>.value {
+    text-transform: unset;
+}
+
+.ui.divider:not(.vertical):not(.horizontal) {
+    border-top: unset;
 }
