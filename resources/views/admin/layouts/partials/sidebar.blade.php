@@ -67,7 +67,7 @@
                     <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ route('statictis.order.index') }}">Đơn hàng</a></li>
+                    <li><a href="{{ route('statictis.order.today') }}">Đơn hàng</a></li>
                 </ul>
             </li>
             <li >

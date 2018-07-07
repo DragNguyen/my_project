@@ -42,6 +42,7 @@
                 @endforeach
             </div>
         </div>
+
         @if (!empty($key_filter))
             @php $key_filter_input = explode('-', $key_filter); @endphp
             @if (count($key_filter_input) > 1)
@@ -80,6 +81,7 @@
             {{--</div>--}}
         </div>
     </form>
+    <form class="hidden" action="" method="" id="form-filter-product2">{{ csrf_field() }}</form>
 
     <form action="{{ route('product.destroy', [0]) }}"
           method="post" id="form-delete-product" >

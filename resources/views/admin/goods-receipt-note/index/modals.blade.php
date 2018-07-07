@@ -17,12 +17,7 @@
             </div>
             <div class="field">
                 <label>Ngày nhập hàng</label>
-                <div class="ui corner labeled input">
-                    <input type="date" name="date" value="{{ date('Y-m-d') }}">
-                    <div class="ui corner label">
-                        <i class="asterisk icon"></i>
-                    </div>
-                </div>
+                <input type="date" placeholder="Ngày nhập hàng..." value="{{ date('Y-m-d') }}" name="date">
                 @if($errors->has('date'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
                         {{ $errors->first('date') }}
@@ -70,12 +65,8 @@
                 </div>
                 <div class="field">
                     <label>Ngày nhập hàng</label>
-                    <div class="ui corner labeled input">
-                        <input type="date" name="date-{{ $goods_receipt_note->id }}" value="{{ $goods_receipt_note->date }}">
-                        <div class="ui corner label">
-                            <i class="asterisk icon"></i>
-                        </div>
-                    </div>
+                    <input type="date" name="date-{{ $goods_receipt_note->id }}"
+                           value="{{ $goods_receipt_note->date }}" placeholder="Ngày nhập hàng...">
                     @if($errors->has("date-{{ $goods_receipt_note->id }}"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
                             {{ $errors->first("date-$goods_receipt_note->id") }}

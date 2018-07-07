@@ -18,7 +18,6 @@ class AdminController extends Controller
         else {
             $admin = Admin::findOrFail($id);
             $oldPath = $admin->avatar;
-            dd($oldPath);
             if (!empty($oldPath)) {
                 File::delete($oldPath);
             }
@@ -55,11 +54,15 @@ class AdminController extends Controller
             return back()->withErrors($validate);
         }
         $oldPassword = $request->get('old-password');
+        $newPassword = $request->get('password');
         $admin = Admin::findOrFail($id);
         if (!password_verify($oldPassword, Auth::user()->getAuthPassword())) {
             return back()->with('error', 'Mật khẩu cũ không chính xác.');
         }
-        $admin->password = bcrypt($request->get('password'));
+        if ($oldPassword == $newPassword) {
+            return back()->with('error', 'Bạn đã nhập lại mật khẩu cũ!');
+        }
+        $admin->password = bcrypt($newPassword);
         $admin->update();
 
         return back()->with('success', 'Đổi mật khẩu thành công.');

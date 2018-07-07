@@ -26,9 +26,6 @@
 {{--<script src="../vendors/jqvmap/dist/jquery.vmap.js"></script>--}}
 {{--<script src="../vendors/jqvmap/dist/maps/jquery.vmap.world.js"></script>--}}
 {{--<script src="../vendors/jqvmap/examples/js/jquery.vmap.sampledata.js"></script>--}}
-<!-- bootstrap-daterangepicker -->
-<script src="/vendors/moment/min/moment.min.js"></script>
-<script src="/vendors/bootstrap-daterangepicker/daterangepicker.js"></script>
 
 <script src="/vendors/malihu-custom-scrollbar-plugin/jquery.mCustomScrollbar.concat.min.js"></script>
 
@@ -38,14 +35,10 @@
 {{--<script src="/semantic/jquery-3.3.1.min.js"></script>--}}
 <script src="/semantic/semantic.min.js"></script>
 
-{{--<script>--}}
-    {{--document.addEventListener('DOMContentLoaded', function() {--}}
-        {{--var elems = document.querySelectorAll('.fixed-action-btn');--}}
-        {{--var instances = M.FloatingActionButton.init(elems, {--}}
-            {{--direction: 'top'--}}
-        {{--});--}}
-    {{--});--}}
-{{--</script>--}}
-
 <script src="/js/admin-script.js"></script>
+<script src="/js/statictis.js"></script>
 {{--<script src="../semantic/jquery-3.3.1.min.js"></script>--}}
+
+{{--<script type="text/javascript" src="jquery.js"></script>--}}
+
+@stack('script')

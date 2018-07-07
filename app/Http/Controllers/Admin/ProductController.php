@@ -44,9 +44,9 @@ class ProductController extends Controller
                     ->whereIn('product_type_trademark_id', $ids)->paginate(10);
                 $key_filter = 'all-'.$key_filter_input[1];
             }
-            dd($request->get('key-filter'));
         }
         if (!empty($request->get('key-search'))) {
+
             $key_search = $request->get('key-search');
             $products = Product::where('is_deleted', false)
                 ->where('name', 'like', "%$key_search%")->paginate(10);

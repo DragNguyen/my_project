@@ -183,3 +183,20 @@ td .ui.button {
 .ui.divider:not(.vertical):not(.horizontal) {
     border-top: unset;
 }
+
+.ui.labeled .ui.selection.dropdown {
+    border-bottom-left-radius: 0;
+    border-top-left-radius: 0;
+}
+.ui.labeled .ui.label {
+    border-bottom-right-radius: 0;
+    border-top-right-radius: 0;
+}
+
+/*.daterangepicker .calendar.single .calendar-table {*/
+    /*margin: -4px -1px -7px -4px;*/
+/*}*/
+
+/*.daterangepicker.dropdown-menu {*/
+    /*max-width: 229px;*/
+/*}*/

@@ -17,6 +17,10 @@
 
 Auth::routes();
 
+Route::get('/test', function () {
+    return view('admin.test');
+});
+
 //Route::get('/', function() {
 //    return view('auth.admin-login');
 //})->name('home');
@@ -36,11 +40,11 @@ Route::get('/', function() {
 //    return view('customer', compact(['products', 'menuItems']));
 //})->name('item.product.index');
 //
-//Route::get('/product/{slug}', function ($slug) {
-//    $product = \App\Product::where('slug', $slug)->first();
-//
-//    return view('customer.product.index', compact('product'));
-//});
+Route::get('/product/{slug}', function ($slug) {
+    $product = \App\Product::where('slug', $slug)->first();
+
+    return view('customer.product.index', compact('product'));
+});
 
 /*
  * Customer login / logout
@@ -93,7 +97,8 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     /*
      * Statictis
      * */
-    Route::get('statictis/order', 'Admin\StatictisController@order')->name('statictis.order.index');
+    Route::get('statictis/order_today', 'Admin\StatictisController@order')->name('statictis.order.today');
+//    Route::get('statictis/order_table', 'Admin\StatictisController@orderTable')->name('statictis.order.table');
 
     /*
      * Trademark

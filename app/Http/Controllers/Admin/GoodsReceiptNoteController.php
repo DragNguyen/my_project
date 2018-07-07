@@ -51,7 +51,7 @@ class GoodsReceiptNoteController extends Controller
         if ($validate->fails()) {
             return back()->withErrors($validate);
         }
-        $date = $request->get('date');
+        $date = date_format(date_create($request->get('date')),'Y-m-d');
         $supplier_id = $request->get('supplier');
         $admin = Admin::find($request->get('admin'));
         if (GoodsReceiptNote::where('date', $date)->where('supplier_id', $supplier_id)->count() > 0) {
@@ -111,7 +111,7 @@ class GoodsReceiptNoteController extends Controller
             return back()->withErrors($validate);
         }
         $goods_receipt_note = GoodsReceiptNote::findOrFail($id);
-        $date = $request->get("date-$id");
+        $date = date_format(date_create($request->get("date-$id")),'Y-m-d');
         $supplier_id = $request->get('supplier');
         $old_date = $goods_receipt_note->date;
         $old_supplier = $goods_receipt_note->supplier_id;

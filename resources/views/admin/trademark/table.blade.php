@@ -10,6 +10,13 @@
     <th class="center aligned">Sửa</th>
     </thead>
 
+    @foreach($trademarks as $stt => $trademark)
+        <form class="hidden" method="get" id="form-key-filter-{{ $trademark->id }}"
+              action="{{ route('product.index') }}">
+            <input type="hidden" name="key-filter" value="all-{{ $trademark->id }}">
+        </form>
+    @endforeach
+
     <tbody>
     @foreach($trademarks as $stt => $trademark)
         @php $product_type_trademarks = $trademark->productTypeTrademarks @endphp
@@ -28,9 +35,9 @@
                 @endforeach
             </td>
             <td class="collapsing center aligned">
-                <a href="#" class="ui small label">
+                <button type="submit" form="form-key-filter-{{ $trademark->id }}" class="ui small label">
                     <i class="fitted blue laptop icon"></i>
-                </a>
+                </button>
             </td>
             <td class="collapsing center aligned">
                 <a class="ui green small label" onclick="$('#modal-edit-trademark-{{$trademark->id}}').modal('show')">

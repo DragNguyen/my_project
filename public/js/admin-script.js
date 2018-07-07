@@ -116,6 +116,15 @@
     });
     // $(".modal-autoscrolling").modal({ observeChanges: true });
 
-    // Date
+    // Popup
 
-    $('#example1').calendar();
+    $('#product-filter').popup({
+        inline     : true,
+        hoverable  : true,
+        position   : 'bottom left',
+        on: 'click',
+        delay: {
+            show: 300,
+            hide: 5000
+        }
+    });

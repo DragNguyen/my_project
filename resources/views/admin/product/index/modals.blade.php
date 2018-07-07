@@ -28,9 +28,9 @@
         <div class="content">
             <form class="ui form" id="form-edit-product-{{ $product->id }}"
                   action="{{ route('product.update', [$product->id]) }}" method="post">
+
                 {{ csrf_field() }}
                 {{ method_field('PUT') }}
-
                 <div class="field">
                     <label>Thương hiệu - loại sản phẩm</label>
                     <div class="ui fluid search selection dropdown">
