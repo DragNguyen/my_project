@@ -97,8 +97,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     /*
      * Statictis
      * */
-    Route::get('statictis/order_today', 'Admin\StatictisController@order')->name('statictis.order.today');
-//    Route::get('statictis/order_table', 'Admin\StatictisController@orderTable')->name('statictis.order.table');
+    Route::get('order_statictis', 'Admin\OrderStatictisController@index')->name('statictis.order');
+    Route::get('product_statictis', 'Admin\ProductStatictisController@index')->name('statictis.product');
+    Route::get('cost_statictis', 'Admin\CostStatictisController@index')->name('statictis.cost');
 
     /*
      * Trademark

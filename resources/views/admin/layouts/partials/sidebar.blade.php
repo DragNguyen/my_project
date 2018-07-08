@@ -10,6 +10,18 @@
                     Tổng quan
                 </a>
             </li>
+            <li>
+                <a>
+                    <i class="fa fa-undo"></i>
+                    Thống kê
+                    <span class="fa fa-chevron-down"></span>
+                </a>
+                <ul class="nav child_menu">
+                    <li><a href="{{ route('statictis.order') }}">Đơn hàng</a></li>
+                    <li><a href="{{ route('statictis.product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('statictis.cost') }}">Thu chi</a></li>
+                </ul>
+            </li>
             <li class="{{ \Illuminate\Support\Facades\Request::is('admin/trademark') ? 'current-page' : '' }}">
                 <a href="{{ route('trademark.index') }}">
                     <i class="fa fa-trophy"></i>
@@ -60,16 +72,6 @@
                     </a>
                 </li>
             @endif
-            <li>
-                <a>
-                    <i class="fa fa-undo"></i>
-                    Thống kê
-                    <span class="fa fa-chevron-down"></span>
-                </a>
-                <ul class="nav child_menu">
-                    <li><a href="{{ route('statictis.order.today') }}">Đơn hàng</a></li>
-                </ul>
-            </li>
             <li >
                 <a>
                     <i class="fa fa-undo"></i>

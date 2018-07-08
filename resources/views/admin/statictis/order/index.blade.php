@@ -3,9 +3,9 @@
 @section('title', 'Đơn hàng')
 
 @section('content')
-    <h2 class="ui dividing header">Thống kê >> <span class="header-2">Đơn hàng</span></h2>
+    <h2 class="ui dividing header">Thống kê >> <span class="header-2">đơn hàng</span></h2>
 
-    <form action="{{ route('statictis.order.today') }}" method="get">
+    <form>
         <div class="ui labeled input" style="min-width: 240px">
             <div class="ui label">
                 Tổng quan
