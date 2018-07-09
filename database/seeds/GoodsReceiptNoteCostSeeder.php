@@ -11,11 +11,13 @@ class GoodsReceiptNoteCostSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('goods_receipt_note_costs')->insert([
-            [
-                'goods_receipt_note_id' => 1,
-                'cost' => \App\GoodsReceiptNoteProduct::where('goods_receipt_note_id', 1)->sum('total_of_cost')
-            ]
-        ]);
+        $rows = [];
+        foreach(\App\GoodsReceiptNote::all() as $grn) {
+            array_push($rows, [
+                'goods_receipt_note_id' => $grn->id,
+                'cost' => $grn->goodsReceiptNotes->sum('total_of_cost')
+            ]);
+        }
+        DB::table('goods_receipt_note_costs')->insert($rows);
     }
 }

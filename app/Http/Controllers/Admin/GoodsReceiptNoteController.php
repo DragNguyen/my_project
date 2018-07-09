@@ -22,7 +22,7 @@ class GoodsReceiptNoteController extends Controller
      */
     public function index()
     {
-        $goods_receipt_notes = GoodsReceiptNote::where('is_deleted', false)->paginate(10);
+        $goods_receipt_notes = GoodsReceiptNote::where('is_deleted', false)->orderBy('date', 'desc')->paginate(10);
         $suppliers = Supplier::all();
         $admins = Admin::all();
 

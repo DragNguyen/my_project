@@ -21,7 +21,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $orders = Order::where('is_deleted', false)->paginate(10);
+        $orders = Order::where('is_deleted', false)->orderBy('order_created_at', 'desc')->paginate(10);
 
         return view('admin.order.index', compact('orders'));
     }

@@ -22,7 +22,7 @@ class PriceSeeder extends Seeder
             '8' => '9990000'
         );
         $rows = [];
-        for ($i=1; $i <= count($prices); $i++) {
+        for ($i=1; $i<=count($prices); $i++) {
             $rows[] = [
                 'price' => $prices[$i],
                 'product_id' => $i,

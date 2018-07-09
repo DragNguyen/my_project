@@ -23,7 +23,7 @@ class CostStatisticController extends Controller
         }
         $years = array_unique($years);
         $years = array_sort($years);
-        $static_table = $request->get('static-table');
+        $static_table = $request->get('type');
         if ($static_table == 'date') {
             $costs = $this->getDate($request);
             $type = 'Ngày';
@@ -82,7 +82,7 @@ class CostStatisticController extends Controller
 
     public function getTrimester($request) {
         $costs = [];
-        $year = $request->get('static-year');
+        $year = $request->get('year');
         $count = 1;
         for($i=1; $i<=10; $i=$i+3) {
             $out = DB::table('goods_receipt_notes')
@@ -103,7 +103,7 @@ class CostStatisticController extends Controller
 
     public function getMonth($request) {
         $costs = [];
-        $year = $request->get('static-year');
+        $year = $request->get('year');
         for($i=1; $i<=12; $i++) {
             $out = DB::table('goods_receipt_notes')
                 ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
@@ -121,10 +121,10 @@ class CostStatisticController extends Controller
 
     public function getDate($request) {
         $costs = [];
-        $year = $request->get('static-year');
-        $month = $request->get('static-month');
-        $begin = $request->get('static-begin');
-        $end = $request->get('static-end');
+        $year = $request->get('year');
+        $month = $request->get('month');
+        $begin = $request->get('begin');
+        $end = $request->get('end');
         for($i=$begin; $i<=$end; $i++) {
             $out = DB::table('goods_receipt_notes')
                 ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')

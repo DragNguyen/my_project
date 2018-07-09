@@ -18,15 +18,18 @@ class DatabaseSeeder extends Seeder
              TrademarkSeeder::class,
              ProductTypeTrademarkSeeder::class,
              ProductSeeder::class,
-             ImageSeeder::class,
              PriceSeeder::class,
+             GoodsReceiptNoteSeeder::class,
+             GoodsReceiptNoteProductSeeder::class,
+             GoodsReceiptNoteCostSeeder::class,
+             ImageSeeder::class,
              QuantitySeeder::class,
              CustomerSeeder::class,
              ShoppingCartSeeder::class,
              SpecificationSeeder::class,
-             GoodsReceiptNoteSeeder::class,
-             GoodsReceiptNoteProductSeeder::class,
-             GoodsReceiptNoteCostSeeder::class,
+             OrderSeeder::class,
+             OrderProductSeeder::class,
+             OrderCostSeeder::class,
          ]);
     }
 }

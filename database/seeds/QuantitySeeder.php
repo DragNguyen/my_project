@@ -11,13 +11,14 @@ class QuantitySeeder extends Seeder
      */
     public function run()
     {
+        $rows = [];
+
         foreach(\App\Product::all() as $product) {
-            DB::table('quantities')->insert([
-                [
-                    'product_id' => $product->id,
-                    'quantity' => 10
-                ]
-            ]);
+            $rows[] = [
+                'product_id' => $product->id,
+                'quantity' => \App\GoodsReceiptNoteProduct::where('product_id', $product->id)->sum('quantity')
+            ];
         }
+        DB::table('quantities')->insert($rows);
     }
 }
