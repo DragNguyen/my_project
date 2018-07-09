@@ -95,11 +95,11 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::resource('dashboard', 'Admin\DashboardController');
 
     /*
-     * Statictis
+     * Statistic
      * */
-    Route::get('order_statictis', 'Admin\OrderStatictisController@index')->name('statictis.order');
-    Route::get('product_statictis', 'Admin\ProductStatictisController@index')->name('statictis.product');
-    Route::get('cost_statictis', 'Admin\CostStatictisController@index')->name('statictis.cost');
+    Route::get('statistic/order', 'Admin\OrderStatisticController@index')->name('statistic.order');
+    Route::get('statistic/product', 'Admin\ProductStatisticController@index')->name('statistic.product');
+    Route::get('statistic/cost', 'Admin\CostStatisticController@index')->name('statistic.cost');
 
     /*
      * Trademark
@@ -134,6 +134,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::get('order/destroy/{id}', 'Admin\OrderController@orderDestroy')->name('order_destroy');
     Route::get('order/approve/{id}', 'Admin\OrderController@orderApprove')->name('order_approve');
     Route::get('order/change_status/{id}', 'Admin\OrderController@orderChangeStatus')->name('order_change_status');
+    Route::get('order/{id}/print', 'Admin\OrderController@printOrder')->name('order_print');
 
     /*
      * Sales off

@@ -12,7 +12,13 @@
 
     @include('admin.layouts.components.success')
 
-    <h3 class="ui dividing header">Thông tin cơ bản</h3>
+    <h3 class="ui dividing header">Thông tin cơ bản
+        <a class="ui small label" style="float: right;" href="{{ route('order_print', [$order->id]) }}" target="_blank">
+            <i class="print fitted icon"></i>
+            In
+        </a>
+    </h3>
+
     <div class="ui two column grid">
         <div class="column">
             <div class="ui grid">

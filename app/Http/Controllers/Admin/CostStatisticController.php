@@ -8,10 +8,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
-class CostStatictisController extends Controller
+class CostStatisticController extends Controller
 {
     public function index(Request $request) {
-        $cost_today = $this->getToday($request);
+        $today = $this->getToday($request);
         $years = [];
         $costs = [];
         $type = 'Năm';
@@ -41,36 +41,34 @@ class CostStatictisController extends Controller
         }
 
         return view('admin.statictis.cost.index',
-            compact(['cost_today', 'years', 'costs', 'type']));
+            compact(['today', 'years', 'costs', 'type']));
     }
 
     public function getToday($request) {
-        $cost_today = [
+        $today = [
             'in' => 0,
             'out' => 0,
             'minus' => 0
         ];
-        if ($request->has('dashboard')) {
-            $date = $request->get('dashboard');
-            $cost_today['out'] = DB::table('goods_receipt_notes')
-                ->join('goods_receipt_note_products', 'goods_receipt_notes.id', 'goods_receipt_note_id')
-                ->where('date', '>=', $date)->sum('price');
-            $cost_today['in'] = DB::table('orders')
-                ->join('order_products', 'orders.id', 'order_products.order_id')
-                ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
-                ->where('order_created_at', '>=', $date)
-                ->where('status', 2)->sum('price');
-            $cost_today['minus'] = $cost_today['in'] - $cost_today['out'];
-        }
-        return $cost_today;
+        $date = $request->has('dashboard') ? $request->get('dashboard') : date('Y-m-d');
+        $today['out'] = DB::table('goods_receipt_notes')
+            ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
+            ->where('date', '>=', $date)->sum('cost');
+        $today['in'] = DB::table('orders')
+            ->join('order_products', 'orders.id', 'order_products.order_id')
+            ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
+            ->where('order_created_at', '>=', $date)
+            ->where('status', 2)->sum('price');
+        $today['minus'] = $today['in'] - $today['out'];
+        return $today;
     }
 
     public function getYear($years) {
         $costs = [];
         foreach($years as $year) {
             $out = DB::table('goods_receipt_notes')
-                ->join('goods_receipt_note_products', 'goods_receipt_notes.id', 'goods_receipt_note_id')
-                ->whereYear('date', $year)->sum('price');
+                ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
+                ->whereYear('date', $year)->sum('cost');
             $in = DB::table('orders')
                 ->join('order_products', 'orders.id', 'order_products.order_id')
                 ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
@@ -88,9 +86,9 @@ class CostStatictisController extends Controller
         $count = 1;
         for($i=1; $i<=10; $i=$i+3) {
             $out = DB::table('goods_receipt_notes')
-                ->join('goods_receipt_note_products', 'goods_receipt_notes.id', 'goods_receipt_note_id')
+                ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
                 ->whereYear('date', $year)->whereMonth('date', '>=', $i)
-                ->whereMonth('date', '<', $i+3)->sum('price');
+                ->whereMonth('date', '<', $i+3)->sum('cost');
             $in = DB::table('orders')
                 ->join('order_products', 'orders.id', 'order_products.order_id')
                 ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
@@ -108,8 +106,8 @@ class CostStatictisController extends Controller
         $year = $request->get('static-year');
         for($i=1; $i<=12; $i++) {
             $out = DB::table('goods_receipt_notes')
-                ->join('goods_receipt_note_products', 'goods_receipt_notes.id', 'goods_receipt_note_id')
-                ->whereYear('date', $year)->whereMonth('date', $i)->sum('price');
+                ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
+                ->whereYear('date', $year)->whereMonth('date', $i)->sum('cost');
             $in = DB::table('orders')
                 ->join('order_products', 'orders.id', 'order_products.order_id')
                 ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
@@ -129,9 +127,9 @@ class CostStatictisController extends Controller
         $end = $request->get('static-end');
         for($i=$begin; $i<=$end; $i++) {
             $out = DB::table('goods_receipt_notes')
-                ->join('goods_receipt_note_products', 'goods_receipt_notes.id', 'goods_receipt_note_id')
+                ->join('goods_receipt_note_costs', 'goods_receipt_notes.id', 'goods_receipt_note_id')
                 ->whereYear('date', $year)->whereMonth('date', $month)
-                ->whereDay('date', $i)->sum('price');
+                ->whereDay('date', $i)->sum('cost');
             $in = DB::table('orders')
                 ->join('order_products', 'orders.id', 'order_products.order_id')
                 ->join('order_statuses', 'orders.id', 'order_statuses.order_id')

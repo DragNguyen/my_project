@@ -35,15 +35,15 @@
             <div class="field">
                 <label>Đơn giá</label>
                 <div class="ui corner labeled input">
-                    <input type="text" name="price" {{ $errors->has('price')?'autofocus':'' }}
-                           placeholder="2990000 hoặc 2,990,000..." value="{{ old('price') }}">
+                    <input type="text" name="cost" {{ $errors->has('cost')?'autofocus':'' }}
+                           placeholder="2990000 hoặc 2,990,000..." value="{{ old('cost') }}">
                     <div class="ui corner label">
                         <i class="asterisk icon"></i>
                     </div>
                 </div>
-                @if($errors->has('price'))
+                @if($errors->has('cost'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">
-                        {{ $errors->first('price') }}
+                        {{ $errors->first('cost') }}
                     </div>
                 @endif
             </div>
@@ -95,17 +95,17 @@
                 <div class="field">
                     <label>Đơn giá</label>
                     <div class="ui corner labeled input">
-                        <input type="text" name="price-{{ $goods_receipt_note_product->id }}"
-                               value="{{ number_format($goods_receipt_note_product->price) }}"
-                               {{ $errors->has("price-$goods_receipt_note_product->id")?'autofocus':'' }}
+                        <input type="text" name="cost-{{ $goods_receipt_note_product->id }}"
+                               value="{{ number_format($goods_receipt_note_product->cost) }}"
+                               {{ $errors->has("cost-$goods_receipt_note_product->id")?'autofocus':'' }}
                                placeholder="2990000 hoặc 2,990,000...">
                         <div class="ui corner label">
                             <i class="asterisk icon"></i>
                         </div>
                     </div>
-                    @if($errors->has("price-$goods_receipt_note_product->id"))
+                    @if($errors->has("cost-$goods_receipt_note_product->id"))
                         <div style="color: red; margin-top: 5px; font-size: 13px">
-                            {{ $errors->first("price-$goods_receipt_note_product->id") }}
+                            {{ $errors->first("cost-$goods_receipt_note_product->id") }}
                         </div>
                     @endif
                 </div>

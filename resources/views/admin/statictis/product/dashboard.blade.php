@@ -7,7 +7,7 @@
             <div class="statistic">
                 <div class="value">
                     <i class="box icon"></i>
-                    {{ $dashboard_products[0] }}
+                    {{ $dashboards[0] }}
                 </div>
                 <div class="label">
                     Sản phẩm
@@ -20,7 +20,7 @@
                         <i class="box icon"></i>
                         <i class="bottom right corner green bookmark icon"></i>
                     </i>
-                    {{ $dashboard_products[1] }}
+                    {{ $dashboards[1] }}
                 </div>
                 <div class="label">
                     Sản phẩm Mới
@@ -33,7 +33,7 @@
                         <i class="box icon"></i>
                         <i class="bottom right corner red certificate icon"></i>
                     </i>
-                    {{ $dashboard_products[2] }}
+                    {{ $dashboards[2] }}
                 </div>
                 <div class="label">
                     Đang khuyến mãi
@@ -46,7 +46,7 @@
                         <i class="box icon"></i>
                         <i class="bottom right corner yellow exclamation circle icon"></i>
                     </i>
-                    {{ $dashboard_products[3] }}
+                    {{ $dashboards[3] }}
                 </div>
                 <div class="label">
                     Hết hàng
@@ -59,7 +59,7 @@
                         <i class="box icon"></i>
                         <i class="bottom right corner red times circle outline icon"></i>
                     </i>
-                    {{ $dashboard_products[4] }}
+                    {{ $dashboards[4] }}
                 </div>
                 <div class="label">
                     Ngừng kinh doanh

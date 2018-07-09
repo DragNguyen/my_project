@@ -5,9 +5,9 @@
     </th>
     <th class="collapsing">STT</th>
     <th>Tên sản phẩm</th>
-    <th>Đơn giá</th>
-    <th>Số lượng</th>
-    <th>Tồn kho</th>
+    <th class="right aligned">Đơn giá</th>
+    <th class="center aligned collapsing">Số lượng</th>
+    <th class="center aligned collapsing">Tồn kho</th>
     <th class="collapsing center aligned">Sửa</th>
     </thead>
 
@@ -26,9 +26,9 @@
                     {{ $goods_receipt_note_product->product->name }}
                 </a>
             </td>
-            <td>{{ number_format($goods_receipt_note_product->price) }}<sup>đ</sup></td>
-            <td>{{ $goods_receipt_note_product->quantity }}</td>
-            <td>{{ $goods_receipt_note_product->product->getQuantity() }}</td>
+            <td class="right aligned">{{ number_format($goods_receipt_note_product->cost) }}<sup>đ</sup></td>
+            <td class="center aligned">{{ $goods_receipt_note_product->quantity }}</td>
+            <td class="center aligned">{{ $goods_receipt_note_product->product->getQuantity() }}</td>
             <td class="collapsing center aligned">
                 @if(!$goods_receipt_note_product->product->is_deleted)
                     <a class="ui green small label"

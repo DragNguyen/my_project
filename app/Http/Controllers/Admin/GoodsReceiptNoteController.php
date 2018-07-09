@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Admin;
 use App\GoodsReceiptNote;
+use App\GoodsReceiptNoteCost;
 use App\GoodsReceiptNoteProduct;
 use App\Product;
 use App\Supplier;
@@ -65,7 +66,12 @@ class GoodsReceiptNoteController extends Controller
         $goods_receipt_note->admin_id = $admin->id;
         $goods_receipt_note->supplier_id = $supplier_id;
         $goods_receipt_note->supplier_name = Supplier::find($supplier_id)->name;
-        $goods_receipt_note->save();
+
+        if ($goods_receipt_note->save()) {
+            $cost = new GoodsReceiptNoteCost();
+            $cost->goods_receipt_note_id = $goods_receipt_note->id;
+            $cost->save();
+        }
 
         return back()->with('success', 'Thêm thành công.');
     }

@@ -18,9 +18,17 @@
                 onclick="return confirm('Bạn chắc chắn muốn xóa các mục đã chọn?')">
             <i class="delete fitted icon"></i>
         </button>
-        <a class="ui blue button" onclick="$('#modal-create-order').modal('show')" data-tooltip="Thêm mới">
-            <i class="add fitted icon"></i>
-        </a>
+        {{--<a class="ui blue button" onclick="$('#modal-create-order').modal('show')" data-tooltip="Thêm mới">--}}
+            {{--<i class="add fitted icon"></i>--}}
+        {{--</a>--}}
+        <div class="ui green scrolling floating icon dropdown button" id="key-filter">
+            <input type="hidden" name="key-filter">
+            <i class="filter icon"></i>
+        </div>
+        <div class="ui small label">
+            Chưa duyệt
+            <a href="#"><i class="delete fitted icon"></i></a>
+        </div>
 
         @include('admin.order.table')
     </form>

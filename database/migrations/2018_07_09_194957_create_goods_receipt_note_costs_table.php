@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProductBuysTable extends Migration
+class CreateGoodsReceiptNoteCostsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,13 @@ class CreateProductBuysTable extends Migration
      */
     public function up()
     {
-        Schema::create('product_buys', function (Blueprint $table) {
+        Schema::create('goods_receipt_note_costs', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('product_id')->unsinged();
-            $table->integer('buys');
+            $table->double('cost')->default(0);
+            $table->integer('goods_receipt_note_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('goods_receipt_note_id')->references('id')->on('goods_receipt_notes')->onDelete('cascade');
         });
     }
 
@@ -28,6 +30,6 @@ class CreateProductBuysTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_buys');
+        Schema::dropIfExists('goods_receipt_note_costs');
     }
 }

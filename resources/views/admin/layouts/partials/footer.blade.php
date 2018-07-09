@@ -36,7 +36,6 @@
 <script src="/semantic/semantic.min.js"></script>
 
 <script src="/js/admin-script.js"></script>
-<script src="/js/statictis.js"></script>
 {{--<script src="../semantic/jquery-3.3.1.min.js"></script>--}}
 
 {{--<script type="text/javascript" src="jquery.js"></script>--}}

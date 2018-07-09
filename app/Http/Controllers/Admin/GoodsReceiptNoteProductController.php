@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\GoodsReceiptNoteCost;
 use App\GoodsReceiptNoteProduct;
 use App\Product;
 use App\Quantity;
@@ -44,14 +45,14 @@ class GoodsReceiptNoteProductController extends Controller
             return back()->withErrors($validate)->withInput($request->all());
         }
 
-        $price = str_replace(',', '', $request->get('price'));
+        $cost = str_replace(',', '', $request->get('cost'));
         $quantity = $request->get('quantity');
-        if ($price > 100000000) {
-            return back()->withErrors(['price' => 'Đơn giá không được vượt quá 100,000,000đ !'])
+        if ($cost > 100000000) {
+            return back()->withErrors(['cost' => 'Đơn giá không được vượt quá 100,000,000đ !'])
                 ->withInput($request->all());
         }
-        if ($price < 1000) {
-            return back()->withErrors(['price' => 'Đơn giá không được nhỏ hơn 1,000đ !'])
+        if ($cost < 1000) {
+            return back()->withErrors(['cost' => 'Đơn giá không được nhỏ hơn 1,000đ !'])
                 ->withInput($request->all());
         }
 
@@ -59,7 +60,8 @@ class GoodsReceiptNoteProductController extends Controller
         $goods_receipt_note_product->goods_receipt_note_id = $request->get('id');
         $goods_receipt_note_product->product_id = $request->get('product-name');
         $goods_receipt_note_product->quantity = $quantity;
-        $goods_receipt_note_product->price = $price;
+        $goods_receipt_note_product->cost = $cost;
+        $goods_receipt_note_product->total_of_cost = $cost * $quantity;
         $goods_receipt_note_product->quantity_updated = $quantity;
 
         if ($goods_receipt_note_product->save()) {
@@ -67,6 +69,11 @@ class GoodsReceiptNoteProductController extends Controller
             $product_quantity = Quantity::where('product_id', $product->id)->first();
             $product_quantity->quantity = $product->getQuantity() + $quantity;
             $product_quantity->update();
+
+            $goods_receipt_note_cost = GoodsReceiptNoteCost::where('goods_receipt_note_id',
+                $goods_receipt_note_product->goods_receipt_note_id)->first();
+            $goods_receipt_note_cost->cost += $goods_receipt_note_product->total_of_cost;
+            $goods_receipt_note_cost->update();
         }
 
         return back()->with('success', 'Thêm thành công.');
@@ -109,26 +116,28 @@ class GoodsReceiptNoteProductController extends Controller
         }
 
         $quantity = $request->get("quantity-$id");
-        $price = str_replace(',', '', $request->get("price-$id"));
-        if ($price > 100000000) {
-            return back()->withErrors(["price-$id" => 'Đơn giá không được vượt quá 100,000,000đ !'])
+        $cost = str_replace(',', '', $request->get("cost-$id"));
+        if ($cost > 100000000) {
+            return back()->withErrors(["cost-$id" => 'Đơn giá không được vượt quá 100,000,000đ !'])
                 ->withInput($request->all());
         }
-        if ($price < 1000) {
-            return back()->withErrors(["price-$id" => 'Đơn giá không được nhỏ hơn 1,000đ !'])
+        if ($cost < 1000) {
+            return back()->withErrors(["cost-$id" => 'Đơn giá không được nhỏ hơn 1,000đ !'])
                 ->withInput($request->all());
         }
 
         $goods_receipt_note_product = GoodsReceiptNoteProduct::findOrFail($id);
-        if (($goods_receipt_note_product->price == $price) && ($goods_receipt_note_product->quantity == $quantity)) {
+        if (($goods_receipt_note_product->cost == $cost) && ($goods_receipt_note_product->quantity == $quantity)) {
             return back();
         }
 
         $quantity_changed = $quantity - $goods_receipt_note_product->quantity_updated;
+        $old_total_of_cost = $goods_receipt_note_product->total_of_cost;
 
         $goods_receipt_note_product->product_id = $request->get('product-name');
         $goods_receipt_note_product->quantity = $quantity;
-        $goods_receipt_note_product->price = $price;
+        $goods_receipt_note_product->cost = $cost;
+        $goods_receipt_note_product->total_of_cost = $cost * $quantity;
         $goods_receipt_note_product->quantity_updated = $quantity;
 
         if ($goods_receipt_note_product->update()) {
@@ -136,6 +145,11 @@ class GoodsReceiptNoteProductController extends Controller
             $product_quantity = Quantity::where('product_id', $product->id)->first();
             $product_quantity->quantity = $product->getChangedQuantity($quantity_changed);
             $product_quantity->update();
+
+            $goods_receipt_note_cost = GoodsReceiptNoteCost::where('goods_receipt_note_id',
+                $goods_receipt_note_product->goods_receipt_note_id)->first();
+            $goods_receipt_note_cost->cost += ($goods_receipt_note_product->total_of_cost - $old_total_of_cost);
+            $goods_receipt_note_cost->update();
         }
 
         return back()->with('success', 'Sửa thành công.');
@@ -156,14 +170,14 @@ class GoodsReceiptNoteProductController extends Controller
             $product = $goods_receipt_note_product->product;
             $quantity_changed = - $goods_receipt_note_product->quantity_updated;
 
-            $product_quantity = new Quantity();
-            $product_quantity->oldQuantity = $product->getQuantity();
+            $product_quantity = Quantity::findOrFail($product->id);
             $product_quantity->quantity = $product->getChangedQuantity($quantity_changed);
-            $product_quantity->quantity_changed = $quantity_changed;
-            $product_quantity->event = -3;
-            $product_quantity->quantity_updated_at = date('Y-m-d H:i:s');
-            $product_quantity->product_id = $product->id;
-            $product_quantity->save();
+            $product_quantity->update();
+
+            $goods_receipt_note_cost = GoodsReceiptNoteCost::where('goods_receipt_note_id',
+                $goods_receipt_note_product->goods_receipt_note_id)->first();
+            $goods_receipt_note_cost->cost -= $goods_receipt_note_product->total_of_cost;
+            $goods_receipt_note_cost->update();
 
             $goods_receipt_note_product->delete();
         }
@@ -175,7 +189,7 @@ class GoodsReceiptNoteProductController extends Controller
         $validate = Validator::make($request->all(),
             [
                 'quantity' => 'required|integer|min:1|max:500',
-                'price' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
+                'cost' => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{0,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -187,7 +201,7 @@ class GoodsReceiptNoteProductController extends Controller
             [
                 'product-name' => 'Tên sản phẩm',
                 'quantity' => 'Số lượng',
-                'price' => 'Đơn giá'
+                'cost' => 'Đơn giá'
             ]
         );
 
@@ -198,7 +212,7 @@ class GoodsReceiptNoteProductController extends Controller
         $validate = Validator::make($request->all(),
             [
                 "quantity-$id" => 'required|integer|min:1|max:500',
-                "price-$id" => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
+                "cost-$id" => array('required', 'regex:/^(([1-9]\d*)|([1-9]\d{1,2}(,\d{3})*))$/')
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
@@ -210,7 +224,7 @@ class GoodsReceiptNoteProductController extends Controller
             [
                 'product-name' => 'Tên sản phẩm',
                 "quantity-$id" => 'Số lượng',
-                "price-$id" => 'Đơn giá'
+                "cost-$id" => 'Đơn giá'
             ]
         );
 

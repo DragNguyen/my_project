@@ -26,6 +26,7 @@ class DatabaseSeeder extends Seeder
              SpecificationSeeder::class,
              GoodsReceiptNoteSeeder::class,
              GoodsReceiptNoteProductSeeder::class,
+             GoodsReceiptNoteCostSeeder::class,
          ]);
     }
 }

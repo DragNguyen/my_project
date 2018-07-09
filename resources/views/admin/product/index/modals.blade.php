@@ -97,3 +97,22 @@
         </div>
     </div>
 @endforeach
+
+<style>
+    .ui.top.attached.tabular {
+        border-width: 0 0 1px 0 !important;
+        border-color: lightgray;
+        border-style: solid;
+    }
+    .bottom.attached.tab.segment {
+        border: none !important;
+        padding: 10px 0 0 0;
+    }
+    .tabular.menu .item.active {
+        border: none;
+        border-bottom: 3px solid #2185d0 !important;
+    }
+    .ui.grid>.column:not(.row) {
+        padding-top: unset;
+    }
+</style>

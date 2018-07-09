@@ -7,6 +7,7 @@
     <th>Tên khuyến mãi</th>
     <th>Ngày bắt đầu</th>
     <th>Ngày kết thúc</th>
+    <th>Giá trị khuyến mãi</th>
     <th class="collapsing center aligned">Sửa</th>
     </thead>
 
@@ -25,6 +26,11 @@
             </td>
             <td>{{ date_format(date_create($sales_off->begin_at), 'd/m/Y') }}</td>
             <td>{{ date_format(date_create($sales_off->end_at), 'd/m/Y') }}</td>
+            <td>
+                @foreach($sales_off->salesOffs as $salePercent)
+                    <span class="ui small label">{{ $salePercent->value }}</span>
+                @endforeach
+            </td>
             <td class="collapsing center aligned">
                 <a class="ui green small label"
                    onclick="$('#modal-edit-sales-off-{{ $sales_off->id }}').modal('show')">

@@ -10,6 +10,10 @@ class GoodsReceiptNote extends Model
         return $this->hasMany(GoodsReceiptNoteProduct::class);
     }
 
+    public function goodsReceiptNoteCosts() {
+        return $this->hasMany(GoodsReceiptNoteCost::class);
+    }
+
     public function matchedSupplier($supplier_id) {
         $childs = GoodsReceiptNote::where('goods_receipt_note_id', $this->id)->get();
 
@@ -33,5 +37,10 @@ class GoodsReceiptNote extends Model
 
     public function canDelete() {
         return $this->goodsReceiptNotes->count() == 0;
+    }
+
+    public function getCost() {
+        $cost = $this->goodsReceiptNoteCosts->first();
+        return $cost->cost;
     }
 }

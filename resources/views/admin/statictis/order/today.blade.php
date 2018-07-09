@@ -3,7 +3,7 @@
         <div class="statistic">
             <div class="value">
                 <i class="clipboard outline icon"></i>
-                <span id="total-order">{{ $order_quantities['total_of_quantity'] }}</span>
+                <span>{{ $order_quantity['total_of_quantity'] }}</span>
             </div>
             <div class="label">
                 Tổng số đơn hàng
@@ -15,7 +15,7 @@
                     <i class="clipboard outline icon"></i>
                     <i class="bottom right corner yellow exclamation circle icon"></i>
                 </i>
-                <span id="uncheck-order">{{ $order_quantities['unapprove'] }}</span>
+                <span>{{ $order_quantity['unapprove'] }}</span>
             </div>
             <div class="label">
                 Chưa duyệt
@@ -27,7 +27,7 @@
                     <i class="clipboard outline icon"></i>
                     <i class="bottom right corner blue clock icon"></i>
                 </i>
-                <span id="checked-order">{{ $order_quantities['approved'] }}</span>
+                <span>{{ $order_quantity['approved'] }}</span>
             </div>
             <div class="label">
                 Đã duyệt
@@ -39,7 +39,7 @@
                     <i class="clipboard outline icon"></i>
                     <i class="bottom right corner green check circle icon"></i>
                 </i>
-                <span id="delivered-order">{{ $order_quantities['complete'] }}</span>
+                <span>{{ $order_quantity['complete'] }}</span>
             </div>
             <div class="label">
                 Đã giao hàng
@@ -47,7 +47,7 @@
         </div>
         <div class="statistic">
             <div class="value">
-                <span id="total-revenue">{{ number_format($order_quantities['total_of_price']) }}</span><sup>đ</sup>
+                <span>{{ number_format($order_quantity['total_of_price']) }}</span><sup>đ</sup>
             </div>
             <div class="label">
                 Tổng tiền

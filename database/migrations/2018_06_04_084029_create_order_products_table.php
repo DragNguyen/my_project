@@ -19,6 +19,7 @@ class CreateOrderProductsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('quantity');
             $table->double('price');
+            $table->double('total_of_price');
             $table->integer('sales_off_percent');
             $table->timestamps();
 

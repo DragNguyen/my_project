@@ -12,14 +12,14 @@
             </li>
             <li>
                 <a>
-                    <i class="fa fa-undo"></i>
+                    <i class="fa fa-bar-chart"></i>
                     Thống kê
                     <span class="fa fa-chevron-down"></span>
                 </a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ route('statictis.order') }}">Đơn hàng</a></li>
-                    <li><a href="{{ route('statictis.product') }}">Sản phẩm</a></li>
-                    <li><a href="{{ route('statictis.cost') }}">Thu chi</a></li>
+                    <li><a href="{{ route('statistic.order') }}">Đơn hàng</a></li>
+                    <li><a href="{{ route('statistic.product') }}">Sản phẩm</a></li>
+                    <li><a href="{{ route('statistic.cost') }}">Thu chi</a></li>
                 </ul>
             </li>
             <li class="{{ \Illuminate\Support\Facades\Request::is('admin/trademark') ? 'current-page' : '' }}">
@@ -94,6 +94,6 @@
         </ul>
     </div>
 
-    @include('admin.layouts.partials.sidebar_footer')
+{{--    @include('admin.layouts.partials.sidebar_footer')--}}
 </div>
 <!-- /sidebar menu -->

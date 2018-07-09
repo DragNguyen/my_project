@@ -3,11 +3,11 @@
     <div class="ui dividing header" style="margin-top: 5px;">
         <h5>Top {{ Request::get('quantity') }} sản phẩm mua nhiều trong vòng
             {{ Request::get('time') }}
-            @if(Request::get('time-type') == 'day')
+            @if(Request::get('type') == 'day')
                 ngày
-            @elseif(Request::get('time-type') == 'week')
+            @elseif(Request::get('type') == 'week')
                 tuần
-            @elseif(Request::get('time-type') == 'month')
+            @elseif(Request::get('type') == 'month')
                 tháng
             @else
                 năm
@@ -30,13 +30,13 @@
                 <option value="{{ $i }}" {{ (Request::get('time')==$i) ? 'selected' : '' }}>{{ $i }}</option>
             @endfor
         </select>
-        <select class="ui selection dropdown" name="time-type">
-            <option value="day" {{ (Request::get('time-type')=='day') ? 'selected' : '' }}>Ngày</option>
-            <option value="week" {{ (!Request::has('quantity') || (Request::get('time-type')=='week')) ? 'selected' : '' }}>
+        <select class="ui selection dropdown" name="type">
+            <option value="day" {{ (Request::get('type')=='day') ? 'selected' : '' }}>Ngày</option>
+            <option value="week" {{ (!Request::has('quantity') || (Request::get('type')=='week')) ? 'selected' : '' }}>
                 Tuần
             </option>
-            <option value="month" {{ (Request::get('time-type')=='month') ? 'selected' : '' }}>Tháng</option>
-            <option value="year" {{ (Request::get('time-type')=='year') ? 'selected' : '' }}>Năm</option>
+            <option value="month" {{ (Request::get('type')=='month') ? 'selected' : '' }}>Tháng</option>
+            <option value="year" {{ (Request::get('type')=='year') ? 'selected' : '' }}>Năm</option>
         </select>
         <button class="ui button" type="submit"
                 style="border-bottom-left-radius: 0; border-top-left-radius: 0">Xem</button>
@@ -62,7 +62,6 @@
                     @break
                 @endif
             @endif
-            {{--@php dd($product_hot) @endphp--}}
             @php $product = \App\Product::find($product_hot['id']); @endphp
             <tr>
                 <td class="center aligned">{{ $stt + 1 }}</td>

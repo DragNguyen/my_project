@@ -7,6 +7,7 @@
     <th>Người nhập hàng</th>
     <th>Ngày nhập</th>
     <th>Nhà cung cấp</th>
+    <th class="right aligned">Tổng tiền</th>
     <th class="collapsing center aligned">Xem</th>
     <th class="collapsing center aligned">Sửa</th>
     </thead>
@@ -22,6 +23,7 @@
             <td>{{ $goods_receipt_note->name }}</td>
             <td>{{ date_format(date_create($goods_receipt_note->date), 'd/m/Y') }}</td>
             <td>{{ $goods_receipt_note->supplier_name }}</td>
+            <td class="right aligned">{{ number_format($goods_receipt_note->getCost()) }}<sup>đ</sup></td>
             <td class="collapsing center aligned">
                 <a href="{{ route('goods_receipt_note.show', [$goods_receipt_note->id]) }}" class="ui blue small label">
                     <i class="fitted eye icon"></i>

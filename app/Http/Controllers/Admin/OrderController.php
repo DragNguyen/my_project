@@ -10,6 +10,7 @@ use App\Quantity;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class OrderController extends Controller
 {
@@ -178,5 +179,12 @@ class OrderController extends Controller
         $order_status->update();
 
         return back()->with('success', 'Cập nhật thành công.');
+    }
+
+    public function printOrder($id) {
+        $order = Order::find($id);
+        $order_products = $order->orderProducts;
+        $pdf = PDF::loadView('admin.order.order-print', compact(['order', 'order_products']));
+        return $pdf->stream();
     }
 }

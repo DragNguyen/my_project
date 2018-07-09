@@ -234,13 +234,14 @@ class CartController extends Controller
         foreach($cart_products as $cart_product) {
             $product = Product::find($cart_product->id);
             $price = $product->getSalesOffPrice();
-            $total_of_money += $price;
+            $total_of_money += $price * $cart_product->qty;
 
             $order_product = new OrderProduct();
             $order_product->order_id = $order->id;
             $order_product->product_id = $product->id;
             $order_product->quantity = $cart_product->qty;
             $order_product->price = $price;
+            $order_product->total_of_price = $price * $cart_product->qty;
             $order_product->sales_off_percent = $product->getSalesOffPercent();
             $order_product->save();
 

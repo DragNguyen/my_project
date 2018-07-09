@@ -23,6 +23,7 @@
         {{--</div>--}}
 
 {{--        @include('frontend.layouts.partials.menu.menu')--}}
+        @include('customer.layouts.partials.menu')
     </div>
 </div>
 @include('customer.layouts.partials.sidebar')

@@ -12,15 +12,15 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Input;
 
-class ProductStatictisController extends Controller
+class ProductStatisticController extends Controller
 {
     public function index(Request $request) {
         $trademarks = Trademark::all();
         $product_types = ProductType::all();
-        $dashboard_products = $this->getDashboardProduct();
+        $dashboards = $this->getDashboardProduct();
         if ($request->has('quantity')) {
             $product_hots = $this->getProductHot($request, $request->get('time'),
-                $request->get('time-type'), $request->get('quantity'));
+                $request->get('type'), $request->get('quantity'));
         }
         else {
             $product_hots = $this->getProductHot($request);
@@ -29,22 +29,22 @@ class ProductStatictisController extends Controller
             ->where('quantity', 0)->select('products.id', 'avatar', 'name')->paginate(10);
 
         return view('admin.statictis.product.index',
-            compact(['trademarks', 'product_types', 'dashboard_products', 'product_hots', 'product_outs']));
+            compact(['trademarks', 'product_types', 'dashboards', 'product_hots', 'product_outs']));
     }
 
     public function getDashboardProduct() {
-        $dashboard_products = [];
-        array_push($dashboard_products, Product::count());
-        array_push($dashboard_products,
+        $dashboards = [];
+        array_push($dashboards, Product::count());
+        array_push($dashboards,
             Product::where('product_created_at', '>=', date_modify(date_create(date('Y-m-d')), '-1 weeks'))->count()
         );
-        array_push($dashboard_products, SalesOffProduct::count());
-        array_push($dashboard_products,
+        array_push($dashboards, SalesOffProduct::count());
+        array_push($dashboards,
             DB::table('products')->join('quantities', 'products.id', 'product_id')
                 ->where('quantity', 0)->count()
         );
-        array_push($dashboard_products, Product::where('is_deleted', true)->count());
-        return $dashboard_products;
+        array_push($dashboards, Product::where('is_deleted', true)->count());
+        return $dashboards;
     }
 
     public function getProductHot($request, $time=1, $time_type='weeks', $quantity=5) {
