@@ -8,10 +8,10 @@
             <img src="{{ asset('assets/img/favicon.png') }}" alt="">
             Shop di động
         </a>
-
     </div>
 
-{{--    @include('frontend.layouts.partials.search_computer')--}}
+    @include('customer.layouts.partials.search')
+    {{--    @include('frontend.layouts.partials.search_computer')--}}
 {{--    @include('admin.layouts.components.success_msg')--}}
 
     <div class="ui inverted blue basic segment right floated no-margin">

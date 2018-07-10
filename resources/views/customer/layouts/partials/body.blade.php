@@ -1,17 +1,20 @@
 <body>
 
-{{--@include('sharing.components.message')--}}
 @include('admin.layouts.components.error')
 @include('admin.layouts.components.success')
+
+@php use Illuminate\Support\Facades\Request; @endphp
 
 <div class="ui grid tablet computer only">
     <div class="sixteen wide column">
         @include('customer.layouts.partials.top_segment')
         @include('customer.layouts.partials.menu')
     </div>
-    <div class="sixteen wide column" style="padding-top: 0">
-        @include('customer.layouts.partials.custom_menu')
-    </div>
+    @if (!empty($items))
+        <div class="sixteen wide column" style="padding-top: 0">
+            @include('customer.layouts.partials.custom_menu')
+        </div>
+    @endif
 </div>
 @include('customer.layouts.partials.sidebar')
 <div class="ui padded grid mobile only">
@@ -23,6 +26,4 @@
 <div class="pusher">
     @yield('content')
 </div>
-
-{{--@include('sharing.components.scrolltop_button')--}}
 </body>

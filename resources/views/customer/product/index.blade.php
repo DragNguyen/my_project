@@ -1,6 +1,6 @@
 @extends('customer.master')
 
-@section('title', $product->name)
+@section('title', $product->getName())
 
 @php
     $salesOffPercent = $product->getSalesOffPercent();

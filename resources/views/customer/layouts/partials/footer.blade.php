@@ -11,6 +11,8 @@
 <script type="text/javascript" src="{{ asset('style/plugin/lazyload.min.js') }}"></script>
 <script src="{{ asset('style/plugin/zoom/smooth-products/smoothproducts.min.js') }}"></script>
 
+@stack('script')
+
 <script>
     function redirectTo(url) {
         window.location.href = url;
@@ -23,7 +25,6 @@
         return number.toString().replace(/(\d)(?=(\d{3})+(,|$))/g, '$1,');
     }
 </script>
-@stack('script')
 
 {{--@php--}}
     {{--$info = \App\CuaHang::first();--}}

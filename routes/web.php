@@ -17,9 +17,9 @@
 
 Auth::routes();
 
-Route::get('/test', function () {
-    return view('admin.test');
-});
+//Route::get('/test', function () {
+//    return view('admin.test');
+//});
 
 //Route::get('/', function() {
 //    return view('auth.admin-login');
@@ -56,13 +56,13 @@ Route::post('/register/submit', 'Auth\CustomerLoginController@register')->name('
  * Shopping cart
  * */
 
-Route::resource('shopping_cart', 'CartController');
+Route::resource('customer/shopping_cart', 'CartController');
 
-Route::post('check_out_store', 'CartController@checkoutStore')->name('checkout.store');
+Route::post('customer/check_out_store', 'CartController@checkoutStore')->name('checkout.store');
 
-Route::get('check_out_index', 'CartController@checkoutIndex')->name('checkout.index');
+Route::get('customer/check_out_index', 'CartController@checkoutIndex')->name('checkout.index');
 
-Route::post('cart_store', 'CartController@orderStore')->name('cart.store');
+Route::post('customer/cart_store', 'CartController@orderStore')->name('cart.store');
 
 /*
 * Admin login
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
         return view('admin.404');
     });
 
-    Route::get('/', 'Admin\AdminController@index')->name('admin.index');
+    Route::get('/dashboard', 'Admin\AdminController@index')->name('admin.index');
 
     Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
 

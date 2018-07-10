@@ -188,7 +188,7 @@
                     <tr>
                         <td class="left aligned">
                             <img src="/{{ $product->avatar }}" class="ui mini image spaced">
-                            {{ $product->name }}
+                            {{ $product->getName() }}
                         </td>
                         <td>{{ number_format($product->currentPrice()) }}<sup>đ</sup></td>
                         <td>{{ $product->getSalesOffPercent() }}%</td>

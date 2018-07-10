@@ -38,7 +38,7 @@
                         <td class="center aligned">{{ $idx++ }}</td>
                         <td class="left aligned">
                             <img src="/{{ $product->avatar }}" class="ui spaced mini image">
-                            {{ $product->name }}</td>
+                            {{ $product->getName() }}</td>
                         <td>
                             <form action="{{ route('shopping_cart.update', [$cart_product->rowId]) }}"
                                   class="ui form no-padding no-margin force-inline"
