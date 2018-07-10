@@ -13,7 +13,7 @@
                         @if($goods_receipt_note->matchedProduct($product->id))
                             @continue
                         @endif
-                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                        <option value="{{ $product->id }}">{{ $product->getName() }}</option>
                     @endforeach
                 </select>
             </div>

@@ -13,10 +13,19 @@ class ProductTypeSeeder extends Seeder
     {
         DB::table('product_types')->insert([
             [
-                'name' => 'Laptop'
+                'name' => 'Laptop',
+                'icon' => 'ui laptop icon',
+                'slug' => str_slug('Laptop')
             ],
             [
-                'name' => 'Điện thoại'
+                'name' => 'Điện thoại',
+                'icon' => 'ui mobile icon',
+                'slug' => str_slug('Điện thoại')
+            ],
+            [
+                'name' => 'Máy tính bảng',
+                'icon' => 'ui tablet icon',
+                'slug' => str_slug('Máy tính bảng')
             ]
         ]);
     }

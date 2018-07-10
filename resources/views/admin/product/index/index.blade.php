@@ -9,7 +9,7 @@
 
     @include('admin.layouts.components.errors')
 
-    <form id="form-search-product" method="get" action="{{ route('product.index') }}">
+    <form id="form-search-product">
 
         <button class="ui red button" data-tooltip="Xóa đã chọn" type="submit" form="form-delete-product"
                 data-position="right center"
@@ -69,10 +69,12 @@
                     {{ $key_search }}
                 </div>
             @endif
-            <div class="ui transparent icon input" style="margin-top: 20px;">
-                <input type="text" name="key-search" placeholder="Tìm kiếm">
-                <i class="search icon"></i>
-            </div>
+            <form>
+                <div class="ui transparent icon input" style="margin-top: 20px;">
+                    <input type="text" name="key-search" placeholder="Tìm kiếm">
+                    <i class="search icon"></i>
+                </div>
+            </form>
             {{--<div class="ui action input right floating" style="margin-top: 2px">--}}
                 {{--<input type="text" name="key-search" placeholder="Tìm kiếm">--}}
                 {{--<button class="ui button">--}}
@@ -81,7 +83,7 @@
             {{--</div>--}}
         </div>
     </form>
-    <form class="hidden" action="" method="" id="form-filter-product2">{{ csrf_field() }}</form>
+    {{--<form class="hidden" action="" method="" id="form-filter-product2">{{ csrf_field() }}</form>--}}
 
     <form action="{{ route('product.destroy', [0]) }}"
           method="post" id="form-delete-product" >

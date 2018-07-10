@@ -28,11 +28,9 @@ Route::get('/test', function () {
 /*
  * Customer
  * */
-Route::get('/', function() {
-    $products = \App\Product::paginate(24);
-    $menuItems = \App\ProductType::all();
-   return view('customer', compact(['products', 'menuItems']));
-})->name('customer.index');
+Route::get('/', 'CustomerController@index')->name('customer.index');
+
+Route::get('/{slug}', 'CustomerController@productTypeIndex')->name('customer.product_type');
 
 //Route::get('/{item}/product', function ($item) {
 //    $products = \App\ProductType::where('slug', $item)->first();
@@ -82,17 +80,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
         return view('admin.404');
     });
 
+    Route::get('/', 'Admin\AdminController@index')->name('admin.index');
+
     Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
-
-    /*
-     * Dashboard
-     * */
-    Route::get('/', 'Auth\AdminController@index')->name('admin.tong-quan');
-
-    /*
-     * Dashboard
-     * */
-    Route::resource('dashboard', 'Admin\DashboardController');
 
     /*
      * Statistic
@@ -151,12 +141,6 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::resource('goods_receipt_note_restore', 'Admin\Restore\GoodsReceiptNoteRestoreController',
         ['only' => ['index', 'store']]);
     Route::resource('goods_receipt_note_product', 'Admin\GoodsReceiptNoteProductController');
-
-    /*
-     * Customer
-     * */
-    Route::resource('customer', 'Admin\CustomerController');
-
 
     /*
      *  Employees

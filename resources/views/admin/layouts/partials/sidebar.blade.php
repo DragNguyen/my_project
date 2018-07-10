@@ -4,8 +4,8 @@
 
     <div class="menu_section">
         <ul class="nav side-menu">
-            <li class="{{ \Illuminate\Support\Facades\Request::is('admin/dashboard') ? 'current-page' : '' }}">
-                <a href="{{ route('dashboard.index') }}">
+            <li class="{{ \Illuminate\Support\Facades\Request::is('/') ? 'current-page' : '' }}">
+                <a href="{{ route('admin.index') }}">
                     <i class="fa fa-dashboard"></i>
                     Tổng quan
                 </a>

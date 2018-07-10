@@ -8,7 +8,8 @@
         <h3 class="ui dividing header">Sản phẩm</h3>
 
         <div class="ui six column computer four column tablet stackable grid" style="min-height: 300px">
-            @foreach($products as $product)
+            @foreach($items as $item)
+                @php $product = \App\Product::find($item->id) @endphp
                 <div class="column">
                     <div class="ui fluid link card center-aligned"
                          onclick="window.location.href='{{ '/product/' . $product->slug }}'">
@@ -47,9 +48,9 @@
             @endforeach
         </div>
 
-        <div class="ui column centered grid">
-            {{ $products->links() }}
-        </div>
+        {{--<div class="ui column centered grid">--}}
+            {{--{{ $products->links() }}--}}
+        {{--</div>--}}
     </div>
 @endsection
 @push('script')

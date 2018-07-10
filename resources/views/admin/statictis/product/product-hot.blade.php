@@ -68,7 +68,7 @@
                 <td>
                     <img src="/{{ $product->avatar }}" class="ui mini image spaced">
                     <a href="{{ route('product.show', [$product->id]) }}">
-                        {{ $product->name }}
+                        {{ $product->getName() }}
                     </a>
                 </td>
                 <td class="center aligned"> {{ $product_hot['buys'] }}</td>

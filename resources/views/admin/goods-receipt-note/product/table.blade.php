@@ -22,8 +22,9 @@
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
             <td>
+                <img src="/{{ $goods_receipt_note_product->product->avatar }}" class="ui mini image spaced">
                 <a href="{{ route('product.show', [$goods_receipt_note_product->product_id]) }}">
-                    {{ $goods_receipt_note_product->product->name }}
+                    {{ $goods_receipt_note_product->product->getName() }}
                 </a>
             </td>
             <td class="right aligned">{{ number_format($goods_receipt_note_product->cost) }}<sup>đ</sup></td>

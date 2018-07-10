@@ -16,7 +16,12 @@
             $totalPrice += $order_product->price * $order_product->quantity @endphp
             <tr>
                 <td class="center aligned">{{ $stt + 1 }}</td>
-                <td>{{ $order_product->product->name }}</td>
+                <td>
+                    <img src="/{{ $order_product->product->avatar }}" class="ui mini image spaced">
+                    <a href="{{ route('product.show', [$order_product->product_id]) }}">
+                        {{ $order_product->product->getName() }}
+                    </a>
+                </td>
                 <td class="collapsing right aligned">{{ number_format($order_product->price) }}<sup>đ</sup></td>
                 <td class="center aligned">{{ $order_product->sales_off_percent }}%</td>
                 <td class="center aligned">{{ $order_product->quantity }}</td>

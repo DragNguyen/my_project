@@ -17,7 +17,7 @@
                     <td>
                         <img src="/{{ $product_out->avatar }}" class="ui mini image spaced">
                         <a href="{{ route('product.show', $product_out->id) }}">
-                            {{ $product_out->name }}
+                            {{ \App\Product::find($product_out->id)->getName() }}
                         </a>
                     </td>
                 </tr>

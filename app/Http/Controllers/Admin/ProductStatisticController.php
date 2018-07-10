@@ -26,7 +26,7 @@ class ProductStatisticController extends Controller
             $product_hots = $this->getProductHot($request);
         }
         $product_outs = DB::table('products')->join('quantities', 'products.id', 'product_id')
-            ->where('quantity', 0)->select('products.id', 'avatar', 'name')->paginate(10);
+            ->where('quantity', 0)->select('products.id', 'avatar')->paginate(10);
 
         return view('admin.statictis.product.index',
             compact(['trademarks', 'product_types', 'dashboards', 'product_hots', 'product_outs']));

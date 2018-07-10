@@ -185,25 +185,25 @@ class OrderStatisticController extends Controller
     }
 
     public function getDate($request, &$table_quantities, &$table_costs) {
-        $begin = $request->get('static-begin');
-        $end = $request->get('static-end');
-        $month = $request->get('static-month');
+        $begin = $request->get('begin');
+        $end = $request->get('end');
+        $month = $request->get('month');
         $year = $request->get('year');
-        for($i=(int)$begin; $i<=(int)$end; $i++) {
+        for($i=$begin; $i<=$end; $i++) {
             array_push($table_quantities, [
                 'year' => $i,
                 'unapprove' => DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
                     ->whereYear('order_created_at', $year)->where('status', 0)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)->count(),
+                    ->whereDay('order_created_at', $i)->count(),
                 'approved' => DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
                     ->whereYear('order_created_at', $year)->where('status', 1)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)->count(),
+                    ->whereDay('order_created_at', $i)->count(),
                 'complete' => DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
                     ->whereYear('order_created_at', $year)->where('status', 2)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)->count(),
+                    ->whereDay('order_created_at', $i)->count(),
             ]);
             array_push($table_costs, [
                 'year' => $i,
@@ -212,21 +212,21 @@ class OrderStatisticController extends Controller
                     ->join('order_prices', 'orders.id', 'order_prices.order_id')
                     ->whereYear('order_created_at', $year)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)
+                    ->whereDay('order_created_at', $i)
                     ->where('status', 0)->sum('price'),
                 'approved' => DB::table('orders')
                     ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
                     ->join('order_prices', 'orders.id', 'order_prices.order_id')
                     ->whereYear('order_created_at', $year)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)
+                    ->whereDay('order_created_at', $i)
                     ->where('status', 1)->sum('price'),
                 'complete' => DB::table('orders')
                     ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
                     ->join('order_prices', 'orders.id', 'order_prices.order_id')
                     ->whereYear('order_created_at', $year)
                     ->whereMonth('order_created_at', $month)
-                    ->whereDate('order_created_at', $i)
+                    ->whereDay('order_created_at', $i)
                     ->where('status', 2)->sum('price')
             ]);
         }

@@ -118,13 +118,13 @@
 
     // Popup
 
-    $('#product-filter').popup({
-        inline     : true,
-        hoverable  : true,
-        position   : 'bottom left',
-        on: 'click',
-        delay: {
-            show: 300,
-            hide: 5000
-        }
-    });
+    // $('#product-filter').popup({
+    //     inline     : true,
+    //     hoverable  : true,
+    //     position   : 'bottom left',
+    //     on: 'click',
+    //     delay: {
+    //         show: 300,
+    //         hide: 5000
+    //     }
+    // });

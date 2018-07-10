@@ -98,4 +98,8 @@ class Product extends Model
     public function getTrademarkName() {
         return $this->productTypeTrademark->getTrademarkName();
     }
+
+    public function getName() {
+        return $this->getProductTypeName().' '.$this->name;
+    }
 }

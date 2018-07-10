@@ -51,6 +51,26 @@ class ProductTypeTrademarkSeeder extends Seeder
             [
                 'product_type_id' => 2,
                 'trademark_id' => 7,
+            ],
+            [
+                'product_type_id' => 3,
+                'trademark_id' => 8,
+            ],
+            [
+                'product_type_id' => 3,
+                'trademark_id' => 9,
+            ],
+            [
+                'product_type_id' => 3,
+                'trademark_id' => 10,
+            ],
+            [
+                'product_type_id' => 1,
+                'trademark_id' => 11,
+            ],
+            [
+                'product_type_id' => 1,
+                'trademark_id' => 12,
             ]
         ]);
     }

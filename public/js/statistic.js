@@ -1,5 +1,7 @@
 
 
+    $(window).load(monthChanged());
+
     function monthChanged() {
         let select_year = document.getElementById('year');
         let select_month = document.getElementById('month');
@@ -34,6 +36,10 @@
         let select = document.getElementById('type');
         let value = select.options[select.selectedIndex].value;
         if (value === 'year') {
+            document.getElementById('year').setAttribute('disabled', 'disabled');
+            document.getElementById('month').setAttribute('disabled', 'disabled');
+            document.getElementById('begin').setAttribute('disabled', 'disabled');
+            document.getElementById('end').setAttribute('disabled', 'disabled');
             $(this).closest('form').submit();
         }
         else {
@@ -47,6 +53,17 @@
             $('#button').removeClass('hidden');
         }
     });
+
+    function formSubmit() {
+        let select = document.getElementById('type');
+        let value = select.options[select.selectedIndex].value;
+        if (value === 'trimester' || value==='month') {
+            document.getElementById('month').setAttribute('disabled', 'disabled');
+            document.getElementById('begin').setAttribute('disabled', 'disabled');
+            document.getElementById('end').setAttribute('disabled', 'disabled');
+        }
+        $(this).closest('form').submit();
+    }
 
     function yearChanged() {
         let select = document.getElementById('month');

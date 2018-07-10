@@ -3,7 +3,13 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Admin;
+use App\GoodsReceiptNoteCost;
+use App\OrderStatus;
+use App\Product;
+use App\Quantity;
+use App\Trademark;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Validator;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -11,6 +17,40 @@ use Illuminate\Support\Facades\File;
 
 class AdminController extends Controller
 {
+    public function index() {
+        $order_cost = DB::table('order_prices')
+            ->join('order_statuses', 'order_prices.order_id', 'order_statuses.order_id')
+            ->where('status', 2)->sum('price');
+        $general = [
+            'product' => Product::count(),
+            'product_out' => Quantity::where('quantity', 0)->count(),
+            'order_unapprove' => OrderStatus::where('status', 0)->count(),
+            'cost' => $order_cost - GoodsReceiptNoteCost::sum('cost')
+        ];
+        $orders = [
+            [
+                'Chưa duyệt', OrderStatus::where('status', 0)->count()
+            ],
+            [
+                'Đã duyệt', OrderStatus::where('status', 1)->count()
+            ],
+            [
+                'Đã giao hàng', OrderStatus::where('status', 2)->count()
+            ]
+        ];
+        $trademarks = [];
+        foreach (Trademark::all() as $trademark) {
+            $quantity = DB::table('trademarks')
+                ->join('product_type_trademarks', 'trademarks.id', 'trademark_id')
+                ->join('products', 'product_type_trademarks.id', 'product_type_trademark_id')
+                ->where('trademarks.id', $trademark->id)
+                ->count();
+            array_push($trademarks, [$trademark->name, $quantity]);
+        }
+
+        return view('admin.index', compact(['general', 'orders', 'trademarks']));
+    }
+
     public function updateAvatar(Request $request, $id) {
         if (!$request->hasFile('avatar-upload')) {
 

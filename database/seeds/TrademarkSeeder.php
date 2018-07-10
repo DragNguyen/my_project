@@ -33,6 +33,21 @@ class TrademarkSeeder extends Seeder
             [
                 'name' => 'Nokia'
             ],
+            [
+                'name' => 'Ipad'
+            ],
+            [
+                'name' => 'Samsung'
+            ],
+            [
+                'name' => 'Huawei'
+            ],
+            [
+                'name' => 'MSI'
+            ],
+            [
+                'name' => 'HP'
+            ]
         ]);
     }
 }

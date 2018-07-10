@@ -107,6 +107,110 @@ class ImageSeeder extends Seeder
             [
                 'product_id' => 8,
                 'link' => 'assets/img/product/Nokia-7-plus/3.jpg'
+            ],
+            [
+                'product_id' => 9,
+                'link' => 'assets/img/product/iPad-Pro-105-inch-Wifi-64GB-2017/1.jpg'
+            ],
+            [
+                'product_id' => 9,
+                'link' => 'assets/img/product/iPad-Pro-105-inch-Wifi-64GB-2017/2.jpg'
+            ],
+            [
+                'product_id' => 9,
+                'link' => 'assets/img/product/iPad-Pro-105-inch-Wifi-64GB-2017/3.jpg'
+            ],
+            [
+                'product_id' => 10,
+                'link' => 'assets/img/product/iPad-Wifi-Cellular-128GB-2018/1.jpg'
+            ],
+            [
+                'product_id' => 10,
+                'link' => 'assets/img/product/iPad-Wifi-Cellular-128GB-2018/2.jpg'
+            ],
+            [
+                'product_id' => 10,
+                'link' => 'assets/img/product/iPad-Wifi-Cellular-128GB-2018/3.jpg'
+            ],
+            [
+                'product_id' => 11,
+                'link' => 'assets/img/product/iPad-Mini-4-Wifi-128GB/1.jpg'
+            ],
+            [
+                'product_id' => 11,
+                'link' => 'assets/img/product/iPad-Mini-4-Wifi-128GB/2.jpg'
+            ],
+            [
+                'product_id' => 11,
+                'link' => 'assets/img/product/iPad-Mini-4-Wifi-128GB/3.jpg'
+            ],
+            [
+                'product_id' => 12,
+                'link' => 'assets/img/product/Samsung-Galaxy-Tab-A6-101-Spen/1.jpg'
+            ],
+            [
+                'product_id' => 12,
+                'link' => 'assets/img/product/Samsung-Galaxy-Tab-A6-101-Spen/2.jpg'
+            ],
+            [
+                'product_id' => 12,
+                'link' => 'assets/img/product/Samsung-Galaxy-Tab-A6-101-Spen/3.jpg'
+            ],
+            [
+                'product_id' => 13,
+                'link' => 'assets/img/product/Huawei-MediaPad-M3-80-2017/1.jpg'
+            ],
+            [
+                'product_id' => 13,
+                'link' => 'assets/img/product/Huawei-MediaPad-M3-80-2017/2.jpg'
+            ],
+            [
+                'product_id' => 13,
+                'link' => 'assets/img/product/Huawei-MediaPad-M3-80-2017/3.jpg'
+            ],
+            [
+                'product_id' => 14,
+                'link' => 'assets/img/product/Huawei-MediaPad-T3-10-2017/1.jpg'
+            ],
+            [
+                'product_id' => 14,
+                'link' => 'assets/img/product/Huawei-MediaPad-T3-10-2017/2.jpg'
+            ],
+            [
+                'product_id' => 14,
+                'link' => 'assets/img/product/Huawei-MediaPad-T3-10-2017/3.jpg'
+            ],
+            [
+                'product_id' => 15,
+                'link' => 'assets/img/product/MSI-GE73-8RF-428VN-i7-8750H/1.jpg'
+            ],
+            [
+                'product_id' => 15,
+                'link' => 'assets/img/product/MSI-GE73-8RF-428VN-i7-8750H/2.jpg'
+            ],
+            [
+                'product_id' => 16,
+                'link' => 'assets/img/product/HP-Envy-13-ah0027TU-Core-i7-8550U/1.png'
+            ],
+            [
+                'product_id' => 16,
+                'link' => 'assets/img/product/HP-Envy-13-ah0027TU-Core-i7-8550U/2.png'
+            ],
+            [
+                'product_id' => 16,
+                'link' => 'assets/img/product/HP-Envy-13-ah0027TU-Core-i7-8550U/3.png'
+            ],
+            [
+                'product_id' => 17,
+                'link' => 'assets/img/product/Dell-Ins-N7370i5-8250U/1.png'
+            ],
+            [
+                'product_id' => 17,
+                'link' => 'assets/img/product/Dell-Ins-N7370i5-8250U/2.png'
+            ],
+            [
+                'product_id' => 17,
+                'link' => 'assets/img/product/Dell-Ins-N7370i5-8250U/3.png'
             ]
         ]);
     }

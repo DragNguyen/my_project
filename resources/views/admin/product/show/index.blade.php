@@ -33,7 +33,7 @@
                     <strong>Tên sản phẩm:</strong>
                 </div>
                 <div class="eleven wide column">
-                    {{ $product->name }}
+                    {{ $product->getName() }}
                 </div>
                 <div class="five wide column">
                     <strong>Ngày tạo:</strong>

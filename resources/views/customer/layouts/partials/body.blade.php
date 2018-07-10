@@ -7,23 +7,10 @@
 <div class="ui grid tablet computer only">
     <div class="sixteen wide column">
         @include('customer.layouts.partials.top_segment')
-        {{--<div class="ui square-border no-margin menu">--}}
-            {{--@foreach($menuItems as $item)--}}
-                {{--<a class="item" href="{{ $item->link }}">--}}
-                    {{--{{ $item->name }}--}}
-                {{--</a>--}}
-            {{--@endforeach--}}
-
-            {{--<a class="item" href="{{ route('product.special', ['sale']) }}">--}}
-                {{--<i class="percent icon"></i> Giảm giá--}}
-            {{--</a>--}}
-            {{--<a class="item" href="{{ route('product.special', ['new']) }}">--}}
-                {{--<i class="certificate icon"></i> Mới--}}
-            {{--</a>--}}
-        {{--</div>--}}
-
-{{--        @include('frontend.layouts.partials.menu.menu')--}}
         @include('customer.layouts.partials.menu')
+    </div>
+    <div class="sixteen wide column" style="padding-top: 0">
+        @include('customer.layouts.partials.custom_menu')
     </div>
 </div>
 @include('customer.layouts.partials.sidebar')

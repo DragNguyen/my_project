@@ -16,7 +16,12 @@
                        name="sales-off-product-ids[]" value="{{ $sales_off_product->id }}">
             </td>
             <td class="center aligned">{{ $stt + 1 }}</td>
-            <td>{{ $sales_off_product->getProduct() }}</td>
+            <td>
+                <img src="/{{ $sales_off_product->product->avatar }}" class="ui mini image spaced">
+                <a href="{{ route('product.show', [$sales_off_product->product_id]) }}">
+                    {{ $sales_off_product->product->getName() }}
+                </a>
+            </td>
             {{--<td class="collapsing center aligned">--}}
                 {{--<a class="ui green small label"--}}
                    {{--onclick="$('#modal-edit-sales-off-product-{{ $sales_off_product->id }}').modal('show')">--}}
