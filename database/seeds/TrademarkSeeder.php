@@ -28,7 +28,7 @@ class TrademarkSeeder extends Seeder
                 'name' => 'Mobiistar'
             ],
             [
-                'name' => 'HTC'
+                'name' => 'Sony'
             ],
             [
                 'name' => 'Nokia'
@@ -47,7 +47,16 @@ class TrademarkSeeder extends Seeder
             ],
             [
                 'name' => 'HP'
-            ]
+            ],
+            [
+                'name' => 'LG'
+            ],
+            [
+                'name' => 'OPPO'
+            ],
+            [
+                'name' => 'Mobell'
+            ],
         ]);
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\ProductType;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Facades\DB;
@@ -11,21 +12,11 @@ use Illuminate\Support\Facades\Input;
 class CustomerController extends Controller
 {
     public function index(Request $request) {
-        $products = Product::all();
-        if ($request->has('cost')) {
-            $items = $this->getProductByCost($request, $products);
+
+        $items = [];
+        foreach (ProductType::all() as $product_type) {
+            array_push($items, $this->getProductNew($product_type->id));
         }
-        else {
-            $items = [];
-            foreach($products as $product) {
-                array_push($items, [
-                    'id' => $product->id,
-                    'price' => $product->getSalesOffPrice()
-                ]);
-            }
-        }
-        $items = $this->orderBy($items, $request->has('order-by')?'desc':'asc');
-        $items = $this->getPaginate($request, $items);
 
         return view('customer', compact('items'));
     }
@@ -57,7 +48,7 @@ class CustomerController extends Controller
             ->join('trademarks', 'product_type_trademarks.trademark_id', 'trademarks.id')
             ->where('slug', $slug)->select('trademarks.id', 'trademarks.name')->get();
 
-        return view('customer', compact(['items', 'trademarks']));
+        return view('customer.product.show', compact(['items', 'trademarks']));
     }
 
     public function getProductByType($slug) {
@@ -66,6 +57,16 @@ class CustomerController extends Controller
             ->join('products', 'product_type_trademark_id', 'product_type_trademarks.id')
             ->where('product_types.slug', $slug)
             ->select('products.id')->get();
+
+        return $products;
+    }
+
+    public function getProductNew($product_type_id) {
+        $products = DB::table('product_types')
+            ->join('product_type_trademarks', 'product_types.id', 'product_type_id')
+            ->join('products', 'product_type_trademark_id', 'product_type_trademarks.id')
+            ->where('product_types.id', $product_type_id)
+            ->orderBy('product_created_at', 'desc')->get();
 
         return $products;
     }

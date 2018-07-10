@@ -10,83 +10,6 @@ class ProductSeeder extends Seeder
      * @return void
      */
 
-    private $laptops = array(
-        'dell' => array(
-            '1' => '11290000',
-            '2' => '11290000',
-            '3' => '11390000',
-            '4' => '11690000',
-            '5' => '11900000',
-            '6' => '12190000',
-            '7' => '12190000',
-            '8' => '14900000',
-            '9' => '20990000',
-            '10' => '22990000',
-            '11' => '24490000',
-            '12' => '26990000',
-            '13' => '29990000'
-        ),
-        'mac' => array(
-            '14' => '19990000',
-            '15' => '24990000',
-            '16' => '28990000',
-            '17' => '33990000',
-            '18' => '33990000',
-            '19' => '38990000',
-            '20' => '44990000',
-            '21' => '44990000',
-            '22' => '59990000',
-        ),
-        'asus' => array(
-            '23' => '29990000',
-            '24' => '24490000',
-            '25' => '21990000',
-            '26' => '17290000',
-            '27' => '16290000',
-            '28' => '14290000',
-            '29' => '13990000',
-            '30' => '13490000',
-            '31' => '13290000',
-        )
-    );
-
-    private $smartPhones = array(
-        'iphone' => array(
-            '32' => '34790000',
-            '33' => '29990000',
-            '34' => '28790000',
-            '35' => '25790000',
-            '36' => '23990000',
-            '37' => '22990000',
-            '38' => '19990000',
-            '39' => '12990000',
-            '40' => '12490000',
-        ),
-        'mobiistar' => array(
-            '41' => '5990000',
-            '42' => '3290000',
-            '43' => '2990000',
-            '44' => '2590000',
-        ),
-        'htc' => array(
-            '45' => '19990000',
-            '46' => '11990000',
-            '47' => '9990000',
-            '48' => '6990000',
-            '49' => '6990000',
-            '50' => '4990000',
-            '51' => '3590000',
-        ),
-        'nokia' => array(
-            '52' => '8990000',
-            '53' => '6990000',
-            '54' => '5990000',
-            '55' => '4990000',
-            '56' => '3860000',
-            '57' => '2790000'
-        )
-    );
-
     public function run()
     {
         DB::table('products')->insert([
@@ -94,28 +17,28 @@ class ProductSeeder extends Seeder
                'name' => 'Dell Inspiron 3467 i3 7100U',
                'product_created_at' => date('Y-m-d H:i:s'),
                'product_type_trademark_id' => 1,
-               'avatar' => 'assets/img/product/Laptop-Dell-Inspiron-3467-i3-7100U/avatar.png',
+               'avatar' => 'assets/img/product/Dell-Inspiron-3467-i3-7100U/avatar.png',
                'slug' => str_slug('Laptop Dell Inspiron 3467 i3 7100U')
            ],
             [
                 'name' => 'Dell Inspiron 5379 i7 8550U',
                 'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_trademark_id' => 1,
-                'avatar' => 'assets/img/product/Laptop-Dell-Inspiron-5379-i7-8550U/avatar.jpg',
+                'avatar' => 'assets/img/product/Dell-Inspiron-5379-i7-8550U/avatar.jpg',
                 'slug' => str_slug('Laptop Dell Inspiron 5379 i7 8550U')
             ],
             [
                 'name' => 'Apple Macbook Pro Touch MPXX2SA',
                 'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_trademark_id' => 2,
-                'avatar' => 'assets/img/product/Laptop-Apple-Macbook-Pro-Touch-MPXX2SA/avatar.jpg',
+                'avatar' => 'assets/img/product/Apple-Macbook-Pro-Touch-MPXX2SA/avatar.jpg',
                 'slug' => str_slug('Laptop Apple Macbook Pro Touch MPXX2SA')
             ],
             [
                 'name' => 'Asus S510UA i3 7100U',
                 'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_trademark_id' => 3,
-                'avatar' => 'assets/img/product/Laptop-Asus-S510UA-i3-7100U/avatar.jpg',
+                'avatar' => 'assets/img/product/Asus-S510UA-i3-7100U/avatar.jpg',
                 'slug' => str_slug('Laptop Asus S510UA i3 7100U')
             ],
             [
@@ -189,26 +112,103 @@ class ProductSeeder extends Seeder
                 'slug' => str_slug('Huawei MediaPad T3 10 (2017)')
             ],
             [
-                'name' => 'MSI GE73 8RF-428VN (i7-8750H)',
-                'product_created_at' => date('Y-m-d H:i:s'),
-                'product_type_trademark_id' => 14,
-                'avatar' => 'assets/img/product/MSI-GE73-8RF-428VN-i7-8750H/avatar.jpg',
-                'slug' => str_slug('MSI GE73 8RF-428VN (i7-8750H)')
-            ],
-            [
-                'name' => 'HP Envy 13-ah0027TU/Core i7-8550U',
-                'product_created_at' => date('Y-m-d H:i:s'),
-                'product_type_trademark_id' => 15,
-                'avatar' => 'assets/img/product/HP-Envy-13-ah0027TU-Core-i7-8550U/avatar.png',
-                'slug' => str_slug('HP Envy 13-ah0027TU/Core i7-8550U')
-            ],
-            [
-                'name' => 'Dell Ins N7370/i5-8250U',
+                'name' => 'Dell Inspiron 7373 i7 8550U',
                 'product_created_at' => date('Y-m-d H:i:s'),
                 'product_type_trademark_id' => 1,
-                'avatar' => 'assets/img/product/Dell-Ins-N7370i5-8250U/avatar.png',
-                'slug' => str_slug('Dell Ins N7370/i5-8250U')
-            ]
+                'avatar' => 'assets/img/product/Dell-Inspiron-7373/avatar.jpg',
+                'slug' => str_slug('Dell Inspiron 7373 i7 8550U')
+            ],
+            [
+                'name' => 'Dell Inspiron 7570 i5 8250U',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 1,
+                'avatar' => 'assets/img/product/Dell-Inspiron-7570/avatar.jpg',
+                'slug' => str_slug('Dell Inspiron 7570 i5 8250U')
+            ],
+            [
+                'name' => 'HP Envy 13 ad160TU i7 8550U',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 15,
+                'avatar' => 'assets/img/product/HP-Envy-13-ad160TU-i7-8550U/avatar.jpg',
+                'slug' => str_slug('HP Envy 13 ad160TU i7 8550U')
+            ],
+            [
+                'name' => 'LG Gram 14Z970-G.AH52A5',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 16,
+                'avatar' => 'assets/img/product/LG-Gram-14Z970-G-AH52A5/avatar.jpg',
+                'slug' => str_slug('LG Gram 14Z970-G.AH52A5')
+            ],
+            [
+                'name' => 'Asus GL503GE i7 8750H',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 3,
+                'avatar' => 'assets/img/product/Asus-GL503GE-i7-8750H/avatar.jpg',
+                'slug' => str_slug('Asus GL503GE i7 8750H')
+            ],
+            [
+                'name' => 'HP EliteBook X360 1030 G2 i5 7200U',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 15,
+                'avatar' => 'assets/img/product/HP-EliteBook-X360-1030-G2-i5-7200U/avatar.jpg',
+                'slug' => str_slug('HP EliteBook X360 1030 G2 i5 7200U')
+            ],
+            [
+                'name' => 'Samsung Galaxy S9+ 128GB Hoàng Kim',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 12,
+                'avatar' => 'assets/img/product/Samsung-Galaxy-S9/avatar.png',
+                'slug' => str_slug('Samsung Galaxy S9+ 128GB Hoàng Kim')
+            ],
+            [
+                'name' => 'Samsung Galaxy Note 8',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 12,
+                'avatar' => 'assets/img/product/Samsung-Galaxy-Note-8/avatar.png',
+                'slug' => str_slug('Samsung Galaxy Note 8')
+            ],
+            [
+                'name' => 'Huawei P20 Pro',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 13,
+                'avatar' => 'assets/img/product/Huawei-P20-Pro/avatar.png',
+                'slug' => str_slug('Huawei P20 Pro')
+            ],
+            [
+                'name' => 'Sony Xperia XZ1',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 9,
+                'avatar' => 'assets/img/product/Sony-Xperia-XZ1/avatar.png',
+                'slug' => str_slug('Sony Xperia XZ1')
+            ],
+            [
+                'name' => 'OPPO F7 128GB',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 17,
+                'avatar' => 'assets/img/product/OPPO-F7-128GB/avatar.png',
+                'slug' => str_slug('OPPO F7 128GB')
+            ],
+            [
+                'name' => 'Mobell Tab 8 Pro',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 18,
+                'avatar' => 'assets/img/product/Mobell-Tab 8-Pro/avatar.png',
+                'slug' => str_slug('Mobell Tab 8 Pro')
+            ],
+            [
+                'name' => 'Huawei MediaPad T1 8.0',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 13,
+                'avatar' => 'assets/img/product/Huawei-MediaPad-T1-80/avatar.png',
+                'slug' => str_slug('Huawei MediaPad T1 8.0')
+            ],
+            [
+                'name' => 'iPad Pro 10.5 inch Wifi Cellular 64GB (2017)',
+                'product_created_at' => date('Y-m-d H:i:s'),
+                'product_type_trademark_id' => 11,
+                'avatar' => 'assets/img/product/iPad-Pro-105-inch-Wifi-Cellular-64GB/avatar.png',
+                'slug' => str_slug('iPad Pro 10.5 inch Wifi Cellular 64GB (2017)')
+            ],
         ]);
     }
 }

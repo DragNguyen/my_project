@@ -33,26 +33,6 @@
         </div>
     @endif
 </div>
-{{--<div class="field">--}}
-    {{--<label>Thương hiệu</label>--}}
-        {{--<select class="ui fluid search selection dropdown" name="trademark-id" id="trademark">--}}
-            {{--@foreach($trademarks as $stt => $trademark)--}}
-                {{--<option value="{{ $trademark->id }}" {{ ($stt == 0) ? 'selected' : '' }}>--}}
-                    {{--{{ $trademark->name }}--}}
-                {{--</option>--}}
-            {{--@endforeach--}}
-        {{--</select>--}}
-{{--</div>--}}
-{{--<div class="field">--}}
-    {{--<label>Loại sản phẩm</label>--}}
-    {{--<select class="ui fluid search selection dropdown" name="product-type-id" id="product-type" onchange="loadProductType()">--}}
-        {{--@foreach($product_types as $stt => $product_type)--}}
-            {{--<option value="{{ $product_type->id }}" {{ ($stt == 0) ? 'selected' : '' }}>--}}
-                {{--{{ $product_type->name }}--}}
-            {{--</option>--}}
-        {{--@endforeach--}}
-    {{--</select>--}}
-{{--</div>--}}
 <div class="field">
     <label>Giá</label>
     <div class="ui corner labeled input">
@@ -73,19 +53,3 @@
     Giá tiền <strong>không vượt quá</strong> 100,000,000<sup>đ</sup> hoặc
     <strong>không nhỏ hơn</strong> 1,000<sup>đ</sup>.
 </span>
-
-{{--<div class="ui selection dropdown" id="product-type-trademark-name">--}}
-{{--<input type="hidden" name="product-type-trademark-name">--}}
-{{--<i class="dropdown icon"></i>--}}
-{{--<div class="default text">Chọn thương hiệu - loại sản phẩm</div>--}}
-{{--<div class="menu">--}}
-{{--@foreach($product_type_trademarks as $product_type_trademark)--}}
-{{--<div class="item" data-value="{{  $product_type_trademark->id  }}">--}}
-{{--<span class="ui label">--}}
-{{--{{ $product_type_trademark->getTrademark() }}--}}
-{{--</span>--}}
-{{--{{ $product_type_trademark->getProductType() }}--}}
-{{--</div>--}}
-{{--@endforeach--}}
-{{--</div>--}}
-{{--</div>--}}

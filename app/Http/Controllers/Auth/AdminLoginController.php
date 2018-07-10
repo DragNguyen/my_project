@@ -26,7 +26,7 @@ class AdminLoginController extends Controller
             ],
             [
                 'required' => ':attribute không được bỏ trống!',
-                'email' => ':attribute phải là email!',
+                'email' => ':attribute không hợp lệ!',
                 'min' => ':attribute không được nhỏ hơn :min ký tự!',
                 'max' => ':attribute không được lớn hơn :max ký tự!'
             ],
@@ -42,7 +42,7 @@ class AdminLoginController extends Controller
 
         if (Auth::guard('admin')->attempt(['email' => $request->email,
             'password' => $request->password])) {
-            return redirect()->intended(route('admin.tong-quan'));
+            return redirect()->intended(route('admin.index'));
         }
 //        return redirect()->back()->withInput($request->only('email'));
         return back()->withInput($request->only('email'))->with('error', 'Tài khoản hoặc mật khẩu không chính xác!');

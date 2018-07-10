@@ -10,7 +10,7 @@
         @php $slug = str_slug($product_type->name) @endphp
         <a class="item" href="{{ route('customer.product_type', [$slug]) }}">
             <i class="{{ $product_type->icon }}"></i>
-            @if(Request::is("$slug"))
+            @if(Request::is("type/$slug"))
                  <strong>
                       {{ $product_type->name }}
                  </strong>

@@ -10,7 +10,7 @@
         @include('customer.layouts.partials.top_segment')
         @include('customer.layouts.partials.menu')
     </div>
-    @if (!empty($items))
+    @if (!empty($trademarks))
         <div class="sixteen wide column" style="padding-top: 0">
             @include('customer.layouts.partials.custom_menu')
         </div>

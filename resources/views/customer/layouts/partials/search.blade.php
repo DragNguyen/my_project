@@ -41,7 +41,7 @@
                     {
                         title: "{{ $product->getName() }}",
                         price: "{!! number_format($product->currentPrice()).'<sup>đ</sup>' !!}",
-                        image: "{{ $product->avatar }}",
+                        image: "/{{ $product->avatar }}",
                         url: "/product/{{ $product->slug }}"
                     },
                 @endforeach
@@ -53,7 +53,8 @@
                 searchFields   : [
                     'title'
                 ],
-                fullTextSearch: true
+                fullTextSearch: true,
+                minCharacters: 3
             })
         ;
     </script>

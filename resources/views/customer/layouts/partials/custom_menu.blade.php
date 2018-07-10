@@ -1,12 +1,12 @@
 <form id="form">
-    <div class="ui labeled input" style="min-width: 240px; {{ empty($trademarks)?'display: none':'' }}">
+    <div class="ui labeled input" style="min-width: 240px">
         <div class="ui label">
             Thương hiệu
         </div>
         <select class="ui fluid search selection dropdown"
                 name="trademark" onchange="formSubmit() " id="trademark">
             <option value="all">Tất cả</option>
-            @foreach(empty($trademarks)?\App\Trademark::all():$trademarks as $trademark)
+            @foreach($trademarks as $trademark)
                 <option value="{{ $trademark->id }}" {{ (Request::get('trademark')==$trademark->id)?'selected':'' }}>
                     {{ $trademark->name }}
                 </option>

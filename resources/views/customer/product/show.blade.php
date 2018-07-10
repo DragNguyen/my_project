@@ -10,8 +10,8 @@
         <div class="ui six column computer four column tablet stackable grid" style="min-height: 300px">
             @foreach($items as $item)
                 @php $product = \App\Product::find($item['id']) @endphp
-                <div class="column bottom aligned">
-                    <div class="ui fluid link card center-aligned wireframe" style="bottom: 0px"
+                <div class="column">
+                    <div class="ui fluid link card center-aligned" style="bottom: 0px"
                          onclick="window.location.href='{{ '/product/' . $product->slug }}'">
                         <div class="image">
                             <img class="lazyload" data-src="{{ asset($product->avatar) }}">

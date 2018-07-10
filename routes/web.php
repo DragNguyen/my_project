@@ -30,7 +30,7 @@ Auth::routes();
  * */
 Route::get('/', 'CustomerController@index')->name('customer.index');
 
-Route::get('/{slug}', 'CustomerController@productTypeIndex')->name('customer.product_type');
+Route::get('/type/{slug}', 'CustomerController@productTypeIndex')->name('customer.product_type');
 
 //Route::get('/{item}/product', function ($item) {
 //    $products = \App\ProductType::where('slug', $item)->first();
@@ -80,7 +80,7 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
         return view('admin.404');
     });
 
-    Route::get('/dashboard', 'Admin\AdminController@index')->name('admin.index');
+    Route::get('/', 'Admin\AdminController@index')->name('admin.index');
 
     Route::get('logout/', 'Auth\AdminLoginController@logout')->name('admin.logout');
 

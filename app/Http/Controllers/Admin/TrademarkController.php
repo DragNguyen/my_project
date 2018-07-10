@@ -98,13 +98,15 @@ class TrademarkController extends Controller
     {
         $validate = $this->validationUpdate($request, $id);
         if ($validate->fails()) {
-            return back()->withErrors($validate)
-                ->withInput($request->only("trademark-name-$id"));
+            return back()->withErrors($validate);
         }
         $trademark = Trademark::findOrFail($id);
         $trademark_name = $request->get("trademark-name-$id");
         if ((Trademark::where('name', $trademark_name)->count() > 0) && ($trademark->name != $trademark_name)) {
             return back()->with('error', 'Tên thương hiệu đã tồn tại!');
+        }
+        if (!$trademark->canDelete()) {
+            return back()->with('error', 'Còn sản phẩm thuộc thương hiệu này!');
         }
         $trademark->name = $trademark_name;
         $trademark->update();

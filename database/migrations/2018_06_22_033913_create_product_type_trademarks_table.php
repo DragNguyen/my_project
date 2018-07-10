@@ -19,7 +19,7 @@ class CreateProductTypeTrademarksTable extends Migration
             $table->integer('trademark_id')->unsigned();
             $table->timestamps();
 
-            $table->foreign('product_type_id')->references('id')->on('product_types');
+            $table->foreign('product_type_id')->references('id')->on('product_types')->onDelete('cascade');
             $table->foreign('trademark_id')->references('id')->on('trademarks')->onDelete('cascade');
         });
     }
