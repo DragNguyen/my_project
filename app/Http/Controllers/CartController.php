@@ -179,7 +179,7 @@ class CartController extends Controller
             [
                 'name' => array('required', 'max:50', "regex:/^[a-zA-ZÀ-ỹ]+ [a-zA-ZÀ-ỹ ]+$/"),
                 'email' => 'required|email|max:100',
-                'phone' => array('required', 'regex:/^[\d( )\.]*$/', 'max:20'),
+                'phone' => array('required', 'regex:/^\d{10,11}$/'),
                 'address' => array('required', 'max:200', "regex:/^\w[\wÀ-ỹ \.,-]*[\wÀ-ỹ]$/")
             ],
             [

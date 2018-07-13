@@ -40,9 +40,19 @@
             document.getElementById('month').setAttribute('disabled', 'disabled');
             document.getElementById('begin').setAttribute('disabled', 'disabled');
             document.getElementById('end').setAttribute('disabled', 'disabled');
+            document.getElementById('begin-month').setAttribute('disabled', 'disabled');
+            document.getElementById('end-month').setAttribute('disabled', 'disabled');
             $(this).closest('form').submit();
         }
-        else {
+        else if (value === 'month') {
+            $('#begin-end-div').addClass('hidden');
+            $('#begin-end-month').removeClass('hidden');
+            $('#year-div').removeClass('hidden');
+            $('#button').removeClass('hidden');
+        }
+        else
+            {
+                $('#begin-end-month').addClass('hidden');
             if (value === 'date') {
                 $('#begin-end-div').removeClass('hidden');
             }
@@ -78,6 +88,16 @@
     function beginChanged() {
         let select_end = document.getElementById('end');
         let select_begin = document.getElementById('begin');
+        select_end.options.length = 0;
+        let value = select_begin.options[select_begin.selectedIndex].value;
+        for(let i=parseInt(value); i<=select_begin.options.length; i++) {
+            select_end.options[select_end.options.length] = new Option(i.toString(), i.toString());
+        }
+    }
+
+    function beginMonthChanged() {
+        let select_end = document.getElementById('end-month');
+        let select_begin = document.getElementById('begin-month');
         select_end.options.length = 0;
         let value = select_begin.options[select_begin.selectedIndex].value;
         for(let i=parseInt(value); i<=select_begin.options.length; i++) {

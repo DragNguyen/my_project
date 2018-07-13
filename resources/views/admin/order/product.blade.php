@@ -13,6 +13,14 @@
     @include('admin.layouts.components.success')
 
     <h3 class="ui dividing header">Thông tin cơ bản
+        @if($order->getStatus() == 0)
+            <a class="ui green small label" onclick="return confirm('Xác nhận duyệt?')"
+               href="{{ route('order_approve', [$order->id]) }}">
+                <i class="check fitted icon"></i></a>
+            <a class="ui red small label" onclick="return confirm('Xác nhận hủy?')"
+                href="{{ route('order_destroy', [$order->id]) }}">
+                <i class="remove fitted icon"></i></a>
+        @endif
         <a class="ui small label" style="float: right;" href="{{ route('order_print', [$order->id]) }}" target="_blank">
             <i class="print fitted icon"></i>
             In

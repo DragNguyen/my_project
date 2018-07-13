@@ -13,6 +13,7 @@ use App\Trademark;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Validator;
 
 class ProductController extends Controller
@@ -90,12 +91,11 @@ class ProductController extends Controller
             return back()->withErrors(['price' => 'Giá tiền không được vượt quá 100,000,000đ !'])
                 ->withInput($request->only('price', 'product-name'));
         }
-        if (!$request->hasFile('product-image-upload') || !$request->hasFile('product-avatar-upload'))
+        if (!$request->hasFile('product-avatar-upload'))
         {
             return back()->withErrors(['Bạn chưa upload hình ảnh!'])
                 ->withInput($request->only('price', 'product-name'));
         }
-        $product_images = $request->file('product-image-upload');
         $ext = $request->file('product-avatar-upload')->extension();
         $time = time();
 
@@ -123,13 +123,16 @@ class ProductController extends Controller
         $quantity->product_id = $product->id;
         $quantity->save();
 
-        foreach ($product_images as $key => $product_image) {
-            $ext = $product_image->extension();
-            $image = new Image();
-            $image->product_id = $product->id;
-            $path = $product_image->move('assets\img\product\image', "image-$product->id-$key-$time.$ext");
-            $image->link = str_replace('\\', '/', $path);
-            $image->save();
+        if ($request->hasFile('product-image-upload')) {
+            $product_images = $request->File('product-image-upload');
+            foreach ($product_images as $key => $product_image) {
+                $ext = $product_image->extension();
+                $image = new Image();
+                $image->product_id = $product->id;
+                $path = $product_image->move('assets\img\product\image', "image-$product->id-$key-$time.$ext");
+                $image->link = str_replace('\\', '/', $path);
+                $image->save();
+            }
         }
 
         return back()->with('success', 'Thêm thành công.');
@@ -254,6 +257,60 @@ class ProductController extends Controller
         $price->save();
 
         return back()->with('success', 'Thay đổi thành công.');
+    }
+
+    public function changeAvatar(Request $request, $id) {
+        if (!$request->hasFile('product-avatar-upload')) {
+            return back()->with('error', 'Bạn chưa upload hình ảnh!');
+        }
+        else {
+            $product = Product::findOrFail($id);
+            $oldPath = $product->avatar;
+            if (!empty($oldPath)) {
+                File::delete($oldPath);
+            }
+            $ext = $request->file('product-avatar-upload')->extension();
+            $path = $request->file('product-avatar-upload')->move('assets\img\product\avatar', "avatar-$id.$ext");
+            $product->avatar = str_replace('\\', '/', $path->getPathname());
+            $product->update();
+
+            return back()->with('success', 'Cập nhật thành công.');
+        }
+    }
+
+    public function addImage(Request $request, $id) {
+        if ($request->hasFile('product-image-upload')) {
+            $time = time();
+            $product_images = $request->File('product-image-upload');
+            foreach ($product_images as $key => $product_image) {
+                $ext = $product_image->extension();
+                $image = new Image();
+                $image->product_id = $id;
+                $path = $product_image->move('assets\img\product\image', "image-$id-$key-$time.$ext");
+                $image->link = str_replace('\\', '/', $path);
+                $image->save();
+            }
+            return back()->with('success', 'Thêm thành công.');
+        }
+        else {
+            return back()->with('error', 'Bạn chưa chọn hình ảnh!');
+        }
+    }
+
+    public function deleteImage(Request $request) {
+        if ($request->has('image-ids')) {
+            $ids = $request->get('image-ids');
+            foreach($ids as $id) {
+                $image = Image::findOrFail($id);
+                File::delete($image->link);
+                $image->delete();
+            }
+            Image::destroy($ids);
+            return back()->with('success', 'Xóa thành công.');
+        }
+        else {
+            return back();
+        }
     }
 
     public function validationStore(Request $request) {

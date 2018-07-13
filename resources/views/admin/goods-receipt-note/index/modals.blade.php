@@ -32,10 +32,10 @@
                     </option>
                 </select>
             </div>
-            <span style="margin-top: 10px">
-                <strong>Lưu ý:</strong>
-                Ngày nhập hàng <strong>không trước</strong> ngày 01/01/2018 hoặc <strong>sau</strong> ngày hiện tại.
-            </span>
+            {{--<span style="margin-top: 10px">--}}
+                {{--<strong>Lưu ý:</strong>--}}
+                {{--Ngày nhập hàng <strong>không trước</strong> ngày 01/01/2018 hoặc <strong>sau</strong> ngày hiện tại.--}}
+            {{--</span>--}}
         </form>
     </div>
     <div class="actions">

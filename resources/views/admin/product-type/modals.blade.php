@@ -20,6 +20,15 @@
                     </div>
                 @endif
             </div>
+            <div class="field">
+                <label>Icon</label>
+                <div class="ui corner labeled input">
+                    <input type="text" name="product-type-name" placeholder="Nhập tên icon...">
+                    <div class="ui corner label">
+                        <i class="asterisk icon"></i>
+                    </div>
+                </div>
+            </div>
             {{--<div class="field">--}}
                 {{--<label>Thông số kỹ thuật</label>--}}
                 {{--<select class="ui selection dropdown" name="specification" multiple>--}}

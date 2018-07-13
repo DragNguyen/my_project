@@ -53,7 +53,7 @@ class AdminController extends Controller
 
     public function updateAvatar(Request $request, $id) {
         if (!$request->hasFile('avatar-upload')) {
-
+            return back()->with('error', 'Bạn chưa upload hình ảnh!');
         }
         else {
             $admin = Admin::findOrFail($id);

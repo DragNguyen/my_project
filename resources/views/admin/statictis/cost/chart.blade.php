@@ -5,6 +5,9 @@
                 Thống kê
             </div>
             <select class="ui fluid selection dropdown" name="type" id="type">
+                @if(!Request::has('type'))
+                    <option value="" selected></option>
+                @endif
                 <option value="year">Theo năm</option>
                 <option value="trimester" {{ (Request::get('type')=='trimester') ? 'selected' : '' }}>Theo quý</option>
                 <option value="month" {{ (Request::get('type')=='month') ? 'selected' : '' }}>Theo tháng</option>
@@ -21,6 +24,25 @@
                     @foreach($years as $year)
                         <option value="{{ $year }}" {{ (Request::get('year')==$year) ? 'selected' : '' }}>{{ $year }}</option>
                     @endforeach
+                </select>
+            </div>
+        </div>
+        <div style="margin-left: 10px; display: inline-block" class="{{ Request::get('type') == 'month' ? '' : 'hidden' }}" id="begin-end-month">
+            <strong style="margin-left: 5px">Từ tháng</strong>
+            <div class="selection-custom">
+                <select class="ui fluid small selection dropdown" onchange="beginMonthChanged()"
+                        name="begin-month" id="begin-month">
+                    @for($i=1; $i<=12; $i++)
+                        <option value="{{ $i }}" {{ (Request::get('begin-month')==$i) ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <strong style="margin-left: 5px">Đến tháng</strong>
+            <div class="selection-custom">
+                <select class="ui fluid small selection dropdown" name="end-month" id="end-month">
+                    @for($i=1; $i<=12; $i++)
+                        <option value="{{ $i }}" {{ (Request::get('end-month')==$i) ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
         </div>
@@ -59,7 +81,9 @@
 </div>
 <div class="ten wide column" style="padding-top: unset">
     <div class="ui dividing header"><h4>Biểu đồ thống kê (đv: triệu đồng)</h4></div>
-    <div id="chart_div" style="width: 100%; height: 270px;"></div>
+    @if(Request::has('type'))
+        <div id="chart_div" style="width: 100%; height: 270px;"></div>
+    @endif
 </div>
 <div class="six wide column" style="padding-top: unset">
     <div class="ui dividing header"><h4>Bảng thống kê (đv: triệu đồng)</h4></div>
@@ -82,18 +106,18 @@
             @endphp
             <tr>
                 <td>{{ $cost[0] }}</td>
-                <td>{{ $cost[1] }}</td>
-                <td>{{ $cost[2] }}</td>
-                <td>{{ $cost[2] - $cost[1] }}</td>
+                <td>{{ number_format($cost[1],2) }}</td>
+                <td>{{ number_format($cost[2],2) }}</td>
+                <td>{{ number_format($cost[2] - $cost[1],2) }}</td>
             </tr>
         @endforeach
         <tr class="tr-strong">
             <td class="collapsing">
                 Tổng
             </td>
-            <td>{{ $total[0] }}</td>
-            <td>{{ $total[1] }}</td>
-            <td>{{ $total[2] }}</td>
+            <td>{{ number_format($total[0],2) }}</td>
+            <td>{{ number_format($total[1],2) }}</td>
+            <td>{{ number_format($total[2],2) }}</td>
         </tr>
         </tbody>
     </table>

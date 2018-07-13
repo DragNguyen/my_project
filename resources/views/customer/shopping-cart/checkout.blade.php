@@ -104,7 +104,7 @@
                             @else
                                 <div class="field required">
                                     <label>Họ và tên</label>
-                                    <input type="text" name="name" value="Nguyen Van A">
+                                    <input type="text" name="name" value="{{ old('name') }}">
                                     @if($errors->has('name'))
                                         <div style="color: red; margin-top: 5px; font-size: 13px">
                                             {{ $errors->first('name') }}
@@ -114,7 +114,7 @@
 
                                 <div class="field required">
                                     <label>Email</label>
-                                    <input type="text" name="email" value="nva@gmail.com">
+                                    <input type="text" name="email" value="{{ old('email') }}">
                                     @if($errors->has('email'))
                                         <div style="color: red; margin-top: 5px; font-size: 13px">
                                             {{ $errors->first('email') }}
@@ -124,7 +124,7 @@
 
                                 <div class="field required">
                                     <label>Số điện thoại</label>
-                                    <input type="text" name="phone" value="0969696969" >
+                                    <input type="text" name="phone" value="{{ old('phone') }}" >
                                     @if($errors->has('phone'))
                                         <div style="color: red; margin-top: 5px; font-size: 13px">
                                             {{ $errors->first('phone') }}

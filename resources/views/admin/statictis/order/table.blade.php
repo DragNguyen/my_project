@@ -5,6 +5,9 @@
                 Thống kê
             </div>
             <select class="ui fluid selection dropdown" name="type" id="type">
+                @if(!Request::has('type'))
+                    <option value="" selected></option>
+                @endif
                 <option value="year">Theo năm</option>
                 <option value="trimester" {{ (Request::get('type')=='trimester') ? 'selected' : '' }}>Theo quý</option>
                 <option value="month" {{ (Request::get('type')=='month') ? 'selected' : '' }}>Theo tháng</option>
@@ -21,6 +24,25 @@
                     @foreach($years as $year)
                         <option value="{{ $year }}" {{ (Request::get('year')==$year) ? 'selected' : '' }}>{{ $year }}</option>
                     @endforeach
+                </select>
+            </div>
+        </div>
+        <div style="margin-left: 10px; display: inline-block" class="{{ Request::get('type') == 'month' ? '' : 'hidden' }}" id="begin-end-month">
+            <strong style="margin-left: 5px">Từ tháng</strong>
+            <div class="selection-custom">
+                <select class="ui fluid small selection dropdown" onchange="beginMonthChanged()"
+                        name="begin-month" id="begin-month">
+                    @for($i=1; $i<=12; $i++)
+                        <option value="{{ $i }}" {{ (Request::get('begin-month')==$i) ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <strong style="margin-left: 5px">Đến tháng</strong>
+            <div class="selection-custom">
+                <select class="ui fluid small selection dropdown" name="end-month" id="end-month">
+                    @for($i=1; $i<=12; $i++)
+                        <option value="{{ $i }}" {{ (Request::get('end-month')==$i) ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
                 </select>
             </div>
         </div>
@@ -64,7 +86,7 @@
     <table class="ui compact table celled striped center aligned" id="account-table">
         <thead>
         <tr>
-            <th>{{ $table_header }}</th>
+            <th>{{ $table_header or 'Năm' }}</th>
             <th>Chưa duyệt</th>
             <th>Đã duyệt</th>
             <th>Đã giao hàng</th>
@@ -109,7 +131,7 @@
     <table class="ui compact table celled striped" id="account-table">
         <thead>
         <tr class="right aligned">
-            <th class="center aligned">{{ $table_header }}</th>
+            <th class="center aligned">{{ $table_header or 'Năm' }}</th>
             <th>Chưa duyệt</th>
             <th>Đã duyệt</th>
             <th>Đã giao hàng</th>

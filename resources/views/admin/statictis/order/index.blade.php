@@ -31,6 +31,27 @@
                         <option {{ (Request::get('today')==
                         date_format(date_modify(date_create(date('Y-m-d')), '-1 years'), 'Y-m-d'))?'selected':'' }}
                                 value="{{ date_format(date_modify(date_create(date('Y-m-d')), '-1 years'), 'Y-m-d') }}">Năm vừa rồi</option>
+                        @if(Request::has('type'))
+                            <option value="" selected>
+                                @if(Request::get('type')=='date')
+                                    @if(Request::get('begin')==Request::get('end'))
+                                        {{ 'Ngày '.Request::get('begin').'/'.Request::get('month').'/'.Request::get('year') }}
+                                    @else
+                                        {{ 'Từ '.Request::get('begin').'/'.Request::get('month').'/'.Request::get('year')
+                                        .' - '.Request::get('end').'/'.Request::get('month').'/'.Request::get('year') }}
+                                    @endif
+                                @elseif(Request::get('type')=='month')
+                                    @if(Request::get('begin-month')==Request::get('end-month'))
+                                        {{ 'Tháng '.Request::get('begin-month').'/'.Request::get('year') }}
+                                    @else
+                                        {{ 'Từ '.Request::get('begin-month').'/'.Request::get('year')
+                                        .' - '.Request::get('end-month').'/'.Request::get('year') }}
+                                    @endif
+                                @else
+                                    {{ 'Năm '.Request::get('year') }}
+                                @endif
+                            </option>
+                        @endif
                     </select>
                 </div>
             </form>

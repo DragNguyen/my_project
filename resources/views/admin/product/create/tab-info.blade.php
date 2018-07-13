@@ -48,8 +48,8 @@
     @endif
 </div>
 
-<span style="margin-top: 10px">
-    <strong>Lưu ý:</strong>
-    Giá tiền <strong>không vượt quá</strong> 100,000,000<sup>đ</sup> hoặc
-    <strong>không nhỏ hơn</strong> 1,000<sup>đ</sup>.
-</span>
+{{--<span style="margin-top: 10px">--}}
+    {{--<strong>Lưu ý:</strong>--}}
+    {{--Giá tiền <strong>không vượt quá</strong> 100,000,000<sup>đ</sup> hoặc--}}
+    {{--<strong>không nhỏ hơn</strong> 1,000<sup>đ</sup>.--}}
+{{--</span>--}}

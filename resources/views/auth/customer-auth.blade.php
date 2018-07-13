@@ -117,7 +117,7 @@
             </div>
             <div class="required field">
                 <label>Địa chỉ</label>
-                <textarea name="address" rows="2" placeholder="Nhập địa chỉ..."
+                <textarea name="address" rows="2" placeholder="Nhập địa chỉ..." value="{{ old('address') }}"
                         {{ $errors->has('address')?'autofocus':'' }}></textarea>
                 @if($errors->has('address'))
                     <div style="color: red; margin-top: 5px; font-size: 13px">

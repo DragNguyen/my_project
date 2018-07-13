@@ -16,6 +16,7 @@
 
     <tbody>
     @foreach($orders as $stt => $order)
+        @php $order = \App\Order::find($order->id) @endphp
         <tr>
             <td class="center aligned">
                 @if($order->getStatus() != 0)

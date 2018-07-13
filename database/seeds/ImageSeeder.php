@@ -14,51 +14,51 @@ class ImageSeeder extends Seeder
         DB::table('images')->insert([
             [
                 'product_id' => 1,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-3467-i3-7100U/1.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-3467-i3-7100U/1.jpg'
             ],
             [
                 'product_id' => 1,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-3467-i3-7100U/2.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-3467-i3-7100U/2.jpg'
             ],
             [
                 'product_id' => 1,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-3467-i3-7100U/3.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-3467-i3-7100U/3.jpg'
             ],
             [
                 'product_id' => 2,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-5379-i7-8550U/1.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-5379-i7-8550U/1.jpg'
             ],
             [
                 'product_id' => 2,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-5379-i7-8550U/2.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-5379-i7-8550U/2.jpg'
             ],
             [
                 'product_id' => 2,
-                'link' => 'assets/img/product/Laptop-Dell-Inspiron-5379-i7-8550U/3.jpg'
+                'link' => 'assets/img/product/Dell-Inspiron-5379-i7-8550U/3.jpg'
             ],
             [
                 'product_id' => 3,
-                'link' => 'assets/img/product/Laptop-Apple-Macbook-Pro-Touch-MPXX2SA/1.jpg'
+                'link' => 'assets/img/product/Apple-Macbook-Pro-Touch-MPXX2SA/1.jpg'
             ],
             [
                 'product_id' => 3,
-                'link' => 'assets/img/product/Laptop-Apple-Macbook-Pro-Touch-MPXX2SA/2.jpg'
+                'link' => 'assets/img/product/Apple-Macbook-Pro-Touch-MPXX2SA/2.jpg'
             ],
             [
                 'product_id' => 3,
-                'link' => 'assets/img/product/Laptop-Apple-Macbook-Pro-Touch-MPXX2SA/3.jpg'
+                'link' => 'assets/img/product/Apple-Macbook-Pro-Touch-MPXX2SA/3.jpg'
             ],
             [
                 'product_id' => 4,
-                'link' => 'assets/img/product/Laptop-Asus-S510UA-i3-7100U/1.jpg'
+                'link' => 'assets/img/product/Asus-S510UA-i3-7100U/1.jpg'
             ],
             [
                 'product_id' => 4,
-                'link' => 'assets/img/product/Laptop-Asus-S510UA-i3-7100U/2.jpg'
+                'link' => 'assets/img/product/Asus-S510UA-i3-7100U/2.jpg'
             ],
             [
                 'product_id' => 4,
-                'link' => 'assets/img/product/Laptop-Asus-S510UA-i3-7100U/3.jpg'
+                'link' => 'assets/img/product/Asus-S510UA-i3-7100U/3.jpg'
             ],
             [
                 'product_id' => 5,

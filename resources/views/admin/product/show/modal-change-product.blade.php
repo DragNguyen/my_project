@@ -11,14 +11,19 @@
                 <div class="ui fluid search selection dropdown">
                     <input type="hidden" name="product-type-trademark-id">
                     <i class="dropdown icon"></i>
-                    <div class="default text">Chọn thương hiệu - loại sản phẩm...</div>
+                    <div class="default text">
+                        <span style="color: blue">{{ $product->getTrademarkName() }}</span>
+                        - {{ $product->getProductTypeName() }}
+                    </div>
                     <div class="menu">
                         @foreach($trademarks as $trademark)
                             <div class="header" style="border-bottom: 1px solid rgba(34,36,38,.15);">
                                 <strong>{{ $trademark->name }}</strong>
                             </div>
                             @foreach(\App\ProductTypeTrademark::where('trademark_id', $trademark->id)->get() as $product_type_trademark)
-                                <div class="item" data-value="{{ $product_type_trademark->id }}">
+                                <div class="item {{ ($product_type_trademark->id == $product->product_type_trademark_id)
+                                         ? 'active selected' : '' }}"
+                                     data-value="{{ $product_type_trademark->id }}">
                                     <span style="color: blue">{{ $product_type_trademark->getTrademarkName() }}</span>
                                     - {{ $product_type_trademark->getProductTypeName() }}
                                 </div>

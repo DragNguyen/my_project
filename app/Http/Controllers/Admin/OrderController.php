@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Barryvdh\DomPDF\Facade as PDF;
+use Illuminate\Support\Facades\DB;
 
 class OrderController extends Controller
 {
@@ -19,11 +20,28 @@ class OrderController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $orders = Order::where('is_deleted', false)->orderBy('order_created_at', 'desc')->paginate(10);
+        $orders = DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
+            ->where('is_deleted', false)->orderBy('status', 'asc')
+            ->orderBy('order_created_at', 'desc')->paginate(10);
+        if ($request->get('key-filter') != '') {
+            $key_filter = $request->get('key-filter');
+            $orders = DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
+                ->where('is_deleted', false)->where('status', $key_filter)
+                ->orderBy('order_created_at', 'desc')->paginate(10);
+        }
+        if (!empty($request->get('key-search'))) {
+            $key_search = $request->get('key-search');
+            $orders = DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
+                ->where('is_deleted', false)
+                ->where('code', 'like', '%'.$key_search.'%')
+                ->orderBy('status', 'asc')
+                ->orderBy('order_created_at', 'desc')
+                ->paginate(10);
+        }
 
-        return view('admin.order.index', compact('orders'));
+        return view('admin.order.index', compact(['orders','key_filter','key_search']));
     }
 
     /**
@@ -153,8 +171,13 @@ class OrderController extends Controller
             $order_status->admin_id = null;
             $order_status->update();
         }
-
-        return back()->with('success', 'Hủy đơn hàng thành công.');
+//        dd(str_replace(url('/'), '', url()->previous()));
+        if (str_replace(url('/'), '', url()->previous()) == "/admin/order/$id") {
+            return redirect('/admin/order')->with('success', 'Hủy đơn hàng thành công.');
+        }
+        else {
+            return back()->with('success', 'Hủy đơn hàng thành công.');
+        }
     }
 
     public function orderApprove($id) {

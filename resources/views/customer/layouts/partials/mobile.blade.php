@@ -1,10 +1,7 @@
 <div class="ui square-border no-margin borderless blue inverted menu">
-    <a class="item normal-padding" href="/">
-        <img src="{{ asset('assets/images/favicon.png') }}" class="ui mini image">
-    </a>
-    <div class="item no-padding">
+    {{--<div class="item no-padding">--}}
 {{--        @include('frontend.layouts.partials.search_mobile')--}}
-    </div>
+    {{--</div>--}}
     <div class="right menu">
         <a class="normal-padding item" href="#">
             <i class="cart icon"></i>

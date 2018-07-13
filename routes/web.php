@@ -109,6 +109,9 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth:admin'], function() {
     Route::resource('product', 'Admin\ProductController');
     Route::resource('product_restore', 'Admin\Restore\ProductRestoreController', ['only' => ['index', 'store']]);
     Route::get('product/change_price/{id}', 'Admin\ProductController@changePrice')->name('product_change_price');
+    Route::post('product/change_avatar/{id}', 'Admin\ProductController@changeAvatar')->name('product_change_avatar');
+    Route::post('product/add_image/{id}', 'Admin\ProductController@addImage')->name('product_add_image');
+    Route::post('product/delete_image', 'Admin\ProductController@deleteImage')->name('product_delete_image');
 
     /*
      * Supplier

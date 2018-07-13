@@ -22,20 +22,20 @@ class OrderStatisticController extends Controller
         $type = $request->get('type');
         if($type == 'trimester') {
             $year = $request->get('year');
-            $this->getTrimester($year,$table_quantities,$table_costs );
+            $this->getTrimester($year,$table_quantities,$table_costs, $order_quantity );
             $table_header = 'Quý';
         }
         elseif($type == 'month') {
             $year = $request->get('year');
-            $this->getMonth($year,$table_quantities,$table_costs );
+            $this->getMonth($request,$table_quantities,$table_costs, $order_quantity );
             $table_header = 'Tháng';
         }
         elseif($type == 'date') {
-            $this->getDate($request, $table_quantities,$table_costs );
+            $this->getDate($request, $table_quantities,$table_costs, $order_quantity );
             $table_header = 'Ngày';
         }
-        else {
-            $this->getYear($years,$table_quantities,$table_costs );
+        elseif($type == 'year') {
+            $this->getYear($years,$table_quantities,$table_costs, $order_quantity );
             $table_header = 'Năm';
         }
 
@@ -70,7 +70,7 @@ class OrderStatisticController extends Controller
         return $order_quantity;
     }
 
-    public function getYear($years, &$table_quantities, &$table_costs) {
+    public function getYear($years, &$table_quantities, &$table_costs, &$order_quantity) {
         foreach($years as $year) {
             array_push($table_quantities, [
                 'year' => $year,
@@ -100,9 +100,27 @@ class OrderStatisticController extends Controller
                     ->where('status', 2)->sum('price')
             ]);
         }
+        $order_quantity = [
+            'total_of_quantity' => 0,
+            'unapprove' => 0,
+            'approved' => 0,
+            'complete' => 0,
+            'total_of_price' => 0
+        ];
+        foreach($table_quantities as $table_quantity) {
+            $order_quantity['unapprove'] += $table_quantity['unapprove'];
+            $order_quantity['approved'] += $table_quantity['approved'];
+            $order_quantity['complete'] += $table_quantity['complete'];
+            $order_quantity['total_of_quantity'] += $table_quantity['unapprove'] + $table_quantity['approved']
+                + $table_quantity['complete'];
+        }
+        foreach($table_costs as $table_cost) {
+            $order_quantity['total_of_price'] += $table_cost['unapprove'] + $table_cost['approved']
+                + $table_cost['complete'];
+        }
     }
 
-    public function getTrimester($year, &$table_quantities, &$table_costs) {
+    public function getTrimester($year, &$table_quantities, &$table_costs, &$order_quantity) {
         for($i=1; $i<=10; $i=$i+3) {
             array_push($table_quantities, [
                 'year' => '',
@@ -144,12 +162,33 @@ class OrderStatisticController extends Controller
                     ->where('status', 2)->sum('price')
             ]);
         }
+        $order_quantity = [
+            'total_of_quantity' => 0,
+            'unapprove' => 0,
+            'approved' => 0,
+            'complete' => 0,
+            'total_of_price' => 0
+        ];
+        foreach($table_quantities as $table_quantity) {
+            $order_quantity['unapprove'] += $table_quantity['unapprove'];
+            $order_quantity['approved'] += $table_quantity['approved'];
+            $order_quantity['complete'] += $table_quantity['complete'];
+            $order_quantity['total_of_quantity'] += $table_quantity['unapprove'] + $table_quantity['approved']
+                + $table_quantity['complete'];
+        }
+        foreach($table_costs as $table_cost) {
+            $order_quantity['total_of_price'] += $table_cost['unapprove'] + $table_cost['approved']
+                + $table_cost['complete'];
+        }
     }
 
-    public function getMonth($year, &$table_quantities, &$table_costs) {
-        for($i=1; $i<=12; $i++) {
+    public function getMonth($request, &$table_quantities, &$table_costs, &$order_quantity) {
+        $year = $request->get('year');
+        $begin = $request->get('begin-month');
+        $end = $request->get('end-month');
+        for($i=$begin; $i<=$end; $i++) {
             array_push($table_quantities, [
-                'year' => '',
+                'year' => $i,
                 'unapprove' => DB::table('orders')->join('order_statuses', 'orders.id', 'order_id')
                     ->whereYear('order_created_at', $year)->where('status', 0)
                     ->whereMonth('order_created_at', $i)->count(),
@@ -161,7 +200,7 @@ class OrderStatisticController extends Controller
                     ->whereMonth('order_created_at', $i)->count(),
             ]);
             array_push($table_costs, [
-                'year' => '',
+                'year' => $i,
                 'unapprove' => DB::table('orders')
                     ->join('order_statuses', 'orders.id', 'order_statuses.order_id')
                     ->join('order_prices', 'orders.id', 'order_prices.order_id')
@@ -182,9 +221,27 @@ class OrderStatisticController extends Controller
                     ->where('status', 2)->sum('price')
             ]);
         }
+        $order_quantity = [
+            'total_of_quantity' => 0,
+            'unapprove' => 0,
+            'approved' => 0,
+            'complete' => 0,
+            'total_of_price' => 0
+        ];
+        foreach($table_quantities as $table_quantity) {
+            $order_quantity['unapprove'] += $table_quantity['unapprove'];
+            $order_quantity['approved'] += $table_quantity['approved'];
+            $order_quantity['complete'] += $table_quantity['complete'];
+            $order_quantity['total_of_quantity'] += $table_quantity['unapprove'] + $table_quantity['approved']
+                + $table_quantity['complete'];
+        }
+        foreach($table_costs as $table_cost) {
+            $order_quantity['total_of_price'] += $table_cost['unapprove'] + $table_cost['approved']
+                + $table_cost['complete'];
+        }
     }
 
-    public function getDate($request, &$table_quantities, &$table_costs) {
+    public function getDate($request, &$table_quantities, &$table_costs, &$order_quantity) {
         $begin = $request->get('begin');
         $end = $request->get('end');
         $month = $request->get('month');
@@ -229,6 +286,24 @@ class OrderStatisticController extends Controller
                     ->whereDay('order_created_at', $i)
                     ->where('status', 2)->sum('price')
             ]);
+        }
+        $order_quantity = [
+            'total_of_quantity' => 0,
+            'unapprove' => 0,
+            'approved' => 0,
+            'complete' => 0,
+            'total_of_price' => 0
+        ];
+        foreach($table_quantities as $table_quantity) {
+            $order_quantity['unapprove'] += $table_quantity['unapprove'];
+            $order_quantity['approved'] += $table_quantity['approved'];
+            $order_quantity['complete'] += $table_quantity['complete'];
+            $order_quantity['total_of_quantity'] += $table_quantity['unapprove'] + $table_quantity['approved']
+                + $table_quantity['complete'];
+        }
+        foreach($table_costs as $table_cost) {
+            $order_quantity['total_of_price'] += $table_cost['unapprove'] + $table_cost['approved']
+                + $table_cost['complete'];
         }
     }
 }

@@ -14,7 +14,7 @@
 body {
     overflow: auto;
     /*color: #73879C;*/
-    background: #F7F7F7;
+    /*background: #F7F7F7;*/
     font-size: 13px;
     font-family: "Helvetica Neue",Roboto,Arial,"Droid S ans",sans-serif;
 }
@@ -204,11 +204,3 @@ td .ui.button {
 .tr-strong {
     font-weight: bold;
 }
-
-/*.daterangepicker .calendar.single .calendar-table {*/
-    /*margin: -4px -1px -7px -4px;*/
-/*}*/
-
-/*.daterangepicker.dropdown-menu {*/
-    /*max-width: 229px;*/
-/*}*/
